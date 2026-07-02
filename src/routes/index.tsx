@@ -4,8 +4,8 @@ import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Input } from "@/components/ui/input";
 import homeTraining from "@/assets/home-training.jpg";
-import beforeBody from "@/assets/before-body.jpg";
-import afterBody from "@/assets/after-body.jpg";
+import beforeAfterAsset from "@/assets/before-after.png.asset.json";
+
 import programPreview from "@/assets/program-preview.jpg";
 import calendar2026 from "@/assets/calendar-2026.jpg";
 
@@ -1602,35 +1602,19 @@ function PlanView({
           <div className="mil-stencil text-xs text-accent font-bold mb-2">
             Tu objetivo, {name}
           </div>
-          <div className="grid grid-cols-2 gap-3">
-            {[
-              { img: beforeBody, label: "AHORA", fat: "20-24%" },
-              { img: afterBody, label: "OBJETIVO", fat: "15-17%" },
-            ].map((c) => (
-              <div
-                key={c.label}
-                className="rounded-md border-2 border-border bg-card overflow-hidden"
-              >
-                <div className="mil-stencil text-[10px] font-bold text-accent px-2 py-1 border-b border-border">
-                  {c.label}
-                </div>
-                <img
-                  src={c.img}
-                  alt={c.label}
-                  width={768}
-                  height={1024}
-                  loading="lazy"
-                  className="w-full aspect-[3/4] object-cover"
-                />
-                <div className="p-2 space-y-1">
-                  <div className="mil-stencil text-[10px] text-muted-foreground">
-                    Grasa corporal
-                  </div>
-                  <div className="mil-stencil text-sm font-bold">{c.fat}</div>
-                </div>
-              </div>
-            ))}
+          <div className="rounded-md border-2 border-border bg-card overflow-hidden">
+            <div className="grid grid-cols-2 mil-stencil text-[10px] font-bold text-accent border-b border-border">
+              <div className="px-2 py-1 border-r border-border">AHORA · 20-24%</div>
+              <div className="px-2 py-1">OBJETIVO · 15-17%</div>
+            </div>
+            <img
+              src={beforeAfterAsset.url}
+              alt="Antes y después"
+              loading="lazy"
+              className="w-full object-contain bg-white"
+            />
           </div>
+
           <p className="mt-3 text-[10px] text-muted-foreground leading-relaxed">
             *Los resultados son solo indicativos y no garantizados. Los
             resultados individuales pueden variar según dieta, ejercicio y
