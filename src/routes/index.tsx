@@ -434,6 +434,22 @@ const STEPS: Step[] = [
     ],
   },
   {
+    kind: "graph",
+    key: "sleep-analysis",
+    title: "Tu diagnóstico",
+    score: 72,
+    highlight: "Sueño",
+    bars: [
+      { label: "Sueño", value: 28 },
+      { label: "Energía", value: 55 },
+      { label: "Metabolismo", value: 68 },
+    ],
+    body: "Dormir bien es esencial para tu salud física. Una buena noche de sueño mejora el metabolismo, controla el apetito y aporta más energía.",
+    callout: "Los estudios muestran que hacer al menos 30 minutos de ejercicio moderado puede mejorar la calidad del sueño esa misma noche.",
+    cta: "Continuar",
+    progress: 24,
+  },
+  {
     kind: "single",
     key: "frequency",
     title: "¿Cuántas veces a la semana quieres entrenar?",
