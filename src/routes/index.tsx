@@ -7,6 +7,7 @@ import homeTraining from "@/assets/home-training.jpg";
 import beforeAfterAsset from "@/assets/before-after.png.asset.json";
 import injuriesBody from "@/assets/injuries-body.jpg.asset.json";
 import attentionPushup from "@/assets/attention-pushup.jpg.asset.json";
+import logoMilitary from "@/assets/logo-military.png.asset.json";
 
 
 
@@ -726,13 +727,8 @@ function Quiz() {
     <main className="min-h-screen bg-background text-foreground">
 
       <div className="bg-primary/20 border-b border-primary/40">
-        <div className="max-w-md mx-auto px-4 py-2 flex items-center justify-between">
-          <span className="mil-stencil text-xs text-accent font-bold">
-            ★ Military Fitness Program
-          </span>
-          <span className="mil-stencil text-[10px] text-muted-foreground">
-            OP-641
-          </span>
+        <div className="max-w-md mx-auto px-4 py-2 flex items-center justify-center">
+          <img src={logoMilitary.url} alt="Protocolo Calistenia Militar" className="h-10 object-contain" />
         </div>
       </div>
 
@@ -1990,10 +1986,8 @@ function IntroView({ onPickAge }: { onPickAge: (age: string) => void }) {
   return (
     <main className="min-h-screen bg-background text-foreground">
       <div className="bg-primary/20 border-b border-primary/40">
-        <div className="max-w-md mx-auto px-4 py-2 text-center">
-          <span className="mil-stencil text-xs text-accent font-bold">
-            ★ Military Fitness Program
-          </span>
+        <div className="max-w-md mx-auto px-4 py-2 flex items-center justify-center">
+          <img src={logoMilitary.url} alt="Protocolo Calistenia Militar" className="h-10 object-contain" />
         </div>
       </div>
 
