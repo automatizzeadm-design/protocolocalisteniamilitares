@@ -304,19 +304,18 @@ const STEPS: Step[] = [
     ],
   },
   {
-    kind: "multi",
-    key: "habits",
-    title: "¿Qué malos hábitos quieres cortar?",
-    subtitle: "Selecciona todo lo que aplique",
+    kind: "single",
+    key: "best-time",
+    title: "¿Cuál es el mejor momento para iniciar un programa de entrenamiento?",
     progress: 16,
     options: [
-      { value: "sucre", label: "Demasiada azúcar" },
-      { value: "grignotage", label: "Picar entre comidas" },
-      { value: "alcool", label: "Alcohol" },
-      { value: "fastfood", label: "Comida rápida" },
-      { value: "aucune", label: "Ninguno" },
+      { value: "cualquiera", label: "Sin preferencia particular" },
+      { value: "manana", label: "Mañana / Antes del trabajo" },
+      { value: "tarde", label: "Por la tarde" },
+      { value: "noche", label: "Por la noche" },
     ],
   },
+
   {
     kind: "multi",
     key: "equipment",
