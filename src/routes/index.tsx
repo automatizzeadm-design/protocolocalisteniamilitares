@@ -464,10 +464,10 @@ function Quiz() {
       <main className="min-h-screen bg-background flex items-center justify-center p-6">
         <div className="max-w-md w-full text-center space-y-4">
           <h1 className="text-2xl font-bold">
-            Merci{answers.name ? `, ${answers.name}` : ""} !
+            ¡Gracias{answers.name ? `, ${answers.name}` : ""}!
           </h1>
           <p className="text-muted-foreground">
-            Votre plan militaire personnalisé est prêt.
+            Tu plan militar personalizado ya está listo.
           </p>
           <pre className="text-left text-xs bg-muted p-4 rounded-md overflow-auto">
             {JSON.stringify(answers, null, 2)}
