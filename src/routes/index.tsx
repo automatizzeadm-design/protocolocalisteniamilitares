@@ -1964,3 +1964,58 @@ function SalesView({
     </main>
   );
 }
+
+import soldierIntro from "@/assets/soldier-intro.png.asset.json";
+
+function IntroView({ onPickAge }: { onPickAge: (age: string) => void }) {
+  const ages = ["18-29", "30-39", "40-49", "50+"];
+  return (
+    <main className="min-h-screen bg-background text-foreground">
+      <div className="bg-primary/20 border-b border-primary/40">
+        <div className="max-w-md mx-auto px-4 py-2 text-center">
+          <span className="mil-stencil text-xs text-accent font-bold">
+            ★ Military Fitness Program
+          </span>
+        </div>
+      </div>
+
+      <section className="max-w-md mx-auto px-4 pt-6 pb-10 space-y-6">
+        <div className="text-center space-y-2">
+          <h1 className="text-2xl font-bold mil-stencil text-accent leading-tight">
+            Défi d'entraînement militaire avancé
+          </h1>
+          <p className="text-sm text-muted-foreground">
+            Séances d'entraînement de 15 minutes. Sans salle de sport. Sans équipement.
+          </p>
+        </div>
+
+        <div className="flex justify-center">
+          <img
+            src={soldierIntro.url}
+            alt="Soldado"
+            className="w-full max-w-xs object-contain drop-shadow-2xl"
+            loading="eager"
+          />
+        </div>
+
+        <div className="space-y-3">
+          <div className="text-center mil-stencil text-xs font-bold text-accent tracking-widest">
+            SÉLECTIONNEZ VOTRE ÂGE
+          </div>
+          {ages.map((a) => (
+            <Button
+              key={a}
+              variant="outline"
+              size="lg"
+              onClick={() => onPickAge(a)}
+              className="w-full mil-stencil justify-between border-2 border-border hover:border-accent hover:bg-accent/10"
+            >
+              <span className="font-bold">{a}</span>
+              <span className="text-accent">›</span>
+            </Button>
+          ))}
+        </div>
+      </section>
+    </main>
+  );
+}
