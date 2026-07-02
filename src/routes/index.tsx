@@ -905,7 +905,7 @@ function Quiz() {
         )}
 
 
-        {step.kind === "loading" && <LoadingStepView onDone={next} />}
+        {step.kind === "loading" && <LoadingStepView step={step} onDone={next} />}
 
 
 
