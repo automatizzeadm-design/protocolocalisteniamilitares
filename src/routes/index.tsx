@@ -183,14 +183,14 @@ const STEPS: Step[] = [
   },
   {
     kind: "single",
-    key: "water",
-    title: "¿Cuánta agua tomas al día?",
+    key: "pushups",
+    title: "¿Cuántas flexiones puedes hacer en una ronda?",
     progress: 9,
     options: [
-      { value: "<0.5", label: "Menos de 0,5 L" },
-      { value: "0.5-1", label: "0,5 a 1 L" },
-      { value: "1-2", label: "1 a 2 L" },
-      { value: "2+", label: "Más de 2 L" },
+      { value: "<10", label: "Menos de 10 💪" },
+      { value: "10-20", label: "10 - 20 💪💪" },
+      { value: "21-30", label: "21 - 30 💪💪💪" },
+      { value: "30+", label: "Más de 30 😤" },
     ],
   },
   {
