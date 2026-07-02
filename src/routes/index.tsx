@@ -1136,6 +1136,89 @@ function WeightStepView({
   );
 }
 
+function parseDob(dateStr: string): Date | null {
+  const m = dateStr.match(/^(\d{2})\/(\d{2})\/(\d{4})$/);
+  if (!m) return null;
+  const d = +m[1], mo = +m[2], y = +m[3];
+  if (mo < 1 || mo > 12 || d < 1 || d > 31) return null;
+  const dt = new Date(Date.UTC(y, mo - 1, d));
+  if (dt.getUTCDate() !== d || dt.getUTCMonth() !== mo - 1) return null;
+  const now = new Date();
+  const age = (now.getTime() - dt.getTime()) / (365.25 * 24 * 3600 * 1000);
+  if (age < 13 || age > 100) return null;
+  return dt;
+}
+
+function formatDobInput(raw: string): string {
+  const digits = raw.replace(/\D/g, "").slice(0, 8);
+  const p1 = digits.slice(0, 2);
+  const p2 = digits.slice(2, 4);
+  const p3 = digits.slice(4, 8);
+  return [p1, p2, p3].filter(Boolean).join("/");
+}
+
+function DobStepView({
+  step,
+  value,
+  onChange,
+  onNext,
+}: {
+  step: DobStep;
+  value: string;
+  onChange: (v: string) => void;
+  onNext: () => void;
+}) {
+  const [touched, setTouched] = useState(false);
+  const valid = parseDob(value) !== null;
+  const showError = touched && value.length === 10 && !valid;
+
+  return (
+    <>
+      <div className="rounded-md border-2 border-accent bg-primary/10 p-4 space-y-1">
+        <div className="mil-stencil text-xs text-accent font-bold">
+          ★ {step.banner}
+        </div>
+        <div className="text-sm text-foreground">{step.section}</div>
+        <div className="mil-stencil text-[10px] text-muted-foreground">
+          Paso {step.stepLabel}
+        </div>
+      </div>
+
+      <div>
+        <Input
+          inputMode="numeric"
+          value={value}
+          placeholder="DD/MM/AAAA"
+          onChange={(e) => {
+            onChange(formatDobInput(e.target.value));
+            setTouched(true);
+          }}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" && valid) onNext();
+          }}
+          className={`h-12 text-lg ${showError ? "border-destructive" : ""}`}
+        />
+        {showError && (
+          <p className="mt-2 text-xs text-destructive">
+            Ingresa una fecha de nacimiento válida.
+          </p>
+        )}
+      </div>
+
+      <Button
+        className="w-full mil-stencil bg-accent text-accent-foreground hover:bg-accent/90"
+        size="lg"
+        disabled={!valid}
+        onClick={onNext}
+      >
+        Continuar
+      </Button>
+    </>
+  );
+}
+
+
+
 function GraphStepView({
   step,
   onNext,
