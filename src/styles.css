@@ -142,5 +142,23 @@
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
+    background-image:
+      radial-gradient(
+        circle at 20% 10%,
+        oklch(0.3 0.04 135 / 0.35),
+        transparent 45%
+      ),
+      radial-gradient(
+        circle at 80% 90%,
+        oklch(0.35 0.05 130 / 0.3),
+        transparent 50%
+      );
+    background-attachment: fixed;
   }
+}
+
+@utility mil-stencil {
+  font-family: "Impact", "Oswald", "Arial Narrow", sans-serif;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
 }
