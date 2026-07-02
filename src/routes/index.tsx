@@ -495,6 +495,15 @@ const STEPS: Step[] = [
     progress: 26,
   },
   {
+    kind: "acct-email",
+    key: "acct-email",
+    section: "Vamos a crear tu cuenta MadMuscles.",
+    banner: "¡Tu plan de entrenamiento militar está listo!",
+    stepLabel: "2/3",
+    title: "Email",
+    progress: 27,
+  },
+  {
     kind: "single",
     key: "frequency",
     title: "¿Cuántas veces a la semana quieres entrenar?",
