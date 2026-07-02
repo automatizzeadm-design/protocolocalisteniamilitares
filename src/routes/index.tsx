@@ -2001,23 +2001,34 @@ function IntroView({ onPickAge }: { onPickAge: (age: string) => void }) {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
-          <div className="flex justify-center order-2 md:order-1">
+        <div className="grid grid-cols-2 gap-3 items-center">
+          <div className="flex justify-center">
             <img
               src={soldierIntro.url}
               alt="Soldado"
-              className="w-full max-w-xs object-contain drop-shadow-2xl"
+              className="w-full object-contain drop-shadow-2xl"
               loading="eager"
             />
           </div>
 
-          <div className="space-y-3 order-1 md:order-2">
-            <div className="text-center mil-stencil text-xs font-bold text-accent tracking-widest">
+          <div className="space-y-2 min-w-0">
+            <div className="text-center mil-stencil text-[10px] font-bold text-accent tracking-widest">
               SÉLECTIONNEZ VOTRE ÂGE
             </div>
             {ages.map((a) => (
               <Button
                 key={a}
+                variant="outline"
+                size="sm"
+                onClick={() => onPickAge(a)}
+                className="w-full mil-stencil justify-between border-2 border-border hover:border-accent hover:bg-accent/10 px-3"
+              >
+                <span className="font-bold text-sm">{a}</span>
+                <span className="text-accent">›</span>
+              </Button>
+            ))}
+          </div>
+        </div>
                 variant="outline"
                 size="lg"
                 onClick={() => onPickAge(a)}
