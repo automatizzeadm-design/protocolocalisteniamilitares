@@ -22,7 +22,7 @@ export const Route = createFileRoute("/")({
 
 type Answers = Record<string, string | string[]>;
 
-const TOTAL = 37;
+const TOTAL = 38;
 
 type SingleStep = {
   kind: "single";
@@ -451,9 +451,21 @@ const STEPS: Step[] = [
   },
   {
     kind: "single",
+    key: "needs-structure",
+    title: "¿En qué medida te reconoces en esta afirmación?",
+    subtitle: "Necesito estructura o guía durante las sesiones de entrenamiento para mantenerme motivado.",
+    progress: 25,
+    options: [
+      { value: "disagree", label: "En desacuerdo" },
+      { value: "neutral", label: "Neutral" },
+      { value: "agree", label: "De acuerdo" },
+    ],
+  },
+  {
+    kind: "single",
     key: "frequency",
     title: "¿Cuántas veces a la semana quieres entrenar?",
-    progress: 25,
+    progress: 26,
     options: [
       { value: "2-3", label: "2 a 3 veces" },
       { value: "3-4", label: "3 a 4 veces" },
@@ -464,7 +476,7 @@ const STEPS: Step[] = [
     kind: "single",
     key: "duration",
     title: "¿Cuánto tiempo por sesión?",
-    progress: 26,
+    progress: 27,
     options: [
       { value: "15", label: "15 minutos" },
       { value: "30", label: "30 minutos" },
@@ -476,7 +488,7 @@ const STEPS: Step[] = [
     kind: "single",
     key: "experience",
     title: "¿Cuál es tu nivel de experiencia?",
-    progress: 27,
+    progress: 28,
     options: [
       { value: "debutant", label: "Principiante" },
       { value: "intermediaire", label: "Intermedio" },
@@ -487,14 +499,14 @@ const STEPS: Step[] = [
     kind: "height",
     key: "height",
     title: "¿Cuánto mides?",
-    progress: 28,
+    progress: 29,
   },
 
   {
     kind: "weight",
     key: "weight",
     title: "¿Cuál es tu peso actual y cuál es tu peso ideal?",
-    progress: 29,
+    progress: 30,
   },
 
   {
@@ -503,13 +515,13 @@ const STEPS: Step[] = [
     title: "Objetivo realista y alcanzable",
     body: "Según tus respuestas, tu meta es totalmente alcanzable con nuestro plan militar personalizado.",
     cta: "Continuar",
-    progress: 30,
+    progress: 31,
   },
   {
     kind: "single",
     key: "event-date",
     title: "¿Cuándo quieres lograr tu objetivo?",
-    progress: 31,
+    progress: 32,
     options: [
       { value: "1m", label: "En 1 mes" },
       { value: "3m", label: "En 3 meses" },
@@ -521,7 +533,7 @@ const STEPS: Step[] = [
     kind: "single",
     key: "motivation-level",
     title: "¿Qué tan motivado estás?",
-    progress: 32,
+    progress: 33,
     options: [
       { value: "extreme", label: "Extremadamente motivado" },
       { value: "high", label: "Muy motivado" },
@@ -535,7 +547,7 @@ const STEPS: Step[] = [
     subtitle: "Vamos a personalizar tu plan con tu nombre.",
     inputType: "text",
     placeholder: "Tu nombre",
-    progress: 33,
+    progress: 34,
   },
   {
     kind: "input",
@@ -544,14 +556,14 @@ const STEPS: Step[] = [
     subtitle: "Te mandamos tu plan por correo.",
     inputType: "email",
     placeholder: "tu@correo.com",
-    progress: 34,
+    progress: 35,
   },
   {
     kind: "loading",
     key: "analyzing",
     title: "Analizando tus respuestas...",
     subtitle: "Estamos armando tu plan militar personalizado.",
-    progress: 35,
+    progress: 36,
   },
   {
     kind: "info",
@@ -559,7 +571,7 @@ const STEPS: Step[] = [
     title: "¡Tu plan está listo!",
     body: "Con base en tus respuestas, armamos un plan de entrenamiento militar hecho a la medida de tu cuerpo y tus metas.",
     cta: "Ver mi plan",
-    progress: 36,
+    progress: 37,
   },
 ];
 
