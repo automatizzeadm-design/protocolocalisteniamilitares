@@ -90,6 +90,13 @@ type HeightStep = {
   progress: number;
 };
 
+type WeightStep = {
+  kind: "weight";
+  key: string;
+  title: string;
+  progress: number;
+};
+
 type Step =
   | SingleStep
   | MultiStep
@@ -97,7 +104,9 @@ type Step =
   | InputStep
   | LoadingStep
   | CompareStep
-  | HeightStep;
+  | HeightStep
+  | WeightStep;
+
 
 
 const STEPS: Step[] = [
