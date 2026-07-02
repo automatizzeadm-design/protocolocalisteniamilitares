@@ -728,7 +728,7 @@ function Quiz() {
 
       <div className="bg-primary/20 border-b border-primary/40">
         <div className="max-w-md mx-auto px-4 py-2 flex items-center justify-center">
-          <img src={logoMilitary.url} alt="Protocolo Calistenia Militar" className="h-10 object-contain" />
+          <img src={logoMilitary.url} alt="Protocolo Calistenia Militar" className="h-20 object-contain" />
         </div>
       </div>
 
@@ -1987,7 +1987,7 @@ function IntroView({ onPickAge }: { onPickAge: (age: string) => void }) {
     <main className="min-h-screen bg-background text-foreground">
       <div className="bg-primary/20 border-b border-primary/40">
         <div className="max-w-md mx-auto px-4 py-2 flex items-center justify-center">
-          <img src={logoMilitary.url} alt="Protocolo Calistenia Militar" className="h-10 object-contain" />
+          <img src={logoMilitary.url} alt="Protocolo Calistenia Militar" className="h-20 object-contain" />
         </div>
       </div>
 
