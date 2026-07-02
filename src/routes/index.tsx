@@ -27,7 +27,7 @@ type SingleStep = {
   key: string;
   title: string;
   subtitle?: string;
-  options: { value: string; label: string; hint?: string }[];
+  options: { value: string; label: string; hint?: string; badge?: string }[];
   progress: number; // 0..TOTAL
 };
 
@@ -292,18 +292,15 @@ const STEPS: Step[] = [
     ],
   },
   {
-    kind: "multi",
-    key: "foods",
-    title: "¿Qué alimentos prefieres?",
-    subtitle: "Selecciona todo lo que aplique",
+    kind: "single",
+    key: "workout-time",
+    title: "¿Cuánto tiempo estás dispuesto a dedicar a un entrenamiento?",
     progress: 15,
     options: [
-      { value: "viande", label: "Carne" },
-      { value: "poisson", label: "Pescado" },
-      { value: "oeufs", label: "Huevos" },
-      { value: "legumes", label: "Verduras" },
-      { value: "fruits", label: "Frutas" },
-      { value: "cereales", label: "Cereales" },
+      { value: "5-10", label: "5 a 10 minutos por día" },
+      { value: "15", label: "Hasta 15 minutos", badge: "Recomendado 👍" },
+      { value: "20+", label: "Más de 20 minutos por día" },
+      { value: "auto", label: "Deja que MadMuscles decida" },
     ],
   },
   {
@@ -578,10 +575,22 @@ function Quiz() {
               <button
                 key={o.value}
                 onClick={() => pick(step.key, o.value)}
-                className="group w-full text-left rounded-md border-2 border-border bg-card px-4 py-4 flex items-center justify-between hover:border-accent hover:bg-primary/20 transition-colors"
+                className="group relative w-full text-left rounded-md border-2 border-border bg-card px-4 py-4 flex items-center justify-between hover:border-accent hover:bg-primary/20 transition-colors"
               >
-                <span className="font-semibold">{o.label}</span>
-                <span className="text-accent opacity-60 group-hover:opacity-100">
+                {o.badge && (
+                  <span className="absolute -top-2 right-3 mil-stencil text-[10px] font-bold bg-accent text-accent-foreground px-2 py-0.5 rounded">
+                    {o.badge}
+                  </span>
+                )}
+                <span className="flex-1">
+                  <span className="block font-semibold">{o.label}</span>
+                  {o.hint && (
+                    <span className="block text-sm text-muted-foreground mt-1">
+                      {o.hint}
+                    </span>
+                  )}
+                </span>
+                <span className="text-accent opacity-60 group-hover:opacity-100 ml-3">
                   ▸
                 </span>
               </button>
