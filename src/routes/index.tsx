@@ -855,6 +855,16 @@ function Quiz() {
 
         {step.kind === "graph" && <GraphStepView step={step} onNext={next} />}
 
+        {step.kind === "dob" && (
+          <DobStepView
+            step={step}
+            value={(answers[step.key] as string) ?? ""}
+            onChange={(v) => setAnswers((a) => ({ ...a, [step.key]: v }))}
+            onNext={next}
+          />
+        )}
+
+
         {step.kind === "loading" && <LoadingStepView onDone={next} />}
 
 
