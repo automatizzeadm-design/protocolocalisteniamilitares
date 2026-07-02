@@ -397,6 +397,17 @@ const STEPS: Step[] = [
   },
   {
     kind: "single",
+    key: "energy",
+    title: "¿Cuál es tu nivel medio de energía a lo largo del día?",
+    progress: 22,
+    options: [
+      { value: "exhausted", label: "Me siento agotado la mayor parte del tiempo 😓" },
+      { value: "varies", label: "Mi nivel de energía varía a lo largo del día 📊" },
+      { value: "energetic", label: "Suelo estar muy enérgico y activo 💥" },
+    ],
+  },
+  {
+    kind: "single",
     key: "frequency",
     title: "¿Cuántas veces a la semana quieres entrenar?",
     progress: 23,
