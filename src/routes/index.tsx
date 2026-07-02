@@ -698,8 +698,13 @@ function Quiz() {
     );
   }
 
+  if (step.kind === "plan") {
+    return <PlanView answers={answers} onFinish={() => setDone(true)} />;
+  }
+
   return (
     <main className="min-h-screen bg-background text-foreground">
+
       <div className="bg-primary/20 border-b border-primary/40">
         <div className="max-w-md mx-auto px-4 py-2 flex items-center justify-between">
           <span className="mil-stencil text-xs text-accent font-bold">
