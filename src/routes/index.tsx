@@ -246,8 +246,10 @@ const STEPS: Step[] = [
     title: "¡Estás en el lugar correcto!",
     body: "Nuestro programa militar está diseñado para transformar tu cuerpo rápido, sin importar tu punto de partida. Vamos con todo.",
     cta: "Entendido",
+    image: attentionPushup.url,
     progress: 6,
   },
+
   {
     kind: "single",
     key: "best-shape",
