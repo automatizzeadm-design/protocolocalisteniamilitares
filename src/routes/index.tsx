@@ -97,6 +97,19 @@ type WeightStep = {
   progress: number;
 };
 
+type GraphStep = {
+  kind: "graph";
+  key: string;
+  title: string;
+  score: number;
+  highlight: string;
+  bars: { label: string; value: number }[];
+  body: string;
+  callout: string;
+  cta: string;
+  progress: number;
+};
+
 type Step =
   | SingleStep
   | MultiStep
@@ -105,7 +118,9 @@ type Step =
   | LoadingStep
   | CompareStep
   | HeightStep
-  | WeightStep;
+  | WeightStep
+  | GraphStep;
+
 
 
 
