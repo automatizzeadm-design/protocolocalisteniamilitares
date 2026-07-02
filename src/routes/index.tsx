@@ -651,6 +651,8 @@ function Quiz() {
   const [index, setIndex] = useState(0);
   const [answers, setAnswers] = useState<Answers>({});
   const [done, setDone] = useState(false);
+  const [showSales, setShowSales] = useState(false);
+
 
   const step = STEPS[index];
   const pct = Math.round(((step?.progress ?? TOTAL) / TOTAL) * 100);
@@ -698,9 +700,14 @@ function Quiz() {
     );
   }
 
-  if (step.kind === "plan") {
-    return <PlanView answers={answers} onFinish={() => setDone(true)} />;
+  if (showSales) {
+    return <SalesView answers={answers} onFinish={() => setDone(true)} />;
   }
+
+  if (step.kind === "plan") {
+    return <PlanView answers={answers} onFinish={() => setShowSales(true)} />;
+  }
+
 
   return (
     <main className="min-h-screen bg-background text-foreground">
@@ -1802,3 +1809,167 @@ function PlanView({
 }
 
 
+
+function SalesView({
+  answers,
+  onFinish,
+}: {
+  answers: Answers;
+  onFinish: () => void;
+}) {
+  const name = (answers.name as string) || "soldado";
+  const [selected, setSelected] = useState<"1w" | "1m" | "3m">("1m");
+  const [seconds, setSeconds] = useState(10 * 60);
+
+  useEffect(() => {
+    const t = setInterval(() => setSeconds((s) => (s > 0 ? s - 1 : 0)), 1000);
+    return () => clearInterval(t);
+  }, []);
+
+  const mm = String(Math.floor(seconds / 60)).padStart(2, "0");
+  const ss = String(seconds % 60).padStart(2, "0");
+
+  const plans = [
+    {
+      id: "1w" as const,
+      label: "PLAN 1 SEMANA DE PRUEBA",
+      old: "R$ 29,99",
+      now: "R$ 4,28",
+      per: "R$ 0,61",
+      badge: null,
+      bonus: false,
+    },
+    {
+      id: "1m" as const,
+      label: "PLAN 1 MES",
+      old: "R$ 239,99",
+      now: "R$ 59,99",
+      per: "R$ 2,00",
+      badge: "El más popular",
+      bonus: true,
+    },
+    {
+      id: "3m" as const,
+      label: "PLAN 3 MESES",
+      old: "R$ 519,99",
+      now: "R$ 109,99",
+      per: "R$ 1,20",
+      badge: null,
+      bonus: true,
+    },
+  ];
+
+  return (
+    <main className="min-h-screen bg-background text-foreground">
+      <div className="bg-primary/20 border-b border-primary/40">
+        <div className="max-w-md mx-auto px-4 py-2 text-center">
+          <span className="mil-stencil text-xs text-accent font-bold">
+            ★ Oferta Especial Militar
+          </span>
+        </div>
+      </div>
+
+      <section className="max-w-md mx-auto px-4 py-6 space-y-6">
+        <div className="text-center space-y-2">
+          <div className="text-5xl">🎉</div>
+          <h1 className="text-2xl font-bold mil-stencil text-accent">
+            ¡Felicidades!
+          </h1>
+          <p className="text-sm text-muted-foreground">
+            Has ganado el mayor descuento adicional
+          </p>
+          <p className="text-base font-semibold mt-3">
+            {name}, obtén tu plan de entrenamiento militar
+          </p>
+        </div>
+
+        <div className="rounded-lg border border-accent/40 bg-accent/10 p-3 text-center">
+          <div className="mil-stencil text-xs text-accent font-bold mb-1">
+            ⏳ El descuento expira en
+          </div>
+          <div className="text-3xl font-bold text-accent tabular-nums">
+            {mm}:{ss}
+          </div>
+        </div>
+
+        <div className="space-y-3">
+          {plans.map((p) => {
+            const active = selected === p.id;
+            return (
+              <button
+                key={p.id}
+                onClick={() => setSelected(p.id)}
+                className={`w-full text-left rounded-lg border-2 p-4 transition ${
+                  active
+                    ? "border-accent bg-accent/10"
+                    : "border-border bg-card"
+                }`}
+              >
+                {p.badge && (
+                  <div className="mil-stencil text-[10px] bg-accent text-accent-foreground inline-block px-2 py-0.5 rounded mb-2 font-bold">
+                    {p.badge}
+                  </div>
+                )}
+                <div className="flex items-center justify-between">
+                  <div>
+                    <div className="mil-stencil font-bold text-sm">{p.label}</div>
+                    <div className="text-xs text-muted-foreground">
+                      <span className="line-through">{p.old}</span>{" "}
+                      <span className="text-accent font-bold">{p.now}</span>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <div className="text-xl font-bold">{p.per}</div>
+                    <div className="text-[10px] text-muted-foreground">por día</div>
+                  </div>
+                </div>
+                {p.bonus && (
+                  <div className="text-[11px] text-accent mt-2">
+                    🎁 Programa imprimible 2026 incluido
+                  </div>
+                )}
+              </button>
+            );
+          })}
+        </div>
+
+        <Button
+          className="w-full mil-stencil bg-accent text-accent-foreground hover:bg-accent/90"
+          size="lg"
+          onClick={onFinish}
+        >
+          Continuar
+        </Button>
+
+        <p className="text-[10px] text-muted-foreground leading-relaxed">
+          Al continuar, aceptas que tu suscripción se renueve automáticamente al
+          precio total al finalizar el período de introducción, a menos que la
+          canceles en la configuración. Consulta nuestros términos y política de
+          reembolso.
+        </p>
+
+        <div className="rounded-lg border border-border bg-card p-4 space-y-2">
+          <div className="mil-stencil font-bold text-sm text-accent">
+            🛡️ Política de reembolso garantizado
+          </div>
+          <p className="text-xs text-muted-foreground">
+            Creemos que nuestro plan puede funcionar para ti y verás resultados
+            visibles en 4 semanas. Estamos dispuestos a reembolsar el 100%
+            dentro de los 30 días posteriores a la compra si no obtienes
+            resultados visibles y demuestras que seguiste el plan.
+          </p>
+        </div>
+
+        <div className="text-center space-y-1 pt-4">
+          <div className="text-xs text-muted-foreground">Hemos ayudado a más de</div>
+          <div className="text-3xl font-bold mil-stencil text-accent">
+            55.000 personas
+          </div>
+          <div className="text-xs text-muted-foreground">
+            a esculpir el cuerpo de sus sueños
+          </div>
+        </div>
+      </section>
+    </main>
+  );
+}
