@@ -6,6 +6,8 @@ import { Input } from "@/components/ui/input";
 import homeTraining from "@/assets/home-training.jpg";
 import beforeAfterAsset from "@/assets/before-after.png.asset.json";
 import injuriesBody from "@/assets/injuries-body.jpg.asset.json";
+import attentionPushup from "@/assets/attention-pushup.jpg.asset.json";
+
 
 
 import programPreview from "@/assets/program-preview.jpg";
