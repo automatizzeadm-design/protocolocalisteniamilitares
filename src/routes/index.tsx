@@ -634,14 +634,6 @@ function Quiz() {
           >
             {step.cta}
           </Button>
-        {step.kind === "info" && (
-          <Button
-            className="w-full mil-stencil bg-accent text-accent-foreground hover:bg-accent/90"
-            size="lg"
-            onClick={next}
-          >
-            {step.cta}
-          </Button>
         )}
 
         {step.kind === "compare" && (
