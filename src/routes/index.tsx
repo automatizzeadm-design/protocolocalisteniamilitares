@@ -603,6 +603,14 @@ const STEPS: Step[] = [
     progress: 37,
   },
   {
+    kind: "info",
+    key: "commitment",
+    title: "¿Estás listo para comprometerte?",
+    body: "El protocolo militar exige disciplina. Necesitamos tu compromiso antes de generar tu plan personalizado.",
+    cta: "¡Sí! Me comprometo a cumplir el protocolo",
+    progress: 38,
+  },
+  {
     kind: "loading",
     key: "analyzing",
     title: "Calculando tus respuestas...",
