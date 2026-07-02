@@ -1992,6 +1992,15 @@ function IntroView({ onPickAge }: { onPickAge: (age: string) => void }) {
       </div>
 
       <section className="max-w-md mx-auto px-4 pt-6 pb-10 space-y-6">
+        <div className="flex justify-center">
+          <img
+            src={soldierIntro.url}
+            alt="Soldado"
+            className="w-full max-w-xs object-contain drop-shadow-2xl"
+            loading="eager"
+          />
+        </div>
+
         <div className="text-center space-y-2">
           <h1 className="text-2xl font-bold mil-stencil text-accent leading-tight">
             Défi d'entraînement militaire avancé
@@ -2018,16 +2027,6 @@ function IntroView({ onPickAge }: { onPickAge: (age: string) => void }) {
             </Button>
           ))}
         </div>
-
-        <div className="flex justify-center">
-          <img
-            src={soldierIntro.url}
-            alt="Soldado"
-            className="w-full max-w-xs object-contain drop-shadow-2xl"
-            loading="eager"
-          />
-        </div>
-
       </section>
     </main>
   );
