@@ -69,8 +69,10 @@ type LoadingStep = {
   key: string;
   title: string;
   subtitle?: string;
+  phrases?: string[];
   progress: number;
 };
+
 
 type CompareStep = {
   kind: "compare";
