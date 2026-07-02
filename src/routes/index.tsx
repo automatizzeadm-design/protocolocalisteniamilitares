@@ -321,6 +321,15 @@ const STEPS: Step[] = [
   },
 
   {
+    kind: "info",
+    key: "no-gym",
+    title: "No necesitas gimnasio.",
+    body: "Sin gimnasio. Sin saltos. Sin ejercicios en el suelo. Solo ejercicios con el peso del cuerpo — 15 minutos, hechos para tu sala de estar.",
+    cta: "Continuar",
+    image: homeTraining,
+    progress: 17,
+  },
+  {
     kind: "multi",
     key: "equipment",
     title: "¿Qué equipo tienes a la mano?",
