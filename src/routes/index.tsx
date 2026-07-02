@@ -1989,15 +1989,6 @@ function IntroView({ onPickAge }: { onPickAge: (age: string) => void }) {
           </p>
         </div>
 
-        <div className="flex justify-center">
-          <img
-            src={soldierIntro.url}
-            alt="Soldado"
-            className="w-full max-w-xs object-contain drop-shadow-2xl"
-            loading="eager"
-          />
-        </div>
-
         <div className="space-y-3">
           <div className="text-center mil-stencil text-xs font-bold text-accent tracking-widest">
             SÉLECTIONNEZ VOTRE ÂGE
@@ -2015,6 +2006,16 @@ function IntroView({ onPickAge }: { onPickAge: (age: string) => void }) {
             </Button>
           ))}
         </div>
+
+        <div className="flex justify-center">
+          <img
+            src={soldierIntro.url}
+            alt="Soldado"
+            className="w-full max-w-xs object-contain drop-shadow-2xl"
+            loading="eager"
+          />
+        </div>
+
       </section>
     </main>
   );
