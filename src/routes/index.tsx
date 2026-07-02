@@ -68,7 +68,24 @@ type LoadingStep = {
   progress: number;
 };
 
-type Step = SingleStep | MultiStep | InfoStep | InputStep | LoadingStep;
+type CompareStep = {
+  kind: "compare";
+  key: string;
+  title: string;
+  left: { title: string; emoji: string; items: string[] };
+  right: { title: string; emoji: string; items: string[] };
+  body: string;
+  cta: string;
+  progress: number;
+};
+
+type Step =
+  | SingleStep
+  | MultiStep
+  | InfoStep
+  | InputStep
+  | LoadingStep
+  | CompareStep;
 
 const STEPS: Step[] = [
   {
@@ -245,15 +262,22 @@ const STEPS: Step[] = [
     ],
   },
   {
-    kind: "single",
-    key: "walking",
-    title: "¿Cuánto caminas cada día?",
+    kind: "compare",
+    key: "real-strength",
+    title: "La verdadera fuerza: más allá de la estética.",
     progress: 13,
-    options: [
-      { value: "<30", label: "Menos de 30 min" },
-      { value: "30-60", label: "30 a 60 min" },
-      { value: "60+", label: "Más de 1 hora" },
-    ],
+    left: {
+      title: "Entrenamiento en el gym",
+      emoji: "🏋",
+      items: ["Estética", "Máquinas", "Tamaño muscular"],
+    },
+    right: {
+      title: "Entrenamiento militar",
+      emoji: "🚀",
+      items: ["Funcionalidad", "Peso corporal", "Fuerza muscular"],
+    },
+    body: "El entrenamiento militar prioriza la fuerza práctica y real. Nuestro programa se basa en ejercicios intensos y compuestos, diseñados para crear un cuerpo poderoso y funcional — no solo cierta apariencia.",
+    cta: "Continuar",
   },
   {
     kind: "single",
@@ -611,6 +635,48 @@ function Quiz() {
             {step.cta}
           </Button>
         )}
+
+        {step.kind === "compare" && (
+          <>
+            <div className="grid grid-cols-2 gap-3">
+              {[step.left, step.right].map((col, i) => (
+                <div
+                  key={i}
+                  className={`rounded-md border-2 p-4 space-y-3 ${
+                    i === 0
+                      ? "border-border bg-card/60"
+                      : "border-accent bg-primary/20"
+                  }`}
+                >
+                  <div className="text-3xl">{col.emoji}</div>
+                  <div className="mil-stencil text-sm font-bold">
+                    {col.title}
+                  </div>
+                  <ul className="space-y-1 text-sm text-muted-foreground">
+                    {col.items.map((it) => (
+                      <li key={it} className="flex gap-2">
+                        <span className="text-accent">▸</span>
+                        {it}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+            <p className="text-muted-foreground text-sm leading-relaxed">
+              {step.body}
+            </p>
+            <Button
+              className="w-full mil-stencil bg-accent text-accent-foreground hover:bg-accent/90"
+              size="lg"
+              onClick={next}
+            >
+              {step.cta}
+            </Button>
+          </>
+        )}
+
+
 
 
         {step.kind === "input" && (
