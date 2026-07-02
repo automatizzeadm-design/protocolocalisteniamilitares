@@ -561,7 +561,85 @@ function Quiz() {
             {step.cta}
           </Button>
         )}
+
+        {step.kind === "input" && (
+          <InputStepView step={step} value={(answers[step.key] as string) ?? ""}
+            onChange={(v) => setAnswers((a) => ({ ...a, [step.key]: v }))}
+            onNext={next} />
+        )}
+
+        {step.kind === "loading" && <LoadingStepView onDone={next} />}
       </section>
     </main>
+  );
+}
+
+function InputStepView({
+  step,
+  value,
+  onChange,
+  onNext,
+}: {
+  step: InputStep;
+  value: string;
+  onChange: (v: string) => void;
+  onNext: () => void;
+}) {
+  const valid =
+    step.inputType === "email"
+      ? /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)
+      : step.inputType === "number"
+        ? Number(value) > 0
+        : value.trim().length > 0;
+
+  return (
+    <>
+      <div className="relative">
+        <Input
+          type={step.inputType}
+          value={value}
+          placeholder={step.placeholder}
+          onChange={(e) => onChange(e.target.value)}
+          className="h-12 text-lg"
+          onKeyDown={(e) => {
+            if (e.key === "Enter" && valid) onNext();
+          }}
+        />
+        {step.suffix && (
+          <span className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground text-sm">
+            {step.suffix}
+          </span>
+        )}
+      </div>
+      <Button className="w-full" size="lg" disabled={!valid} onClick={onNext}>
+        Continuer
+      </Button>
+    </>
+  );
+}
+
+function LoadingStepView({ onDone }: { onDone: () => void }) {
+  const [progress, setProgress] = useState(0);
+  useEffect(() => {
+    const start = Date.now();
+    const duration = 3000;
+    const id = setInterval(() => {
+      const p = Math.min(100, ((Date.now() - start) / duration) * 100);
+      setProgress(p);
+      if (p >= 100) {
+        clearInterval(id);
+        setTimeout(onDone, 250);
+      }
+    }, 60);
+    return () => clearInterval(id);
+  }, [onDone]);
+
+  return (
+    <div className="space-y-3">
+      <Progress value={progress} />
+      <p className="text-center text-sm text-muted-foreground tabular-nums">
+        {Math.round(progress)}%
+      </p>
+    </div>
   );
 }
