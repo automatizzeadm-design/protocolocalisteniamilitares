@@ -461,10 +461,12 @@ function Quiz() {
   if (done) {
     return (
       <main className="min-h-screen bg-background flex items-center justify-center p-6">
-        <div className="max-w-md text-center space-y-4">
-          <h1 className="text-2xl font-bold">Merci !</h1>
+        <div className="max-w-md w-full text-center space-y-4">
+          <h1 className="text-2xl font-bold">
+            Merci{answers.name ? `, ${answers.name}` : ""} !
+          </h1>
           <p className="text-muted-foreground">
-            Vos réponses ont été enregistrées. (Suite du quiz à venir — 25 étapes restantes.)
+            Votre plan militaire personnalisé est prêt.
           </p>
           <pre className="text-left text-xs bg-muted p-4 rounded-md overflow-auto">
             {JSON.stringify(answers, null, 2)}
