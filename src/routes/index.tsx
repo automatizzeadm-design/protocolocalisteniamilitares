@@ -510,7 +510,7 @@ const STEPS: Step[] = [
   {
     kind: "dob",
     key: "dob",
-    section: "Vamos a crear tu cuenta MadMuscles.",
+    section: "Vamos criar sua conta Protocolo Calistenia Militar",
     banner: "¡Tu plan de entrenamiento militar está listo!",
     stepLabel: "1/3",
     title: "¿Cuál es tu fecha de nacimiento?",
@@ -519,34 +519,11 @@ const STEPS: Step[] = [
   {
     kind: "acct-email",
     key: "acct-email",
-    section: "Vamos a crear tu cuenta MadMuscles.",
+    section: "Vamos criar sua conta Protocolo Calistenia Militar",
     banner: "¡Tu plan de entrenamiento militar está listo!",
     stepLabel: "2/3",
     title: "Email",
     progress: 27,
-  },
-  {
-    kind: "single",
-    key: "frequency",
-    title: "¿Cuántas veces a la semana quieres entrenar?",
-    progress: 28,
-    options: [
-      { value: "2-3", label: "2 a 3 veces" },
-      { value: "3-4", label: "3 a 4 veces" },
-      { value: "5+", label: "5 veces o más" },
-    ],
-  },
-  {
-    kind: "single",
-    key: "duration",
-    title: "¿Cuánto tiempo por sesión?",
-    progress: 29,
-    options: [
-      { value: "15", label: "15 minutos" },
-      { value: "30", label: "30 minutos" },
-      { value: "45", label: "45 minutos" },
-      { value: "60+", label: "60 minutos o más" },
-    ],
   },
   {
     kind: "single",
