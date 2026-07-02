@@ -648,10 +648,17 @@ const STEPS: Step[] = [
 
 
 function Quiz() {
+  const [started, setStarted] = useState(false);
   const [index, setIndex] = useState(0);
   const [answers, setAnswers] = useState<Answers>({});
   const [done, setDone] = useState(false);
   const [showSales, setShowSales] = useState(false);
+
+  if (!started) {
+    return <IntroView onPickAge={(age) => { setAnswers({ age }); setIndex(1); setStarted(true); }} />;
+  }
+
+
 
 
   const step = STEPS[index];
