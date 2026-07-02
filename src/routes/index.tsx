@@ -6,6 +6,8 @@ import { Input } from "@/components/ui/input";
 import homeTraining from "@/assets/home-training.jpg";
 import beforeAfterAsset from "@/assets/before-after.png.asset.json";
 import injuriesBody from "@/assets/injuries-body.jpg.asset.json";
+import attentionPushup from "@/assets/attention-pushup.jpg.asset.json";
+
 
 
 import programPreview from "@/assets/program-preview.jpg";
@@ -246,8 +248,10 @@ const STEPS: Step[] = [
     title: "¡Estás en el lugar correcto!",
     body: "Nuestro programa militar está diseñado para transformar tu cuerpo rápido, sin importar tu punto de partida. Vamos con todo.",
     cta: "Entendido",
+    image: attentionPushup.url,
     progress: 6,
   },
+
   {
     kind: "single",
     key: "best-shape",
