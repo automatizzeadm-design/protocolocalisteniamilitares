@@ -110,6 +110,16 @@ type GraphStep = {
   progress: number;
 };
 
+type DobStep = {
+  kind: "dob";
+  key: string;
+  section: string;
+  banner: string;
+  stepLabel: string;
+  title: string;
+  progress: number;
+};
+
 type Step =
   | SingleStep
   | MultiStep
@@ -119,7 +129,9 @@ type Step =
   | CompareStep
   | HeightStep
   | WeightStep
-  | GraphStep;
+  | GraphStep
+  | DobStep;
+
 
 
 
