@@ -732,7 +732,18 @@ function Quiz() {
           />
         )}
 
+        {step.kind === "weight" && (
+          <WeightStepView
+            current={(answers["weight"] as string) ?? ""}
+            target={(answers["target-weight"] as string) ?? ""}
+            onChangeCurrent={(v) => setAnswers((a) => ({ ...a, weight: v }))}
+            onChangeTarget={(v) => setAnswers((a) => ({ ...a, "target-weight": v }))}
+            onNext={next}
+          />
+        )}
+
         {step.kind === "loading" && <LoadingStepView onDone={next} />}
+
 
       </section>
     </main>
