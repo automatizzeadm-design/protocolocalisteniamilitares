@@ -120,6 +120,16 @@ type DobStep = {
   progress: number;
 };
 
+type AcctEmailStep = {
+  kind: "acct-email";
+  key: string;
+  section: string;
+  banner: string;
+  stepLabel: string;
+  title: string;
+  progress: number;
+};
+
 type Step =
   | SingleStep
   | MultiStep
@@ -130,7 +140,9 @@ type Step =
   | HeightStep
   | WeightStep
   | GraphStep
-  | DobStep;
+  | DobStep
+  | AcctEmailStep;
+
 
 
 
