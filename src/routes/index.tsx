@@ -4,6 +4,11 @@ import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Input } from "@/components/ui/input";
 import homeTraining from "@/assets/home-training.jpg";
+import beforeBody from "@/assets/before-body.jpg";
+import afterBody from "@/assets/after-body.jpg";
+import programPreview from "@/assets/program-preview.jpg";
+import calendar2026 from "@/assets/calendar-2026.jpg";
+
 
 
 export const Route = createFileRoute("/")({
