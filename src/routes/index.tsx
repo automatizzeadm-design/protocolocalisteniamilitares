@@ -386,6 +386,17 @@ const STEPS: Step[] = [
   },
   {
     kind: "single",
+    key: "daily-life",
+    title: "¿Cómo describirías un día típico tuyo?",
+    progress: 21,
+    options: [
+      { value: "sitting", label: "Paso la mayor parte del día sentado" },
+      { value: "traveling", label: "Viajo de vez en cuando" },
+      { value: "standing", label: "Paso todo el día de pie" },
+    ],
+  },
+  {
+    kind: "single",
     key: "frequency",
     title: "¿Cuántas veces a la semana quieres entrenar?",
     progress: 22,
