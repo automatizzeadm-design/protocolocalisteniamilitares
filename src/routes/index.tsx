@@ -68,7 +68,24 @@ type LoadingStep = {
   progress: number;
 };
 
-type Step = SingleStep | MultiStep | InfoStep | InputStep | LoadingStep;
+type CompareStep = {
+  kind: "compare";
+  key: string;
+  title: string;
+  left: { title: string; emoji: string; items: string[] };
+  right: { title: string; emoji: string; items: string[] };
+  body: string;
+  cta: string;
+  progress: number;
+};
+
+type Step =
+  | SingleStep
+  | MultiStep
+  | InfoStep
+  | InputStep
+  | LoadingStep
+  | CompareStep;
 
 const STEPS: Step[] = [
   {
