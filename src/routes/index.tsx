@@ -22,7 +22,7 @@ export const Route = createFileRoute("/")({
 
 type Answers = Record<string, string | string[]>;
 
-const TOTAL = 40;
+const TOTAL = 41;
 
 type SingleStep = {
   kind: "single";
@@ -603,6 +603,14 @@ const STEPS: Step[] = [
     progress: 37,
   },
   {
+    kind: "info",
+    key: "commitment",
+    title: "¿Estás listo para comprometerte?",
+    body: "El protocolo militar exige disciplina. Necesitamos tu compromiso antes de generar tu plan personalizado.",
+    cta: "¡Sí! Me comprometo a cumplir el protocolo",
+    progress: 38,
+  },
+  {
     kind: "loading",
     key: "analyzing",
     title: "Calculando tus respuestas...",
@@ -614,7 +622,7 @@ const STEPS: Step[] = [
       "🧠 Adaptando a tu estilo de vida",
       "🚀 Casi listo...",
     ],
-    progress: 38,
+    progress: 39,
   },
 
   {
@@ -623,7 +631,7 @@ const STEPS: Step[] = [
     title: "¡Tu plan está listo!",
     body: "Con base en tus respuestas, armamos un plan de entrenamiento militar hecho a la medida de tu cuerpo y tus metas.",
     cta: "Ver mi plan",
-    progress: 39,
+    progress: 40,
   },
 ];
 
