@@ -27,7 +27,7 @@ type SingleStep = {
   key: string;
   title: string;
   subtitle?: string;
-  options: { value: string; label: string; hint?: string }[];
+  options: { value: string; label: string; hint?: string; badge?: string }[];
   progress: number; // 0..TOTAL
 };
 
