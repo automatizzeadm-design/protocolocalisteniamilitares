@@ -463,13 +463,16 @@ function Quiz() {
     return (
       <main className="min-h-screen bg-background flex items-center justify-center p-6">
         <div className="max-w-md w-full text-center space-y-4">
-          <h1 className="text-2xl font-bold">
-            ¡Gracias{answers.name ? `, ${answers.name}` : ""}!
+          <div className="mil-stencil text-xs text-accent font-bold">
+            ★ Misión Completada
+          </div>
+          <h1 className="text-3xl font-bold mil-stencil text-accent">
+            ¡Bien hecho{answers.name ? `, ${answers.name}` : ", soldado"}!
           </h1>
           <p className="text-muted-foreground">
             Tu plan militar personalizado ya está listo.
           </p>
-          <pre className="text-left text-xs bg-muted p-4 rounded-md overflow-auto">
+          <pre className="text-left text-xs bg-card border border-border p-4 rounded-md overflow-auto">
             {JSON.stringify(answers, null, 2)}
           </pre>
         </div>
