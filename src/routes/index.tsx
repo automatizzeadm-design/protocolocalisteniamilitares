@@ -820,7 +820,10 @@ function Quiz() {
           />
         )}
 
+        {step.kind === "graph" && <GraphStepView step={step} onNext={next} />}
+
         {step.kind === "loading" && <LoadingStepView onDone={next} />}
+
 
 
       </section>
