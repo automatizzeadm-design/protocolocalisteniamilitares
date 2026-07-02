@@ -1635,8 +1635,9 @@ function PlanView({
               src={beforeAfterAsset.url}
               alt="Antes y después"
               loading="lazy"
-              className="w-full object-contain bg-white"
+              className="w-full h-auto object-contain bg-white min-h-[420px] md:min-h-[560px]"
             />
+
           </div>
 
           <p className="mt-3 text-[10px] text-muted-foreground leading-relaxed">
