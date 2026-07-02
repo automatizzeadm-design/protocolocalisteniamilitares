@@ -726,7 +726,16 @@ function Quiz() {
             onNext={next} />
         )}
 
+        {step.kind === "height" && (
+          <HeightStepView
+            value={(answers[step.key] as string) ?? ""}
+            onChange={(v) => setAnswers((a) => ({ ...a, [step.key]: v }))}
+            onNext={next}
+          />
+        )}
+
         {step.kind === "loading" && <LoadingStepView onDone={next} />}
+
       </section>
     </main>
   );
