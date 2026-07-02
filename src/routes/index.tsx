@@ -605,10 +605,18 @@ const STEPS: Step[] = [
   {
     kind: "loading",
     key: "analyzing",
-    title: "Analizando tus respuestas...",
+    title: "Calculando tus respuestas...",
     subtitle: "Estamos armando tu plan militar personalizado.",
+    phrases: [
+      "🎯 Ajustando tu nivel de intensidad",
+      "🏋️ Seleccionando ejercicios óptimos",
+      "🔥 Calibrando cardio y fuerza",
+      "🧠 Adaptando a tu estilo de vida",
+      "🚀 Casi listo...",
+    ],
     progress: 38,
   },
+
   {
     kind: "info",
     key: "plan-ready",
