@@ -22,7 +22,7 @@ export const Route = createFileRoute("/")({
 
 type Answers = Record<string, string | string[]>;
 
-const TOTAL = 36;
+const TOTAL = 37;
 
 type SingleStep = {
   kind: "single";
@@ -97,6 +97,19 @@ type WeightStep = {
   progress: number;
 };
 
+type GraphStep = {
+  kind: "graph";
+  key: string;
+  title: string;
+  score: number;
+  highlight: string;
+  bars: { label: string; value: number }[];
+  body: string;
+  callout: string;
+  cta: string;
+  progress: number;
+};
+
 type Step =
   | SingleStep
   | MultiStep
@@ -105,7 +118,9 @@ type Step =
   | LoadingStep
   | CompareStep
   | HeightStep
-  | WeightStep;
+  | WeightStep
+  | GraphStep;
+
 
 
 
@@ -419,10 +434,26 @@ const STEPS: Step[] = [
     ],
   },
   {
+    kind: "graph",
+    key: "sleep-analysis",
+    title: "Tu diagnóstico",
+    score: 72,
+    highlight: "Sueño",
+    bars: [
+      { label: "Sueño", value: 28 },
+      { label: "Energía", value: 55 },
+      { label: "Metabolismo", value: 68 },
+    ],
+    body: "Dormir bien es esencial para tu salud física. Una buena noche de sueño mejora el metabolismo, controla el apetito y aporta más energía.",
+    callout: "Los estudios muestran que hacer al menos 30 minutos de ejercicio moderado puede mejorar la calidad del sueño esa misma noche.",
+    cta: "Continuar",
+    progress: 24,
+  },
+  {
     kind: "single",
     key: "frequency",
     title: "¿Cuántas veces a la semana quieres entrenar?",
-    progress: 24,
+    progress: 25,
     options: [
       { value: "2-3", label: "2 a 3 veces" },
       { value: "3-4", label: "3 a 4 veces" },
@@ -433,7 +464,7 @@ const STEPS: Step[] = [
     kind: "single",
     key: "duration",
     title: "¿Cuánto tiempo por sesión?",
-    progress: 25,
+    progress: 26,
     options: [
       { value: "15", label: "15 minutos" },
       { value: "30", label: "30 minutos" },
@@ -445,7 +476,7 @@ const STEPS: Step[] = [
     kind: "single",
     key: "experience",
     title: "¿Cuál es tu nivel de experiencia?",
-    progress: 26,
+    progress: 27,
     options: [
       { value: "debutant", label: "Principiante" },
       { value: "intermediaire", label: "Intermedio" },
@@ -456,14 +487,14 @@ const STEPS: Step[] = [
     kind: "height",
     key: "height",
     title: "¿Cuánto mides?",
-    progress: 27,
+    progress: 28,
   },
 
   {
     kind: "weight",
     key: "weight",
     title: "¿Cuál es tu peso actual y cuál es tu peso ideal?",
-    progress: 28,
+    progress: 29,
   },
 
   {
@@ -472,13 +503,13 @@ const STEPS: Step[] = [
     title: "Objetivo realista y alcanzable",
     body: "Según tus respuestas, tu meta es totalmente alcanzable con nuestro plan militar personalizado.",
     cta: "Continuar",
-    progress: 29,
+    progress: 30,
   },
   {
     kind: "single",
     key: "event-date",
     title: "¿Cuándo quieres lograr tu objetivo?",
-    progress: 30,
+    progress: 31,
     options: [
       { value: "1m", label: "En 1 mes" },
       { value: "3m", label: "En 3 meses" },
@@ -490,7 +521,7 @@ const STEPS: Step[] = [
     kind: "single",
     key: "motivation-level",
     title: "¿Qué tan motivado estás?",
-    progress: 31,
+    progress: 32,
     options: [
       { value: "extreme", label: "Extremadamente motivado" },
       { value: "high", label: "Muy motivado" },
@@ -504,7 +535,7 @@ const STEPS: Step[] = [
     subtitle: "Vamos a personalizar tu plan con tu nombre.",
     inputType: "text",
     placeholder: "Tu nombre",
-    progress: 32,
+    progress: 33,
   },
   {
     kind: "input",
@@ -513,14 +544,14 @@ const STEPS: Step[] = [
     subtitle: "Te mandamos tu plan por correo.",
     inputType: "email",
     placeholder: "tu@correo.com",
-    progress: 33,
+    progress: 34,
   },
   {
     kind: "loading",
     key: "analyzing",
     title: "Analizando tus respuestas...",
     subtitle: "Estamos armando tu plan militar personalizado.",
-    progress: 34,
+    progress: 35,
   },
   {
     kind: "info",
@@ -528,7 +559,7 @@ const STEPS: Step[] = [
     title: "¡Tu plan está listo!",
     body: "Con base en tus respuestas, armamos un plan de entrenamiento militar hecho a la medida de tu cuerpo y tus metas.",
     cta: "Ver mi plan",
-    progress: 35,
+    progress: 36,
   },
 ];
 
@@ -789,7 +820,10 @@ function Quiz() {
           />
         )}
 
+        {step.kind === "graph" && <GraphStepView step={step} onNext={next} />}
+
         {step.kind === "loading" && <LoadingStepView onDone={next} />}
+
 
 
       </section>
@@ -1058,6 +1092,141 @@ function WeightStepView({
     </>
   );
 }
+
+function GraphStepView({
+  step,
+  onNext,
+}: {
+  step: GraphStep;
+  onNext: () => void;
+}) {
+  const [score, setScore] = useState(0);
+  const [barValues, setBarValues] = useState<number[]>(step.bars.map(() => 0));
+  const radius = 70;
+  const circ = 2 * Math.PI * radius;
+  const targetOffset = circ - (score / 100) * circ;
+
+  useEffect(() => {
+    const t1 = setTimeout(() => setScore(step.score), 60);
+    const t2 = setTimeout(
+      () => setBarValues(step.bars.map((b) => b.value)),
+      200,
+    );
+    return () => {
+      clearTimeout(t1);
+      clearTimeout(t2);
+    };
+  }, [step]);
+
+  return (
+    <>
+      <div className="rounded-md border-2 border-border bg-card p-5 space-y-5">
+        <div className="flex items-center gap-5">
+          <div className="relative shrink-0">
+            <svg width="160" height="160" viewBox="0 0 160 160">
+              <circle
+                cx="80"
+                cy="80"
+                r={radius}
+                fill="none"
+                stroke="hsl(var(--border))"
+                strokeWidth="12"
+              />
+              <circle
+                cx="80"
+                cy="80"
+                r={radius}
+                fill="none"
+                stroke="hsl(var(--destructive))"
+                strokeWidth="12"
+                strokeLinecap="round"
+                strokeDasharray={circ}
+                strokeDashoffset={targetOffset}
+                transform="rotate(-90 80 80)"
+                style={{ transition: "stroke-dashoffset 1.2s ease-out" }}
+              />
+            </svg>
+            <div className="absolute inset-0 flex flex-col items-center justify-center">
+              <div className="mil-stencil text-3xl font-bold text-destructive">
+                {score}%
+              </div>
+              <div className="mil-stencil text-[10px] text-muted-foreground">
+                RIESGO
+              </div>
+            </div>
+          </div>
+          <div className="flex-1 space-y-2">
+            {step.bars.map((b, i) => (
+              <div key={b.label}>
+                <div className="flex justify-between text-xs mil-stencil">
+                  <span
+                    className={
+                      b.label === step.highlight
+                        ? "text-destructive font-bold"
+                        : "text-muted-foreground"
+                    }
+                  >
+                    {b.label}
+                  </span>
+                  <span
+                    className={
+                      b.label === step.highlight
+                        ? "text-destructive"
+                        : "text-muted-foreground"
+                    }
+                  >
+                    {barValues[i]}%
+                  </span>
+                </div>
+                <div className="h-2 bg-border rounded-full overflow-hidden">
+                  <div
+                    className={
+                      b.label === step.highlight
+                        ? "h-full bg-destructive"
+                        : "h-full bg-accent"
+                    }
+                    style={{
+                      width: `${barValues[i]}%`,
+                      transition: "width 1.2s ease-out",
+                    }}
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="space-y-2">
+          <div className="mil-stencil text-sm font-bold text-destructive">
+            {step.highlight}
+          </div>
+          <p className="text-sm text-muted-foreground leading-relaxed">
+            {step.body}
+          </p>
+        </div>
+
+        <div className="rounded-md border-l-4 border-accent bg-primary/10 p-3">
+          <div className="mil-stencil text-xs font-bold text-accent mb-1">
+            ¡Mejora la calidad de tu sueño!
+          </div>
+          <p className="text-xs text-muted-foreground leading-relaxed">
+            {step.callout}
+          </p>
+        </div>
+      </div>
+
+      <Button
+        className="w-full mil-stencil bg-accent text-accent-foreground hover:bg-accent/90"
+        size="lg"
+        onClick={onNext}
+      >
+        {step.cta}
+      </Button>
+    </>
+  );
+}
+
+
 
 
 function LoadingStepView({ onDone }: { onDone: () => void }) {
