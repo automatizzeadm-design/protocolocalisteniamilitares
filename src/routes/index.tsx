@@ -1991,16 +1991,7 @@ function IntroView({ onPickAge }: { onPickAge: (age: string) => void }) {
         </div>
       </div>
 
-      <section className="max-w-md mx-auto px-4 pt-6 pb-10 space-y-6">
-        <div className="flex justify-center">
-          <img
-            src={soldierIntro.url}
-            alt="Soldado"
-            className="w-full max-w-xs object-contain drop-shadow-2xl"
-            loading="eager"
-          />
-        </div>
-
+      <section className="max-w-3xl mx-auto px-4 pt-6 pb-10 space-y-6">
         <div className="text-center space-y-2">
           <h1 className="text-2xl font-bold mil-stencil text-accent leading-tight">
             Défi d'entraînement militaire avancé
@@ -2010,22 +2001,33 @@ function IntroView({ onPickAge }: { onPickAge: (age: string) => void }) {
           </p>
         </div>
 
-        <div className="space-y-3">
-          <div className="text-center mil-stencil text-xs font-bold text-accent tracking-widest">
-            SÉLECTIONNEZ VOTRE ÂGE
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+          <div className="flex justify-center order-2 md:order-1">
+            <img
+              src={soldierIntro.url}
+              alt="Soldado"
+              className="w-full max-w-xs object-contain drop-shadow-2xl"
+              loading="eager"
+            />
           </div>
-          {ages.map((a) => (
-            <Button
-              key={a}
-              variant="outline"
-              size="lg"
-              onClick={() => onPickAge(a)}
-              className="w-full mil-stencil justify-between border-2 border-border hover:border-accent hover:bg-accent/10"
-            >
-              <span className="font-bold">{a}</span>
-              <span className="text-accent">›</span>
-            </Button>
-          ))}
+
+          <div className="space-y-3 order-1 md:order-2">
+            <div className="text-center mil-stencil text-xs font-bold text-accent tracking-widest">
+              SÉLECTIONNEZ VOTRE ÂGE
+            </div>
+            {ages.map((a) => (
+              <Button
+                key={a}
+                variant="outline"
+                size="lg"
+                onClick={() => onPickAge(a)}
+                className="w-full mil-stencil justify-between border-2 border-border hover:border-accent hover:bg-accent/10"
+              >
+                <span className="font-bold">{a}</span>
+                <span className="text-accent">›</span>
+              </Button>
+            ))}
+          </div>
         </div>
       </section>
     </main>
