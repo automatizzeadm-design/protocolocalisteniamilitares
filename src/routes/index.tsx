@@ -790,6 +790,145 @@ function InputStepView({
   );
 }
 
+function HeightStepView({
+  value,
+  onChange,
+  onNext,
+}: {
+  value: string;
+  onChange: (v: string) => void;
+  onNext: () => void;
+}) {
+  const [unit, setUnit] = useState<"cm" | "ftin">("cm");
+  const [ft, setFt] = useState("");
+  const [inch, setIn] = useState("");
+
+  const cmFromFtIn = () => {
+    const f = Number(ft) || 0;
+    const i = Number(inch) || 0;
+    return Math.round((f * 12 + i) * 2.54);
+  };
+
+  const commit = (cm: number) => {
+    onChange(String(cm));
+  };
+
+  const valid =
+    unit === "cm" ? Number(value) > 0 : (Number(ft) || 0) > 0;
+
+  return (
+    <>
+      <div className="grid grid-cols-2 gap-2">
+        {(["ftin", "cm"] as const).map((u) => (
+          <button
+            key={u}
+            onClick={() => setUnit(u)}
+            className={`mil-stencil text-sm py-2 rounded-md border-2 transition-colors ${
+              unit === u
+                ? "border-accent bg-primary/20 text-foreground"
+                : "border-border bg-card text-muted-foreground"
+            }`}
+          >
+            {u === "ftin" ? "pies, pulgadas" : "cm"}
+          </button>
+        ))}
+      </div>
+
+      {unit === "cm" ? (
+        <div>
+          <label className="mil-stencil text-xs text-muted-foreground">
+            Estatura (cm)
+          </label>
+          <div className="relative mt-1">
+            <Input
+              type="number"
+              inputMode="numeric"
+              value={value}
+              placeholder="175"
+              onChange={(e) => onChange(e.target.value)}
+              className="h-12 text-lg"
+              onKeyDown={(e) => {
+                if (e.key === "Enter" && valid) onNext();
+              }}
+            />
+            <span className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground text-sm">
+              cm
+            </span>
+          </div>
+        </div>
+      ) : (
+        <div className="grid grid-cols-2 gap-3">
+          <div>
+            <label className="mil-stencil text-xs text-muted-foreground">
+              Pies
+            </label>
+            <div className="relative mt-1">
+              <Input
+                type="number"
+                inputMode="numeric"
+                value={ft}
+                placeholder="5"
+                onChange={(e) => {
+                  setFt(e.target.value);
+                  commit(cmFromFtIn());
+                }}
+                className="h-12 text-lg"
+              />
+              <span className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground text-sm">
+                ft
+              </span>
+            </div>
+          </div>
+          <div>
+            <label className="mil-stencil text-xs text-muted-foreground">
+              Pulgadas
+            </label>
+            <div className="relative mt-1">
+              <Input
+                type="number"
+                inputMode="numeric"
+                value={inch}
+                placeholder="9"
+                onChange={(e) => {
+                  setIn(e.target.value);
+                  commit(cmFromFtIn());
+                }}
+                className="h-12 text-lg"
+              />
+              <span className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground text-sm">
+                in
+              </span>
+            </div>
+          </div>
+        </div>
+      )}
+
+      <p className="text-xs text-muted-foreground leading-relaxed">
+        Acepto que MadMuscles procese mis datos de salud para brindar servicios
+        y mejorar mi experiencia de usuario.{" "}
+        <a href="#" className="text-accent underline">
+          Política de Privacidad
+        </a>
+        . Para retirar tu consentimiento, contáctanos en cualquier momento.
+      </p>
+
+      <Button
+        className="w-full mil-stencil bg-accent text-accent-foreground hover:bg-accent/90"
+        size="lg"
+        disabled={!valid}
+        onClick={() => {
+          if (unit === "ftin") commit(cmFromFtIn());
+          onNext();
+        }}
+      >
+        Continuar
+      </Button>
+    </>
+  );
+}
+
+
+
 function LoadingStepView({ onDone }: { onDone: () => void }) {
   const [progress, setProgress] = useState(0);
   useEffect(() => {
