@@ -22,7 +22,7 @@ export const Route = createFileRoute("/")({
 
 type Answers = Record<string, string | string[]>;
 
-const TOTAL = 38;
+const TOTAL = 39;
 
 type SingleStep = {
   kind: "single";
@@ -110,6 +110,16 @@ type GraphStep = {
   progress: number;
 };
 
+type DobStep = {
+  kind: "dob";
+  key: string;
+  section: string;
+  banner: string;
+  stepLabel: string;
+  title: string;
+  progress: number;
+};
+
 type Step =
   | SingleStep
   | MultiStep
@@ -119,7 +129,9 @@ type Step =
   | CompareStep
   | HeightStep
   | WeightStep
-  | GraphStep;
+  | GraphStep
+  | DobStep;
+
 
 
 
@@ -462,10 +474,19 @@ const STEPS: Step[] = [
     ],
   },
   {
+    kind: "dob",
+    key: "dob",
+    section: "Vamos a crear tu cuenta MadMuscles.",
+    banner: "¡Tu plan de entrenamiento militar está listo!",
+    stepLabel: "1/3",
+    title: "¿Cuál es tu fecha de nacimiento?",
+    progress: 26,
+  },
+  {
     kind: "single",
     key: "frequency",
     title: "¿Cuántas veces a la semana quieres entrenar?",
-    progress: 26,
+    progress: 27,
     options: [
       { value: "2-3", label: "2 a 3 veces" },
       { value: "3-4", label: "3 a 4 veces" },
@@ -476,7 +497,7 @@ const STEPS: Step[] = [
     kind: "single",
     key: "duration",
     title: "¿Cuánto tiempo por sesión?",
-    progress: 27,
+    progress: 28,
     options: [
       { value: "15", label: "15 minutos" },
       { value: "30", label: "30 minutos" },
@@ -488,7 +509,7 @@ const STEPS: Step[] = [
     kind: "single",
     key: "experience",
     title: "¿Cuál es tu nivel de experiencia?",
-    progress: 28,
+    progress: 29,
     options: [
       { value: "debutant", label: "Principiante" },
       { value: "intermediaire", label: "Intermedio" },
@@ -499,14 +520,14 @@ const STEPS: Step[] = [
     kind: "height",
     key: "height",
     title: "¿Cuánto mides?",
-    progress: 29,
+    progress: 30,
   },
 
   {
     kind: "weight",
     key: "weight",
     title: "¿Cuál es tu peso actual y cuál es tu peso ideal?",
-    progress: 30,
+    progress: 31,
   },
 
   {
@@ -515,13 +536,13 @@ const STEPS: Step[] = [
     title: "Objetivo realista y alcanzable",
     body: "Según tus respuestas, tu meta es totalmente alcanzable con nuestro plan militar personalizado.",
     cta: "Continuar",
-    progress: 31,
+    progress: 32,
   },
   {
     kind: "single",
     key: "event-date",
     title: "¿Cuándo quieres lograr tu objetivo?",
-    progress: 32,
+    progress: 33,
     options: [
       { value: "1m", label: "En 1 mes" },
       { value: "3m", label: "En 3 meses" },
@@ -533,7 +554,7 @@ const STEPS: Step[] = [
     kind: "single",
     key: "motivation-level",
     title: "¿Qué tan motivado estás?",
-    progress: 33,
+    progress: 34,
     options: [
       { value: "extreme", label: "Extremadamente motivado" },
       { value: "high", label: "Muy motivado" },
@@ -547,7 +568,7 @@ const STEPS: Step[] = [
     subtitle: "Vamos a personalizar tu plan con tu nombre.",
     inputType: "text",
     placeholder: "Tu nombre",
-    progress: 34,
+    progress: 35,
   },
   {
     kind: "input",
@@ -556,14 +577,14 @@ const STEPS: Step[] = [
     subtitle: "Te mandamos tu plan por correo.",
     inputType: "email",
     placeholder: "tu@correo.com",
-    progress: 35,
+    progress: 36,
   },
   {
     kind: "loading",
     key: "analyzing",
     title: "Analizando tus respuestas...",
     subtitle: "Estamos armando tu plan militar personalizado.",
-    progress: 36,
+    progress: 37,
   },
   {
     kind: "info",
@@ -571,7 +592,7 @@ const STEPS: Step[] = [
     title: "¡Tu plan está listo!",
     body: "Con base en tus respuestas, armamos un plan de entrenamiento militar hecho a la medida de tu cuerpo y tus metas.",
     cta: "Ver mi plan",
-    progress: 37,
+    progress: 38,
   },
 ];
 
@@ -833,6 +854,16 @@ function Quiz() {
         )}
 
         {step.kind === "graph" && <GraphStepView step={step} onNext={next} />}
+
+        {step.kind === "dob" && (
+          <DobStepView
+            step={step}
+            value={(answers[step.key] as string) ?? ""}
+            onChange={(v) => setAnswers((a) => ({ ...a, [step.key]: v }))}
+            onNext={next}
+          />
+        )}
+
 
         {step.kind === "loading" && <LoadingStepView onDone={next} />}
 
@@ -1104,6 +1135,89 @@ function WeightStepView({
     </>
   );
 }
+
+function parseDob(dateStr: string): Date | null {
+  const m = dateStr.match(/^(\d{2})\/(\d{2})\/(\d{4})$/);
+  if (!m) return null;
+  const d = +m[1], mo = +m[2], y = +m[3];
+  if (mo < 1 || mo > 12 || d < 1 || d > 31) return null;
+  const dt = new Date(Date.UTC(y, mo - 1, d));
+  if (dt.getUTCDate() !== d || dt.getUTCMonth() !== mo - 1) return null;
+  const now = new Date();
+  const age = (now.getTime() - dt.getTime()) / (365.25 * 24 * 3600 * 1000);
+  if (age < 13 || age > 100) return null;
+  return dt;
+}
+
+function formatDobInput(raw: string): string {
+  const digits = raw.replace(/\D/g, "").slice(0, 8);
+  const p1 = digits.slice(0, 2);
+  const p2 = digits.slice(2, 4);
+  const p3 = digits.slice(4, 8);
+  return [p1, p2, p3].filter(Boolean).join("/");
+}
+
+function DobStepView({
+  step,
+  value,
+  onChange,
+  onNext,
+}: {
+  step: DobStep;
+  value: string;
+  onChange: (v: string) => void;
+  onNext: () => void;
+}) {
+  const [touched, setTouched] = useState(false);
+  const valid = parseDob(value) !== null;
+  const showError = touched && value.length === 10 && !valid;
+
+  return (
+    <>
+      <div className="rounded-md border-2 border-accent bg-primary/10 p-4 space-y-1">
+        <div className="mil-stencil text-xs text-accent font-bold">
+          ★ {step.banner}
+        </div>
+        <div className="text-sm text-foreground">{step.section}</div>
+        <div className="mil-stencil text-[10px] text-muted-foreground">
+          Paso {step.stepLabel}
+        </div>
+      </div>
+
+      <div>
+        <Input
+          inputMode="numeric"
+          value={value}
+          placeholder="DD/MM/AAAA"
+          onChange={(e) => {
+            onChange(formatDobInput(e.target.value));
+            setTouched(true);
+          }}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" && valid) onNext();
+          }}
+          className={`h-12 text-lg ${showError ? "border-destructive" : ""}`}
+        />
+        {showError && (
+          <p className="mt-2 text-xs text-destructive">
+            Ingresa una fecha de nacimiento válida.
+          </p>
+        )}
+      </div>
+
+      <Button
+        className="w-full mil-stencil bg-accent text-accent-foreground hover:bg-accent/90"
+        size="lg"
+        disabled={!valid}
+        onClick={onNext}
+      >
+        Continuar
+      </Button>
+    </>
+  );
+}
+
+
 
 function GraphStepView({
   step,
