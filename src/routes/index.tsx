@@ -83,13 +83,22 @@ type CompareStep = {
   progress: number;
 };
 
+type HeightStep = {
+  kind: "height";
+  key: string;
+  title: string;
+  progress: number;
+};
+
 type Step =
   | SingleStep
   | MultiStep
   | InfoStep
   | InputStep
   | LoadingStep
-  | CompareStep;
+  | CompareStep
+  | HeightStep;
+
 
 const STEPS: Step[] = [
   {
