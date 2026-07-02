@@ -229,14 +229,19 @@ const STEPS: Step[] = [
     ],
   },
   {
-    kind: "single",
-    key: "work-activity",
-    title: "¿Qué tan activo eres en el trabajo?",
+    kind: "multi",
+    key: "injuries",
+    title: "¿Tienes alguna lesión?",
+    subtitle:
+      "Ajustaremos el plan para proteger esas partes del cuerpo de daños adicionales.",
     progress: 12,
     options: [
-      { value: "sedentaire", label: "Sedentario (oficina)" },
-      { value: "actif", label: "De pie / activo" },
-      { value: "physique", label: "Trabajo físico" },
+      { value: "articulaciones", label: "Articulaciones" },
+      { value: "rodillas", label: "Rodillas" },
+      { value: "cervical", label: "Cervical" },
+      { value: "lumbar", label: "Lumbar" },
+      { value: "ninguna", label: "Ninguna" },
+      { value: "prefiero-no-decir", label: "Prefiero no comentar" },
     ],
   },
   {
