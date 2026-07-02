@@ -626,13 +626,11 @@ const STEPS: Step[] = [
   },
 
   {
-    kind: "info",
-    key: "plan-ready",
-    title: "¡Tu plan está listo!",
-    body: "Con base en tus respuestas, armamos un plan de entrenamiento militar hecho a la medida de tu cuerpo y tus metas.",
-    cta: "Ver mi plan",
+    kind: "plan",
+    key: "plan",
     progress: 40,
   },
+
 ];
 
 
