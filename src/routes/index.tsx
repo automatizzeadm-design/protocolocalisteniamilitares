@@ -281,14 +281,14 @@ const STEPS: Step[] = [
   },
   {
     kind: "single",
-    key: "diet",
-    title: "¿Qué tipo de alimentación llevas?",
+    key: "training-frequency",
+    title: "¿Con qué frecuencia estás dispuesto a entrenar?",
     progress: 14,
     options: [
-      { value: "classique", label: "Clásica" },
-      { value: "vegetarien", label: "Vegetariana" },
-      { value: "vegan", label: "Vegana" },
-      { value: "keto", label: "Keto / baja en carbohidratos" },
+      { value: "1-2", label: "1 a 2 veces por semana 💪" },
+      { value: "3-4", label: "De 3 a 4 veces por semana 💪⚡️" },
+      { value: "casi-diario", label: "Casi todos los días 🏆" },
+      { value: "no-seguro", label: "Todavía no estoy seguro" },
     ],
   },
   {
