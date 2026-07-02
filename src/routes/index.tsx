@@ -797,30 +797,41 @@ function Quiz() {
 
         {step.kind === "multi" && (
           <>
-            <div className="space-y-3">
-              {step.options.map((o) => {
-                const selected =
-                  ((answers[step.key] as string[]) ?? []).includes(o.value);
-                return (
-                  <button
-                    key={o.value}
-                    onClick={() => toggle(step.key, o.value)}
-                    className={`w-full text-left rounded-md border-2 px-4 py-4 flex items-center justify-between transition-colors ${
-                      selected
-                        ? "border-accent bg-primary/25 text-foreground"
-                        : "border-border bg-card hover:border-accent"
-                    }`}
-                  >
-                    <span className="font-semibold">{o.label}</span>
-                    <span
-                      className={`text-accent ${selected ? "" : "opacity-40"}`}
+            <div className={step.key === "injuries" ? "flex gap-3 items-start" : ""}>
+              <div className="space-y-2 flex-1 min-w-0">
+                {step.options.map((o) => {
+                  const selected =
+                    ((answers[step.key] as string[]) ?? []).includes(o.value);
+                  return (
+                    <button
+                      key={o.value}
+                      onClick={() => toggle(step.key, o.value)}
+                      className={`w-full text-left rounded-md border-2 px-3 py-3 flex items-center justify-between transition-colors ${
+                        selected
+                          ? "border-accent bg-primary/25 text-foreground"
+                          : "border-border bg-card hover:border-accent"
+                      }`}
                     >
-                      {selected ? "✓" : "▢"}
-                    </span>
-                  </button>
-                );
-              })}
+                      <span className="font-semibold text-sm">{o.label}</span>
+                      <span
+                        className={`text-accent ${selected ? "" : "opacity-40"}`}
+                      >
+                        {selected ? "✓" : "▢"}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+              {step.key === "injuries" && (
+                <img
+                  src={injuriesBody.url}
+                  alt="Zonas de lesión"
+                  className="w-28 sm:w-36 shrink-0 object-contain self-center drop-shadow-xl"
+                  loading="lazy"
+                />
+              )}
             </div>
+
             <Button
               className="w-full mil-stencil bg-accent text-accent-foreground hover:bg-accent/90"
               size="lg"
