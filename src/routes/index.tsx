@@ -397,14 +397,12 @@ const STEPS: Step[] = [
     ],
   },
   {
-    kind: "input",
+    kind: "height",
     key: "height",
     title: "¿Cuánto mides?",
-    inputType: "number",
-    placeholder: "175",
-    suffix: "cm",
     progress: 23,
   },
+
   {
     kind: "input",
     key: "weight",
