@@ -2029,17 +2029,6 @@ function IntroView({ onPickAge }: { onPickAge: (age: string) => void }) {
             ))}
           </div>
         </div>
-                variant="outline"
-                size="lg"
-                onClick={() => onPickAge(a)}
-                className="w-full mil-stencil justify-between border-2 border-border hover:border-accent hover:bg-accent/10"
-              >
-                <span className="font-bold">{a}</span>
-                <span className="text-accent">›</span>
-              </Button>
-            ))}
-          </div>
-        </div>
       </section>
     </main>
   );
