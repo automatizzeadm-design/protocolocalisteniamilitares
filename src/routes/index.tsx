@@ -2002,7 +2002,7 @@ function IntroView({ onPickAge }: { onPickAge: (age: string) => void }) {
         </div>
 
         <div className="grid grid-cols-2 gap-3 items-center">
-          <div className="flex justify-center">
+          <div className="flex justify-center order-2">
             <img
               src={soldierIntro.url}
               alt="Soldado"
@@ -2011,7 +2011,7 @@ function IntroView({ onPickAge }: { onPickAge: (age: string) => void }) {
             />
           </div>
 
-          <div className="space-y-2 min-w-0">
+          <div className="space-y-2 min-w-0 order-1">
             <div className="text-center mil-stencil text-[10px] font-bold text-accent tracking-widest">
               SÉLECTIONNEZ VOTRE ÂGE
             </div>
