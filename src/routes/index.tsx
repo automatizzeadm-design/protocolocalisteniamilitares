@@ -700,9 +700,14 @@ function Quiz() {
     );
   }
 
-  if (step.kind === "plan") {
-    return <PlanView answers={answers} onFinish={() => setDone(true)} />;
+  if (showSales) {
+    return <SalesView answers={answers} onFinish={() => setDone(true)} />;
   }
+
+  if (step.kind === "plan") {
+    return <PlanView answers={answers} onFinish={() => setShowSales(true)} />;
+  }
+
 
   return (
     <main className="min-h-screen bg-background text-foreground">
