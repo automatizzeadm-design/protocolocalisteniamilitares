@@ -485,7 +485,7 @@ function Quiz() {
             <button
               onClick={back}
               className="text-sm text-muted-foreground hover:text-foreground"
-              aria-label="Retour"
+              aria-label="Volver"
             >
               ←
             </button>
