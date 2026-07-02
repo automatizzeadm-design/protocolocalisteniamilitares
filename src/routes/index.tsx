@@ -408,6 +408,18 @@ const STEPS: Step[] = [
   },
   {
     kind: "single",
+    key: "sleep",
+    title: "¿Cuántas horas sueles dormir?",
+    progress: 23,
+    options: [
+      { value: "<5", label: "Menos de 5 horas 🙄" },
+      { value: "5-6", label: "5-6 horas 🥱" },
+      { value: "7-8", label: "7-8 horas 🌜" },
+      { value: "8+", label: "Más de 8 horas 😴" },
+    ],
+  },
+  {
+    kind: "single",
     key: "frequency",
     title: "¿Cuántas veces a la semana quieres entrenar?",
     progress: 24,
