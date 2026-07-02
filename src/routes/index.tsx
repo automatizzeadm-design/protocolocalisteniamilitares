@@ -634,7 +634,57 @@ function Quiz() {
           >
             {step.cta}
           </Button>
+        {step.kind === "info" && (
+          <Button
+            className="w-full mil-stencil bg-accent text-accent-foreground hover:bg-accent/90"
+            size="lg"
+            onClick={next}
+          >
+            {step.cta}
+          </Button>
         )}
+
+        {step.kind === "compare" && (
+          <>
+            <div className="grid grid-cols-2 gap-3">
+              {[step.left, step.right].map((col, i) => (
+                <div
+                  key={i}
+                  className={`rounded-md border-2 p-4 space-y-3 ${
+                    i === 0
+                      ? "border-border bg-card/60"
+                      : "border-accent bg-primary/20"
+                  }`}
+                >
+                  <div className="text-3xl">{col.emoji}</div>
+                  <div className="mil-stencil text-sm font-bold">
+                    {col.title}
+                  </div>
+                  <ul className="space-y-1 text-sm text-muted-foreground">
+                    {col.items.map((it) => (
+                      <li key={it} className="flex gap-2">
+                        <span className="text-accent">▸</span>
+                        {it}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+            <p className="text-muted-foreground text-sm leading-relaxed">
+              {step.body}
+            </p>
+            <Button
+              className="w-full mil-stencil bg-accent text-accent-foreground hover:bg-accent/90"
+              size="lg"
+              onClick={next}
+            >
+              {step.cta}
+            </Button>
+          </>
+        )}
+
+
 
 
         {step.kind === "input" && (
