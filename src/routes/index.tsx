@@ -262,15 +262,22 @@ const STEPS: Step[] = [
     ],
   },
   {
-    kind: "single",
-    key: "walking",
-    title: "¿Cuánto caminas cada día?",
+    kind: "compare",
+    key: "real-strength",
+    title: "La verdadera fuerza: más allá de la estética.",
     progress: 13,
-    options: [
-      { value: "<30", label: "Menos de 30 min" },
-      { value: "30-60", label: "30 a 60 min" },
-      { value: "60+", label: "Más de 1 hora" },
-    ],
+    left: {
+      title: "Entrenamiento en el gym",
+      emoji: "🏋",
+      items: ["Estética", "Máquinas", "Tamaño muscular"],
+    },
+    right: {
+      title: "Entrenamiento militar",
+      emoji: "🚀",
+      items: ["Funcionalidad", "Peso corporal", "Fuerza muscular"],
+    },
+    body: "El entrenamiento militar prioriza la fuerza práctica y real. Nuestro programa se basa en ejercicios intensos y compuestos, diseñados para crear un cuerpo poderoso y funcional — no solo cierta apariencia.",
+    cta: "Continuar",
   },
   {
     kind: "single",
