@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Input } from "@/components/ui/input";
+import homeTraining from "@/assets/home-training.jpg";
+
 
 export const Route = createFileRoute("/")({
   component: Quiz,
@@ -46,8 +48,10 @@ type InfoStep = {
   title: string;
   body: string;
   cta: string;
+  image?: string;
   progress: number;
 };
+
 
 type InputStep = {
   kind: "input";
