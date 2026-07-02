@@ -69,8 +69,10 @@ type LoadingStep = {
   key: string;
   title: string;
   subtitle?: string;
+  phrases?: string[];
   progress: number;
 };
+
 
 type CompareStep = {
   kind: "compare";
@@ -603,10 +605,18 @@ const STEPS: Step[] = [
   {
     kind: "loading",
     key: "analyzing",
-    title: "Analizando tus respuestas...",
+    title: "Calculando tus respuestas...",
     subtitle: "Estamos armando tu plan militar personalizado.",
+    phrases: [
+      "🎯 Ajustando tu nivel de intensidad",
+      "🏋️ Seleccionando ejercicios óptimos",
+      "🔥 Calibrando cardio y fuerza",
+      "🧠 Adaptando a tu estilo de vida",
+      "🚀 Casi listo...",
+    ],
     progress: 38,
   },
+
   {
     kind: "info",
     key: "plan-ready",
@@ -895,7 +905,7 @@ function Quiz() {
         )}
 
 
-        {step.kind === "loading" && <LoadingStepView onDone={next} />}
+        {step.kind === "loading" && <LoadingStepView step={step} onDone={next} />}
 
 
 
@@ -1456,28 +1466,56 @@ function GraphStepView({
 
 
 
-function LoadingStepView({ onDone }: { onDone: () => void }) {
+function LoadingStepView({
+  step,
+  onDone,
+}: {
+  step: LoadingStep;
+  onDone: () => void;
+}) {
   const [progress, setProgress] = useState(0);
+  const phrases = step.phrases ?? [];
+  const [phraseIdx, setPhraseIdx] = useState(0);
+
   useEffect(() => {
     const start = Date.now();
-    const duration = 3000;
+    const duration = 4500;
     const id = setInterval(() => {
       const p = Math.min(100, ((Date.now() - start) / duration) * 100);
       setProgress(p);
       if (p >= 100) {
         clearInterval(id);
-        setTimeout(onDone, 250);
+        setTimeout(onDone, 300);
       }
     }, 60);
     return () => clearInterval(id);
   }, [onDone]);
 
+  useEffect(() => {
+    if (phrases.length === 0) return;
+    const id = setInterval(() => {
+      setPhraseIdx((i) => (i + 1) % phrases.length);
+    }, 900);
+    return () => clearInterval(id);
+  }, [phrases.length]);
+
   return (
-    <div className="space-y-3">
+    <div className="space-y-4">
       <Progress value={progress} />
-      <p className="text-center text-sm text-muted-foreground tabular-nums">
+      <p className="text-center text-sm text-muted-foreground tabular-nums mil-stencil">
         {Math.round(progress)}%
       </p>
+      {phrases.length > 0 && (
+        <div className="min-h-[3rem] flex items-center justify-center">
+          <p
+            key={phraseIdx}
+            className="text-center text-sm text-foreground animate-fade-in"
+          >
+            {phrases[phraseIdx]}
+          </p>
+        </div>
+      )}
     </div>
   );
 }
+
