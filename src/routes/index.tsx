@@ -195,13 +195,14 @@ const STEPS: Step[] = [
   },
   {
     kind: "single",
-    key: "energy",
-    title: "¿Cómo calificas tu nivel de energía?",
+    key: "pullups",
+    title: "¿Cuántas dominadas puedes hacer en una ronda?",
     progress: 10,
     options: [
-      { value: "low", label: "Bajo" },
-      { value: "mid", label: "Medio" },
-      { value: "high", label: "Alto" },
+      { value: "0", label: "No puedo hacer ninguna dominada" },
+      { value: "<5", label: "Menos de 5 🔥" },
+      { value: "5-10", label: "5 - 10 🔥🔥" },
+      { value: "10+", label: "Más de 10 🔥🔥🔥" },
     ],
   },
   {
