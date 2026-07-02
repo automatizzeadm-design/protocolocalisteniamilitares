@@ -651,6 +651,8 @@ function Quiz() {
   const [index, setIndex] = useState(0);
   const [answers, setAnswers] = useState<Answers>({});
   const [done, setDone] = useState(false);
+  const [showSales, setShowSales] = useState(false);
+
 
   const step = STEPS[index];
   const pct = Math.round(((step?.progress ?? TOTAL) / TOTAL) * 100);
