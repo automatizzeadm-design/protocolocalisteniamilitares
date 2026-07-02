@@ -451,6 +451,18 @@ const STEPS: Step[] = [
   },
   {
     kind: "single",
+    key: "needs-structure",
+    title: "¿En qué medida te reconoces en esta afirmación?",
+    subtitle: "Necesito estructura o guía durante las sesiones de entrenamiento para mantenerme motivado.",
+    progress: 25,
+    options: [
+      { value: "disagree", label: "En desacuerdo" },
+      { value: "neutral", label: "Neutral" },
+      { value: "agree", label: "De acuerdo" },
+    ],
+  },
+  {
+    kind: "single",
     key: "frequency",
     title: "¿Cuántas veces a la semana quieres entrenar?",
     progress: 26,
