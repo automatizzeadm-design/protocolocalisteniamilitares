@@ -8,11 +8,11 @@ export const Route = createFileRoute("/")({
   component: Quiz,
   head: () => ({
     meta: [
-      { title: "Quiz Militaire — Votre plan personnalisé" },
+      { title: "Quiz Militar — Tu plan personalizado" },
       {
         name: "description",
         content:
-          "Répondez à quelques questions pour obtenir votre plan d'entraînement militaire personnalisé.",
+          "Responde unas preguntas y llévate tu plan de entrenamiento militar personalizado.",
       },
     ],
   }),
