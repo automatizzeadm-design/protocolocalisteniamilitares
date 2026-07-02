@@ -552,7 +552,7 @@ function Quiz() {
               disabled={!((answers[step.key] as string[]) ?? []).length}
               onClick={next}
             >
-              Continuer
+              Continuar
             </Button>
           </>
         )}
@@ -613,7 +613,7 @@ function InputStepView({
         )}
       </div>
       <Button className="w-full" size="lg" disabled={!valid} onClick={onNext}>
-        Continuer
+        Continuar
       </Button>
     </>
   );
