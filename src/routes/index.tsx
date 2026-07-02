@@ -5,6 +5,8 @@ import { Progress } from "@/components/ui/progress";
 import { Input } from "@/components/ui/input";
 import homeTraining from "@/assets/home-training.jpg";
 import beforeAfterAsset from "@/assets/before-after.png.asset.json";
+import injuriesBody from "@/assets/injuries-body.jpg.asset.json";
+
 
 import programPreview from "@/assets/program-preview.jpg";
 import calendar2026 from "@/assets/calendar-2026.jpg";
