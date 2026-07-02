@@ -640,7 +640,12 @@ function InputStepView({
           </span>
         )}
       </div>
-      <Button className="w-full" size="lg" disabled={!valid} onClick={onNext}>
+      <Button
+        className="w-full mil-stencil bg-accent text-accent-foreground hover:bg-accent/90"
+        size="lg"
+        disabled={!valid}
+        onClick={onNext}
+      >
         Continuar
       </Button>
     </>
