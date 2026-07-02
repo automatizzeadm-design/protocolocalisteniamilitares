@@ -49,7 +49,26 @@ type InfoStep = {
   progress: number;
 };
 
-type Step = SingleStep | MultiStep | InfoStep;
+type InputStep = {
+  kind: "input";
+  key: string;
+  title: string;
+  subtitle?: string;
+  inputType: "number" | "text" | "email";
+  placeholder?: string;
+  suffix?: string;
+  progress: number;
+};
+
+type LoadingStep = {
+  kind: "loading";
+  key: string;
+  title: string;
+  subtitle?: string;
+  progress: number;
+};
+
+type Step = SingleStep | MultiStep | InfoStep | InputStep | LoadingStep;
 
 const STEPS: Step[] = [
   {
