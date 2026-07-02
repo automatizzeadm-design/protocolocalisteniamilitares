@@ -1543,3 +1543,262 @@ function LoadingStepView({
   );
 }
 
+function PlanView({
+  answers,
+  onFinish,
+}: {
+  answers: Answers;
+  onFinish: () => void;
+}) {
+  const name = (answers["name"] as string) || "Soldado";
+  const currentKg = Number(answers["weight"]) || 82;
+  const targetKg = Number(answers["target-weight"]) || 72;
+  const heightCm = Number(answers["height"]) || 178;
+  const bmi = currentKg / Math.pow(heightCm / 100, 2);
+  const bmiTargetPos = Math.min(
+    100,
+    Math.max(0, ((bmi - 15) / (35 - 15)) * 100),
+  );
+
+  const goals = [
+    "Reducir el estrés",
+    "Sentirte más saludable",
+    "Autodisciplina",
+    "Formar un hábito físico",
+    "Mejorar el sueño",
+  ];
+
+  const bmiZones = [
+    { label: "Bajo peso", color: "bg-accent/40", w: 25 },
+    { label: "Normal", color: "bg-accent", w: 25 },
+    { label: "Sobrepeso", color: "bg-destructive/60", w: 25 },
+    { label: "Obeso", color: "bg-destructive", w: 25 },
+  ];
+
+  return (
+    <main className="min-h-screen bg-background text-foreground">
+      <div className="bg-primary/20 border-b border-primary/40">
+        <div className="max-w-md mx-auto px-4 py-2 flex items-center justify-between">
+          <span className="mil-stencil text-xs text-accent font-bold">
+            ★ MadMuscles
+          </span>
+          <div className="flex items-center gap-3 text-[10px] mil-stencil text-muted-foreground">
+            <span>Ayuda</span>
+            <span>ES</span>
+          </div>
+        </div>
+      </div>
+
+      <section className="max-w-md mx-auto px-4 py-6 space-y-6">
+        {/* Before / After */}
+        <div>
+          <div className="mil-stencil text-xs text-accent font-bold mb-2">
+            Tu objetivo, {name}
+          </div>
+          <div className="grid grid-cols-2 gap-3">
+            {[
+              { img: beforeBody, label: "AHORA", fat: "20-24%" },
+              { img: afterBody, label: "OBJETIVO", fat: "15-17%" },
+            ].map((c) => (
+              <div
+                key={c.label}
+                className="rounded-md border-2 border-border bg-card overflow-hidden"
+              >
+                <div className="mil-stencil text-[10px] font-bold text-accent px-2 py-1 border-b border-border">
+                  {c.label}
+                </div>
+                <img
+                  src={c.img}
+                  alt={c.label}
+                  width={768}
+                  height={1024}
+                  loading="lazy"
+                  className="w-full aspect-[3/4] object-cover"
+                />
+                <div className="p-2 space-y-1">
+                  <div className="mil-stencil text-[10px] text-muted-foreground">
+                    Grasa corporal
+                  </div>
+                  <div className="mil-stencil text-sm font-bold">{c.fat}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+          <p className="mt-3 text-[10px] text-muted-foreground leading-relaxed">
+            *Los resultados son solo indicativos y no garantizados. Los
+            resultados individuales pueden variar según dieta, ejercicio y
+            metabolismo. Las imágenes son meramente motivacionales.
+          </p>
+        </div>
+
+        {/* BMI */}
+        <div className="rounded-md border-2 border-border bg-card p-4 space-y-3">
+          <div className="mil-stencil text-xs text-accent font-bold">
+            IMC actual
+          </div>
+          <div className="mil-stencil text-2xl font-bold">
+            {bmi.toFixed(1)}
+          </div>
+          <div className="relative h-3 rounded-full overflow-hidden flex">
+            {bmiZones.map((z) => (
+              <div key={z.label} className={`${z.color} h-full`} style={{ width: `${z.w}%` }} />
+            ))}
+            <div
+              className="absolute top-1/2 -translate-y-1/2 w-3 h-3 rounded-full bg-foreground border-2 border-background"
+              style={{ left: `calc(${bmiTargetPos}% - 6px)` }}
+            />
+          </div>
+          <div className="grid grid-cols-4 text-[9px] mil-stencil text-muted-foreground">
+            {bmiZones.map((z) => (
+              <span key={z.label}>{z.label}</span>
+            ))}
+          </div>
+          <p className="text-xs text-muted-foreground leading-relaxed">
+            El índice de masa corporal (IMC) usa tu altura y peso para
+            determinar si tu peso es saludable.
+          </p>
+        </div>
+
+        {/* Recommended */}
+        <div className="grid grid-cols-2 gap-3">
+          {[
+            { emoji: "🍔", label: "Calorías diarias", value: "2 400", scale: "1000-5000 kcal" },
+            { emoji: "💧", label: "Agua diaria", value: "3,1 L", scale: "recomendado" },
+          ].map((c) => (
+            <div
+              key={c.label}
+              className="rounded-md border-2 border-border bg-card p-3 space-y-1"
+            >
+              <div className="text-2xl">{c.emoji}</div>
+              <div className="mil-stencil text-[10px] text-accent">
+                RECOMENDADO
+              </div>
+              <div className="mil-stencil text-[11px] text-muted-foreground">
+                {c.label}
+              </div>
+              <div className="mil-stencil text-lg font-bold">{c.value}</div>
+              <div className="text-[10px] text-muted-foreground">{c.scale}</div>
+            </div>
+          ))}
+        </div>
+
+        {/* What you get */}
+        <div className="space-y-3">
+          <h2 className="mil-stencil text-lg font-bold">Qué recibes</h2>
+          {[
+            {
+              t: "Plan de entrenamiento militar",
+              d: "Personalizado para tu edad, tipo físico y nivel.",
+            },
+            {
+              t: "Sesiones de 15 a 30 minutos por día",
+              d: "Diseñadas para construir fuerza real.",
+            },
+            {
+              t: "Paso a paso",
+              d: "Un enfoque simple para lograr resultados en semanas.",
+            },
+          ].map((f) => (
+            <div
+              key={f.t}
+              className="rounded-md border-2 border-border bg-card p-3"
+            >
+              <div className="mil-stencil text-sm font-bold">{f.t}</div>
+              <div className="text-xs text-muted-foreground">{f.d}</div>
+            </div>
+          ))}
+          <img
+            src={programPreview}
+            alt="Vista previa del programa"
+            width={1024}
+            height={768}
+            loading="lazy"
+            className="w-full rounded-md border-2 border-border"
+          />
+        </div>
+
+        {/* Bonus */}
+        <div className="rounded-md border-2 border-accent bg-primary/10 p-3 space-y-2">
+          <div className="mil-stencil text-xs text-accent font-bold">
+            🎁 BONUS IMPRIMIBLE
+          </div>
+          <div className="mil-stencil text-sm font-bold">
+            Mapa imprimible para 2026
+          </div>
+          <img
+            src={calendar2026}
+            alt="Calendario 2026"
+            width={1024}
+            height={768}
+            loading="lazy"
+            className="w-full rounded-md border border-border"
+          />
+        </div>
+
+        {/* Goals */}
+        <div className="space-y-2">
+          <h3 className="mil-stencil text-sm font-bold">
+            Los objetivos de tu programa también son:
+          </h3>
+          <div className="grid grid-cols-1 gap-2">
+            {goals.map((g) => (
+              <div
+                key={g}
+                className="flex items-center gap-2 rounded-md border border-border bg-card px-3 py-2 text-sm"
+              >
+                <span className="text-accent">▸</span> {g}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Social proof */}
+        <div className="grid grid-cols-2 gap-3">
+          <div className="rounded-md border-2 border-border bg-card p-3 text-center">
+            <div className="mil-stencil text-xl font-bold text-accent">
+              4M+
+            </div>
+            <div className="text-[10px] text-muted-foreground leading-tight">
+              comenzaron su journey fitness con nosotros
+            </div>
+          </div>
+          <div className="rounded-md border-2 border-border bg-card p-3 text-center">
+            <div className="mil-stencil text-xl font-bold text-accent">
+              4,4 / 5
+            </div>
+            <div className="text-[10px] text-muted-foreground leading-tight">
+              +200 000 reseñas 5★ (App Store & Play, jun 2026)
+            </div>
+          </div>
+        </div>
+
+        {/* Complete plan */}
+        <div className="rounded-md border-2 border-border bg-card p-4 space-y-2">
+          <h3 className="mil-stencil text-sm font-bold">
+            Plan de entrenamiento completo
+          </h3>
+          {[
+            "Desarrolla el hábito y las técnicas correctas de ejercicio.",
+            "Elimina el exceso de grasa y mejora la intensidad de tus entrenamientos.",
+            "Alcanza tu objetivo y cambia tu vida para siempre.",
+          ].map((l) => (
+            <div key={l} className="flex gap-2 text-sm">
+              <span className="text-accent">☑️</span>
+              <span className="text-muted-foreground">{l}</span>
+            </div>
+          ))}
+        </div>
+
+        <Button
+          className="w-full mil-stencil bg-accent text-accent-foreground hover:bg-accent/90"
+          size="lg"
+          onClick={onFinish}
+        >
+          Obtener mi plan
+        </Button>
+      </section>
+    </main>
+  );
+}
+
+
