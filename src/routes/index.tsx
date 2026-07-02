@@ -1247,6 +1247,77 @@ function DobStepView({
   );
 }
 
+function AcctEmailStepView({
+  step,
+  value,
+  onChange,
+  onNext,
+}: {
+  step: AcctEmailStep;
+  value: string;
+  onChange: (v: string) => void;
+  onNext: () => void;
+}) {
+  const [touched, setTouched] = useState(false);
+  const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+  const showError = touched && !valid;
+
+  return (
+    <>
+      <div className="rounded-md border-2 border-accent bg-primary/10 p-4 space-y-1">
+        <div className="mil-stencil text-xs text-accent font-bold">
+          ★ {step.banner}
+        </div>
+        <div className="text-sm text-foreground">{step.section}</div>
+        <div className="mil-stencil text-[10px] text-muted-foreground">
+          Paso {step.stepLabel}
+        </div>
+      </div>
+
+      <div>
+        <label className="mil-stencil text-xs text-muted-foreground">
+          Email
+        </label>
+        <Input
+          type="email"
+          inputMode="email"
+          value={value}
+          placeholder="nombre@ejemplo.com"
+          onChange={(e) => {
+            onChange(e.target.value);
+            setTouched(true);
+          }}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" && valid) onNext();
+          }}
+          className={`h-12 text-lg mt-1 ${showError ? "border-destructive" : ""}`}
+        />
+        {showError && (
+          <p className="mt-2 text-xs text-destructive">
+            Ingresa tu dirección de email.
+          </p>
+        )}
+      </div>
+
+      <p className="text-xs text-muted-foreground leading-relaxed">
+        Respetamos tu privacidad y nos tomamos muy en serio tu protección — sin
+        spam.
+      </p>
+
+      <Button
+        className="w-full mil-stencil bg-accent text-accent-foreground hover:bg-accent/90"
+        size="lg"
+        disabled={!valid}
+        onClick={onNext}
+      >
+        Continuar
+      </Button>
+    </>
+  );
+}
+
+
+
 
 
 function GraphStepView({
