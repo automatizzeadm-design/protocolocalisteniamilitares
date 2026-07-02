@@ -206,17 +206,26 @@ const STEPS: Step[] = [
     ],
   },
   {
-    kind: "multi",
-    key: "injuries",
-    title: "¿Tienes lesiones o dolores?",
-    subtitle: "Selecciona todo lo que aplique",
+    kind: "single",
+    key: "fitness-level",
+    title: "¿Cuál es tu nivel de condición física?",
     progress: 11,
     options: [
-      { value: "dos", label: "Espalda" },
-      { value: "genoux", label: "Rodillas" },
-      { value: "epaules", label: "Hombros" },
-      { value: "poignets", label: "Muñecas" },
-      { value: "aucune", label: "Ninguna" },
+      {
+        value: "novato",
+        label: "Novato",
+        hint: "Puedo caminar como ejercicio cardio, pero correr se me hace difícil.",
+      },
+      {
+        value: "intermedio",
+        label: "Intermedio",
+        hint: "Intento hacer ejercicio una vez por semana, pero todavía no es regular.",
+      },
+      {
+        value: "confirmado",
+        label: "Confirmado",
+        hint: "Claro que sí. Estoy en muy buena forma, pero quiero subir un nivel.",
+      },
     ],
   },
   {
