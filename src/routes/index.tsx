@@ -137,6 +137,12 @@ type AcctEmailStep = {
   progress: number;
 };
 
+type PlanStep = {
+  kind: "plan";
+  key: string;
+  progress: number;
+};
+
 type Step =
   | SingleStep
   | MultiStep
@@ -148,7 +154,9 @@ type Step =
   | WeightStep
   | GraphStep
   | DobStep
-  | AcctEmailStep;
+  | AcctEmailStep
+  | PlanStep;
+
 
 
 
