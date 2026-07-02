@@ -575,10 +575,22 @@ function Quiz() {
               <button
                 key={o.value}
                 onClick={() => pick(step.key, o.value)}
-                className="group w-full text-left rounded-md border-2 border-border bg-card px-4 py-4 flex items-center justify-between hover:border-accent hover:bg-primary/20 transition-colors"
+                className="group relative w-full text-left rounded-md border-2 border-border bg-card px-4 py-4 flex items-center justify-between hover:border-accent hover:bg-primary/20 transition-colors"
               >
-                <span className="font-semibold">{o.label}</span>
-                <span className="text-accent opacity-60 group-hover:opacity-100">
+                {o.badge && (
+                  <span className="absolute -top-2 right-3 mil-stencil text-[10px] font-bold bg-accent text-accent-foreground px-2 py-0.5 rounded">
+                    {o.badge}
+                  </span>
+                )}
+                <span className="flex-1">
+                  <span className="block font-semibold">{o.label}</span>
+                  {o.hint && (
+                    <span className="block text-sm text-muted-foreground mt-1">
+                      {o.hint}
+                    </span>
+                  )}
+                </span>
+                <span className="text-accent opacity-60 group-hover:opacity-100 ml-3">
                   ▸
                 </span>
               </button>
