@@ -936,6 +936,81 @@ function HeightStepView({
   );
 }
 
+function WeightStepView({
+  current,
+  target,
+  onChangeCurrent,
+  onChangeTarget,
+  onNext,
+}: {
+  current: string;
+  target: string;
+  onChangeCurrent: (v: string) => void;
+  onChangeTarget: (v: string) => void;
+  onNext: () => void;
+}) {
+  const [unit, setUnit] = useState<"kg" | "lb">("kg");
+  const suffix = unit === "kg" ? "kg" : "lb";
+  const valid = Number(current) > 0 && Number(target) > 0;
+
+  const field = (
+    label: string,
+    value: string,
+    onChange: (v: string) => void,
+    placeholder: string,
+  ) => (
+    <div>
+      <label className="mil-stencil text-xs text-muted-foreground">
+        {label} ({suffix})
+      </label>
+      <div className="relative mt-1">
+        <Input
+          type="number"
+          inputMode="numeric"
+          value={value}
+          placeholder={placeholder}
+          onChange={(e) => onChange(e.target.value)}
+          className="h-12 text-lg"
+        />
+        <span className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground text-sm">
+          {suffix}
+        </span>
+      </div>
+    </div>
+  );
+
+  return (
+    <>
+      <div className="grid grid-cols-2 gap-2">
+        {(["lb", "kg"] as const).map((u) => (
+          <button
+            key={u}
+            onClick={() => setUnit(u)}
+            className={`mil-stencil text-sm py-2 rounded-md border-2 transition-colors ${
+              unit === u
+                ? "border-accent bg-primary/20 text-foreground"
+                : "border-border bg-card text-muted-foreground"
+            }`}
+          >
+            {u === "lb" ? "Libras" : "kg"}
+          </button>
+        ))}
+      </div>
+
+      {field("Peso actual", current, onChangeCurrent, unit === "kg" ? "75" : "165")}
+      {field("Peso objetivo", target, onChangeTarget, unit === "kg" ? "70" : "154")}
+
+      <Button
+        className="w-full mil-stencil bg-accent text-accent-foreground hover:bg-accent/90"
+        size="lg"
+        disabled={!valid}
+        onClick={onNext}
+      >
+        Continuar
+      </Button>
+    </>
+  );
+}
 
 
 function LoadingStepView({ onDone }: { onDone: () => void }) {
