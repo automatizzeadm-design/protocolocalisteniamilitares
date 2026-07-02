@@ -474,6 +474,15 @@ const STEPS: Step[] = [
     ],
   },
   {
+    kind: "dob",
+    key: "dob",
+    section: "Vamos a crear tu cuenta MadMuscles.",
+    banner: "¡Tu plan de entrenamiento militar está listo!",
+    stepLabel: "1/3",
+    title: "¿Cuál es tu fecha de nacimiento?",
+    progress: 26,
+  },
+  {
     kind: "single",
     key: "frequency",
     title: "¿Cuántas veces a la semana quieres entrenar?",
