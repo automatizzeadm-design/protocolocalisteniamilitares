@@ -621,7 +621,7 @@ function Quiz() {
   const [showSales, setShowSales] = useState(false);
 
   if (!started) {
-    return <IntroView onPickAge={(age) => { setAnswers({ age }); setIndex(1); setStarted(true); }} />;
+    return <IntroView onStart={(age, name) => { setAnswers({ age, name }); setIndex(1); setStarted(true); }} />;
   }
 
 
