@@ -22,7 +22,7 @@ export const Route = createFileRoute("/")({
 
 type Answers = Record<string, string | string[]>;
 
-const TOTAL = 33;
+const TOTAL = 32;
 
 type SingleStep = {
   kind: "single";
@@ -416,13 +416,13 @@ const STEPS: Step[] = [
     title: "Objetivo realista y alcanzable",
     body: "Según tus respuestas, tu meta es totalmente alcanzable con nuestro plan militar personalizado.",
     cta: "Continuar",
-    progress: 26,
+    progress: 25,
   },
   {
     kind: "single",
     key: "event-date",
     title: "¿Cuándo quieres lograr tu objetivo?",
-    progress: 27,
+    progress: 26,
     options: [
       { value: "1m", label: "En 1 mes" },
       { value: "3m", label: "En 3 meses" },
@@ -434,7 +434,7 @@ const STEPS: Step[] = [
     kind: "single",
     key: "motivation-level",
     title: "¿Qué tan motivado estás?",
-    progress: 28,
+    progress: 27,
     options: [
       { value: "extreme", label: "Extremadamente motivado" },
       { value: "high", label: "Muy motivado" },
@@ -448,7 +448,7 @@ const STEPS: Step[] = [
     subtitle: "Vamos a personalizar tu plan con tu nombre.",
     inputType: "text",
     placeholder: "Tu nombre",
-    progress: 29,
+    progress: 28,
   },
   {
     kind: "input",
@@ -457,14 +457,14 @@ const STEPS: Step[] = [
     subtitle: "Te mandamos tu plan por correo.",
     inputType: "email",
     placeholder: "tu@correo.com",
-    progress: 30,
+    progress: 29,
   },
   {
     kind: "loading",
     key: "analyzing",
     title: "Analizando tus respuestas...",
     subtitle: "Estamos armando tu plan militar personalizado.",
-    progress: 31,
+    progress: 30,
   },
   {
     kind: "info",
@@ -472,7 +472,7 @@ const STEPS: Step[] = [
     title: "¡Tu plan está listo!",
     body: "Con base en tus respuestas, armamos un plan de entrenamiento militar hecho a la medida de tu cuerpo y tus metas.",
     cta: "Ver mi plan",
-    progress: 32,
+    progress: 31,
   },
 ];
 
