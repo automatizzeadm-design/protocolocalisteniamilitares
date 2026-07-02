@@ -404,23 +404,12 @@ const STEPS: Step[] = [
   },
 
   {
-    kind: "input",
+    kind: "weight",
     key: "weight",
-    title: "¿Cuánto pesas actualmente?",
-    inputType: "number",
-    placeholder: "75",
-    suffix: "kg",
+    title: "¿Cuál es tu peso actual y cuál es tu peso ideal?",
     progress: 24,
   },
-  {
-    kind: "input",
-    key: "target-weight",
-    title: "¿Cuál es tu peso ideal?",
-    inputType: "number",
-    placeholder: "70",
-    suffix: "kg",
-    progress: 25,
-  },
+
   {
     kind: "info",
     key: "motivation",
