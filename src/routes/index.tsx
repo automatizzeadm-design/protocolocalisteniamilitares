@@ -463,13 +463,16 @@ function Quiz() {
     return (
       <main className="min-h-screen bg-background flex items-center justify-center p-6">
         <div className="max-w-md w-full text-center space-y-4">
-          <h1 className="text-2xl font-bold">
-            ¡Gracias{answers.name ? `, ${answers.name}` : ""}!
+          <div className="mil-stencil text-xs text-accent font-bold">
+            ★ Misión Completada
+          </div>
+          <h1 className="text-3xl font-bold mil-stencil text-accent">
+            ¡Bien hecho{answers.name ? `, ${answers.name}` : ", soldado"}!
           </h1>
           <p className="text-muted-foreground">
             Tu plan militar personalizado ya está listo.
           </p>
-          <pre className="text-left text-xs bg-muted p-4 rounded-md overflow-auto">
+          <pre className="text-left text-xs bg-card border border-border p-4 rounded-md overflow-auto">
             {JSON.stringify(answers, null, 2)}
           </pre>
         </div>
@@ -478,22 +481,33 @@ function Quiz() {
   }
 
   return (
-    <main className="min-h-screen bg-background">
-      <header className="sticky top-0 z-10 bg-background/95 backdrop-blur border-b">
+    <main className="min-h-screen bg-background text-foreground">
+      <div className="bg-primary/20 border-b border-primary/40">
+        <div className="max-w-md mx-auto px-4 py-2 flex items-center justify-between">
+          <span className="mil-stencil text-xs text-accent font-bold">
+            ★ Military Fitness Program
+          </span>
+          <span className="mil-stencil text-[10px] text-muted-foreground">
+            OP-641
+          </span>
+        </div>
+      </div>
+
+      <header className="sticky top-0 z-10 bg-background/95 backdrop-blur border-b border-border">
         <div className="max-w-md mx-auto px-4 py-3 flex items-center gap-3">
           {index > 0 && (
             <button
               onClick={back}
-              className="text-sm text-muted-foreground hover:text-foreground"
+              className="text-sm text-muted-foreground hover:text-accent"
               aria-label="Volver"
             >
               ←
             </button>
           )}
           <div className="flex-1">
-            <Progress value={pct} />
+            <Progress value={pct} className="bg-secondary" />
           </div>
-          <span className="text-xs text-muted-foreground tabular-nums">
+          <span className="mil-stencil text-xs text-accent tabular-nums">
             {step.progress}/{TOTAL}
           </span>
         </div>
@@ -501,11 +515,18 @@ function Quiz() {
 
       <section className="max-w-md mx-auto px-4 py-8 space-y-6">
         <div className="space-y-2">
-          <h1 className="text-2xl font-bold leading-tight">{step.title}</h1>
+          <div className="mil-stencil text-xs text-accent font-bold">
+            Misión {String(step.progress + 1).padStart(2, "0")}
+          </div>
+          <h1 className="text-2xl font-bold leading-tight mil-stencil">
+            {step.title}
+          </h1>
           {"subtitle" in step && step.subtitle && (
             <p className="text-muted-foreground">{step.subtitle}</p>
           )}
-          {step.kind === "info" && <p className="text-muted-foreground">{step.body}</p>}
+          {step.kind === "info" && (
+            <p className="text-muted-foreground">{step.body}</p>
+          )}
         </div>
 
         {step.kind === "single" && (
@@ -514,12 +535,12 @@ function Quiz() {
               <button
                 key={o.value}
                 onClick={() => pick(step.key, o.value)}
-                className="w-full text-left rounded-lg border border-border bg-card px-4 py-4 hover:border-primary hover:bg-accent transition-colors"
+                className="group w-full text-left rounded-md border-2 border-border bg-card px-4 py-4 flex items-center justify-between hover:border-accent hover:bg-primary/20 transition-colors"
               >
-                <span className="font-medium">{o.label}</span>
-                {o.hint && (
-                  <span className="block text-sm text-muted-foreground mt-1">{o.hint}</span>
-                )}
+                <span className="font-semibold">{o.label}</span>
+                <span className="text-accent opacity-60 group-hover:opacity-100">
+                  ▸
+                </span>
               </button>
             ))}
           </div>
@@ -535,19 +556,24 @@ function Quiz() {
                   <button
                     key={o.value}
                     onClick={() => toggle(step.key, o.value)}
-                    className={`w-full text-left rounded-lg border px-4 py-4 transition-colors ${
+                    className={`w-full text-left rounded-md border-2 px-4 py-4 flex items-center justify-between transition-colors ${
                       selected
-                        ? "border-primary bg-primary/10"
-                        : "border-border bg-card hover:border-primary"
+                        ? "border-accent bg-primary/25 text-foreground"
+                        : "border-border bg-card hover:border-accent"
                     }`}
                   >
-                    <span className="font-medium">{o.label}</span>
+                    <span className="font-semibold">{o.label}</span>
+                    <span
+                      className={`text-accent ${selected ? "" : "opacity-40"}`}
+                    >
+                      {selected ? "✓" : "▢"}
+                    </span>
                   </button>
                 );
               })}
             </div>
             <Button
-              className="w-full"
+              className="w-full mil-stencil bg-accent text-accent-foreground hover:bg-accent/90"
               size="lg"
               disabled={!((answers[step.key] as string[]) ?? []).length}
               onClick={next}
@@ -558,10 +584,15 @@ function Quiz() {
         )}
 
         {step.kind === "info" && (
-          <Button className="w-full" size="lg" onClick={next}>
+          <Button
+            className="w-full mil-stencil bg-accent text-accent-foreground hover:bg-accent/90"
+            size="lg"
+            onClick={next}
+          >
             {step.cta}
           </Button>
         )}
+
 
         {step.kind === "input" && (
           <InputStepView step={step} value={(answers[step.key] as string) ?? ""}
@@ -612,7 +643,12 @@ function InputStepView({
           </span>
         )}
       </div>
-      <Button className="w-full" size="lg" disabled={!valid} onClick={onNext}>
+      <Button
+        className="w-full mil-stencil bg-accent text-accent-foreground hover:bg-accent/90"
+        size="lg"
+        disabled={!valid}
+        onClick={onNext}
+      >
         Continuar
       </Button>
     </>
