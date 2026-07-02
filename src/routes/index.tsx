@@ -373,6 +373,19 @@ const STEPS: Step[] = [
   },
   {
     kind: "single",
+    key: "water",
+    title: "¿Cuánta agua bebes al día?",
+    progress: 20,
+    options: [
+      { value: "coffee", label: "Solo un café o un té ☕️" },
+      { value: "<2", label: "Menos de 2 vasos 💧", hint: "hasta 0,5 l / 17 oz" },
+      { value: "2-6", label: "2 a 6 vasos 💧💧", hint: "0,5-1,5 l / 17-50 oz" },
+      { value: "7-10", label: "7 a 10 vasos 💧💧💧", hint: "1,5-2,5 l / 50-85 oz" },
+      { value: "10+", label: "Más de 10 vasos 🐳", hint: "más de 2,5 l / 85 oz" },
+    ],
+  },
+  {
+    kind: "single",
     key: "frequency",
     title: "¿Cuántas veces a la semana quieres entrenar?",
     progress: 21,
