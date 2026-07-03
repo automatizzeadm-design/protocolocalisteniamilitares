@@ -1974,40 +1974,29 @@ function IntroView({ onStart }: { onStart: (age: string, name: string) => void }
           />
         </div>
 
-        <div className="grid grid-cols-2 gap-3 items-center">
-          <div className="flex justify-center order-2">
-            <img
-              src={soldierIntro.url}
-              alt="Soldado"
-              className="w-full object-contain drop-shadow-2xl"
-              loading="eager"
-            />
+        <div className="space-y-2 max-w-sm mx-auto">
+          <div className="text-center mil-stencil text-[10px] font-bold text-accent tracking-widest">
+            SÉLECTIONNEZ VOTRE ÂGE
           </div>
-
-          <div className="space-y-2 min-w-0 order-1">
-            <div className="text-center mil-stencil text-[10px] font-bold text-accent tracking-widest">
-              SÉLECTIONNEZ VOTRE ÂGE
-            </div>
-            {ages.map((a) => (
-              <Button
-                key={a}
-                variant="outline"
-                size="sm"
-                disabled={!trimmed}
-                onClick={() => onStart(a, trimmed)}
-                className="w-full mil-stencil justify-between border-2 border-border hover:border-accent hover:bg-accent/10 px-3 disabled:opacity-50"
-              >
-                <span className="font-bold text-sm">{a}</span>
-                <span className="text-accent">›</span>
-              </Button>
-            ))}
-            {!trimmed && (
-              <p className="text-[10px] text-muted-foreground text-center">
-                Digite seu nome para continuar
-              </p>
-            )}
-          </div>
+          {ages.map((a) => (
+            <Button
+              key={a}
+              variant="outline"
+              disabled={!trimmed}
+              onClick={() => onStart(a, trimmed)}
+              className="w-full mil-stencil justify-between border-2 border-border hover:border-accent hover:bg-accent/10 px-4 py-6 disabled:opacity-50"
+            >
+              <span className="font-bold">{a}</span>
+              <span className="text-accent">›</span>
+            </Button>
+          ))}
+          {!trimmed && (
+            <p className="text-[11px] text-muted-foreground text-center">
+              Digite seu nome para continuar
+            </p>
+          )}
         </div>
+
       </section>
     </main>
   );
