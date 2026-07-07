@@ -614,15 +614,22 @@ const STEPS: Step[] = [
 
 
 function Quiz() {
+  const [vslDone, setVslDone] = useState(false);
+  const [leadName, setLeadName] = useState("");
   const [started, setStarted] = useState(false);
   const [index, setIndex] = useState(0);
   const [answers, setAnswers] = useState<Answers>({});
   const [done, setDone] = useState(false);
   const [showSales, setShowSales] = useState(false);
 
-  if (!started) {
-    return <IntroView onStart={(age, name) => { setAnswers({ age, name }); setIndex(1); setStarted(true); }} />;
+  if (!vslDone) {
+    return <VSLView onContinue={(name) => { setLeadName(name); setVslDone(true); }} />;
   }
+
+  if (!started) {
+    return <IntroView initialName={leadName} onStart={(age, name) => { setAnswers({ age, name }); setIndex(1); setStarted(true); }} />;
+  }
+
 
 
 
