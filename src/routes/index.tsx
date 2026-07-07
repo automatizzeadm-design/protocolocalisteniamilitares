@@ -1960,7 +1960,7 @@ function VSLView({ onContinue }: { onContinue: (name: string) => void }) {
       const { default: Player } = await import("@vimeo/player");
       if (cancelled || !iframeRef.current) return;
       playerRef.current = new Player(iframeRef.current);
-      try { await playerRef.current.ready(); await playerRef.current.play(); } catch {}
+      try { await playerRef.current.ready(); await playerRef.current.setLoop(true); await playerRef.current.play(); } catch {}
     })();
     return () => { cancelled = true; try { playerRef.current?.destroy(); } catch {} };
   }, []);
