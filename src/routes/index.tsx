@@ -1947,10 +1947,72 @@ function SalesView({
 
 import soldierIntro from "@/assets/soldier-intro.png.asset.json";
 
-function IntroView({ onStart }: { onStart: (age: string, name: string) => void }) {
-  const ages = ["18-29", "30-39", "40-49", "50+"];
+function VSLView({ onContinue }: { onContinue: (name: string) => void }) {
   const [name, setName] = useState("");
   const trimmed = name.trim();
+  return (
+    <main className="min-h-screen bg-background text-foreground">
+      <div className="bg-primary/20 border-b border-primary/40">
+        <div className="max-w-md mx-auto px-4 py-2 flex items-center justify-center">
+          <img src={logoMilitary.url} alt="Protocolo Calistenia Militar" className="h-20 object-contain" />
+        </div>
+      </div>
+
+      <section className="max-w-3xl mx-auto px-4 pt-6 pb-10 space-y-6">
+        <div className="text-center space-y-2">
+          <h1 className="text-2xl font-bold mil-stencil text-accent leading-tight">
+            ASSISTA ANTES DE COMEÇAR
+          </h1>
+          <p className="text-sm text-muted-foreground">
+            Veja este vídeo rápido e depois responda para liberar seu protocolo.
+          </p>
+        </div>
+
+        <div className="rounded-xl overflow-hidden border-2 border-accent/40 shadow-lg shadow-accent/10">
+          <div style={{ padding: "76.49% 0 0 0", position: "relative" }}>
+            <iframe
+              src="https://player.vimeo.com/video/1207588194?badge=0&autopause=0&player_id=0&app_id=58479"
+              allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+              referrerPolicy="strict-origin-when-cross-origin"
+              style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%" }}
+              title="Protocolo Calistenia Militar"
+            />
+          </div>
+        </div>
+
+        <div className="space-y-3 max-w-sm mx-auto">
+          <label className="mil-stencil text-[11px] font-bold text-accent tracking-widest block text-center">
+            COMO PODEMOS TE CHAMAR?
+          </label>
+          <Input
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder="Seu nome"
+            className="text-center"
+          />
+          <Button
+            disabled={!trimmed}
+            onClick={() => onContinue(trimmed)}
+            className="w-full mil-stencil font-bold py-6 disabled:opacity-50"
+          >
+            CONTINUAR ›
+          </Button>
+          {!trimmed && (
+            <p className="text-[11px] text-muted-foreground text-center">
+              Digite seu nome para continuar
+            </p>
+          )}
+        </div>
+      </section>
+    </main>
+  );
+}
+
+function IntroView({ onStart, initialName = "" }: { onStart: (age: string, name: string) => void; initialName?: string }) {
+  const ages = ["18-29", "30-39", "40-49", "50+"];
+  const [name, setName] = useState(initialName);
+  const trimmed = name.trim();
+
   return (
     <main className="min-h-screen bg-background text-foreground">
       <div className="bg-primary/20 border-b border-primary/40">
