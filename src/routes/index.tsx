@@ -1971,13 +1971,29 @@ function VSLView({ onContinue }: { onContinue: (name: string) => void }) {
         <div className="rounded-xl overflow-hidden border-2 border-accent/40 shadow-lg shadow-accent/10">
           <div style={{ padding: "76.49% 0 0 0", position: "relative" }}>
             <iframe
-              src="https://player.vimeo.com/video/1207588194?badge=0&autopause=0&player_id=0&app_id=58479"
+              id="vsl-iframe"
+              src="https://player.vimeo.com/video/1207588194?badge=0&autopause=0&player_id=0&app_id=58479&title=0&byline=0&portrait=0&controls=0"
               allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
               referrerPolicy="strict-origin-when-cross-origin"
               style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%" }}
               title="Protocolo Calistenia Militar"
             />
+            <button
+              type="button"
+              aria-label="Play/Pause"
+              onClick={() => {
+                const iframe = document.getElementById("vsl-iframe") as HTMLIFrameElement | null;
+                const w = iframe?.contentWindow;
+                if (!w) return;
+                // toggle: try play, then pause on next tick if already playing
+                w.postMessage(JSON.stringify({ method: (window as any).__vslPlaying ? "pause" : "play" }), "*");
+                (window as any).__vslPlaying = !(window as any).__vslPlaying;
+              }}
+              style={{ position: "absolute", inset: 0, background: "transparent", border: 0, cursor: "pointer" }}
+            />
           </div>
+        </div>
+
         </div>
 
         <div className="space-y-3 max-w-sm mx-auto">
