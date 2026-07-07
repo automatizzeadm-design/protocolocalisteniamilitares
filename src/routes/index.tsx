@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Input } from "@/components/ui/input";
@@ -1951,19 +1951,30 @@ function VSLView({ onContinue }: { onContinue: (name: string) => void }) {
   const [name, setName] = useState("");
   const [muted, setMuted] = useState(true);
   const trimmed = name.trim();
+  const playerRef = useRef<any>(null);
+  const iframeRef = useRef<HTMLIFrameElement | null>(null);
 
-  const post = (method: string, value?: unknown) => {
-    const iframe = document.getElementById("vsl-iframe") as HTMLIFrameElement | null;
-    iframe?.contentWindow?.postMessage(JSON.stringify(value === undefined ? { method } : { method, value }), "*");
-  };
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      const { default: Player } = await import("@vimeo/player");
+      if (cancelled || !iframeRef.current) return;
+      playerRef.current = new Player(iframeRef.current);
+      try { await playerRef.current.ready(); await playerRef.current.play(); } catch {}
+    })();
+    return () => { cancelled = true; try { playerRef.current?.destroy(); } catch {} };
+  }, []);
 
-  const unmute = () => {
-    post("setVolume", 1);
-    post("setMuted", false);
-    post("play");
+  const unmute = async () => {
     setMuted(false);
+    try {
+      const p = playerRef.current;
+      if (!p) return;
+      await p.setMuted(false);
+      await p.setVolume(1);
+      await p.play();
+    } catch (e) { console.error(e); }
   };
-
 
   return (
     <main className="min-h-screen bg-background text-foreground">
@@ -1986,6 +1997,7 @@ function VSLView({ onContinue }: { onContinue: (name: string) => void }) {
         <div className="rounded-xl overflow-hidden border-2 border-accent/40 shadow-lg shadow-accent/10">
           <div style={{ padding: "76.49% 0 0 0", position: "relative" }}>
             <iframe
+              ref={iframeRef}
               id="vsl-iframe"
               src="https://player.vimeo.com/video/1207588194?badge=0&autopause=0&autoplay=1&muted=1&playsinline=1&title=0&byline=0&portrait=0&controls=0"
               allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
@@ -2006,11 +2018,9 @@ function VSLView({ onContinue }: { onContinue: (name: string) => void }) {
                 <div className="text-xs sm:text-sm opacity-90">Clique para ativar o som</div>
               </button>
             )}
-
-
-
           </div>
         </div>
+
 
 
 
