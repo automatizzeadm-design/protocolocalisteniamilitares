@@ -1949,7 +1949,28 @@ import soldierIntro from "@/assets/soldier-intro.png.asset.json";
 
 function VSLView({ onContinue }: { onContinue: (name: string) => void }) {
   const [name, setName] = useState("");
+  const [muted, setMuted] = useState(true);
+  const [paused, setPaused] = useState(false);
   const trimmed = name.trim();
+
+  const post = (method: string, value?: unknown) => {
+    const iframe = document.getElementById("vsl-iframe") as HTMLIFrameElement | null;
+    iframe?.contentWindow?.postMessage(JSON.stringify(value === undefined ? { method } : { method, value }), "*");
+  };
+
+  const unmute = () => {
+    post("setVolume", 1);
+    post("setMuted", false);
+    post("play");
+    setMuted(false);
+    setPaused(false);
+  };
+
+  const togglePause = () => {
+    if (paused) { post("play"); setPaused(false); }
+    else { post("pause"); setPaused(true); }
+  };
+
   return (
     <main className="min-h-screen bg-background text-foreground">
       <div className="bg-primary/20 border-b border-primary/40">
@@ -1972,27 +1993,39 @@ function VSLView({ onContinue }: { onContinue: (name: string) => void }) {
           <div style={{ padding: "76.49% 0 0 0", position: "relative" }}>
             <iframe
               id="vsl-iframe"
-              src="https://player.vimeo.com/video/1207588194?badge=0&autopause=0&player_id=0&app_id=58479&title=0&byline=0&portrait=0&controls=0"
+              src="https://player.vimeo.com/video/1207588194?badge=0&autopause=0&autoplay=1&muted=1&playsinline=1&title=0&byline=0&portrait=0&controls=0"
               allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
               referrerPolicy="strict-origin-when-cross-origin"
               style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%" }}
               title="Protocolo Calistenia Militar"
             />
-            <button
-              type="button"
-              aria-label="Play/Pause"
-              onClick={() => {
-                const iframe = document.getElementById("vsl-iframe") as HTMLIFrameElement | null;
-                const w = iframe?.contentWindow;
-                if (!w) return;
-                // toggle: try play, then pause on next tick if already playing
-                w.postMessage(JSON.stringify({ method: (window as any).__vslPlaying ? "pause" : "play" }), "*");
-                (window as any).__vslPlaying = !(window as any).__vslPlaying;
-              }}
-              style={{ position: "absolute", inset: 0, background: "transparent", border: 0, cursor: "pointer" }}
-            />
+
+            {muted && (
+              <button
+                type="button"
+                onClick={unmute}
+                className="absolute inset-0 flex flex-col items-center justify-center gap-2 bg-black/60 text-white cursor-pointer"
+                style={{ position: "absolute", inset: 0 }}
+              >
+                <div className="h-14 w-14 rounded-full bg-accent flex items-center justify-center text-2xl">🔊</div>
+                <div className="mil-stencil font-bold text-sm sm:text-base">SEU VÍDEO JÁ COMEÇOU</div>
+                <div className="text-xs sm:text-sm opacity-90">Clique para ativar o som</div>
+              </button>
+            )}
+
+            {!muted && (
+              <button
+                type="button"
+                onClick={togglePause}
+                aria-label={paused ? "Play" : "Pause"}
+                className="absolute bottom-2 right-2 h-10 w-10 rounded-full bg-black/70 text-white flex items-center justify-center hover:bg-black/90"
+              >
+                {paused ? "▶" : "❚❚"}
+              </button>
+            )}
           </div>
         </div>
+
 
 
         <div className="space-y-3 max-w-sm mx-auto">
