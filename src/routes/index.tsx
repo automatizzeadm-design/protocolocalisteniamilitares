@@ -2044,8 +2044,7 @@ function VSLView({ onContinue }: { onContinue: (name: string) => void }) {
 
 function IntroView({ onStart, initialName = "" }: { onStart: (age: string, name: string) => void; initialName?: string }) {
   const ages = ["18-29", "30-39", "40-49", "50+"];
-  const [name, setName] = useState(initialName);
-  const trimmed = name.trim();
+
 
   return (
     <main className="min-h-screen bg-background text-foreground">
@@ -2066,18 +2065,6 @@ function IntroView({ onStart, initialName = "" }: { onStart: (age: string, name:
         </div>
 
         <div className="space-y-2 max-w-sm mx-auto">
-          <label className="mil-stencil text-[11px] font-bold text-accent tracking-widest block text-center">
-            COMO PODEMOS TE CHAMAR?
-          </label>
-          <Input
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            placeholder="Seu nome"
-            className="text-center"
-          />
-        </div>
-
-        <div className="space-y-2 max-w-sm mx-auto">
           <div className="text-center mil-stencil text-[10px] font-bold text-accent tracking-widest">
             SÉLECTIONNEZ VOTRE ÂGE
           </div>
@@ -2085,20 +2072,15 @@ function IntroView({ onStart, initialName = "" }: { onStart: (age: string, name:
             <Button
               key={a}
               variant="outline"
-              disabled={!trimmed}
-              onClick={() => onStart(a, trimmed)}
-              className="w-full mil-stencil justify-between border-2 border-border hover:border-accent hover:bg-accent/10 px-4 py-6 disabled:opacity-50"
+              onClick={() => onStart(a, initialName)}
+              className="w-full mil-stencil justify-between border-2 border-border hover:border-accent hover:bg-accent/10 px-4 py-6"
             >
               <span className="font-bold">{a}</span>
               <span className="text-accent">›</span>
             </Button>
           ))}
-          {!trimmed && (
-            <p className="text-[11px] text-muted-foreground text-center">
-              Digite seu nome para continuar
-            </p>
-          )}
         </div>
+
 
       </section>
     </main>
