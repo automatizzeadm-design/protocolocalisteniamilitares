@@ -2044,8 +2044,7 @@ function VSLView({ onContinue }: { onContinue: (name: string) => void }) {
 
 function IntroView({ onStart, initialName = "" }: { onStart: (age: string, name: string) => void; initialName?: string }) {
   const ages = ["18-29", "30-39", "40-49", "50+"];
-  const [name, setName] = useState(initialName);
-  const trimmed = name.trim();
+
 
   return (
     <main className="min-h-screen bg-background text-foreground">
