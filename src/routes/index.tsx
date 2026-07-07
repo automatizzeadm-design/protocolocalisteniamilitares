@@ -1994,7 +1994,6 @@ function VSLView({ onContinue }: { onContinue: (name: string) => void }) {
           </div>
         </div>
 
-        </div>
 
         <div className="space-y-3 max-w-sm mx-auto">
           <label className="mil-stencil text-[11px] font-bold text-accent tracking-widest block text-center">
