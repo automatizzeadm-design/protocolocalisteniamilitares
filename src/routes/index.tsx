@@ -1962,6 +1962,7 @@ function VSLView({ onContinue }: { onContinue: (name: string) => void }) {
       if (!p) return;
       await p.setMuted(false);
       await p.setVolume(1);
+      await p.setCurrentTime(0);
       await p.play();
     } catch (e) { console.error(e); }
   };
