@@ -1951,8 +1951,8 @@ function VSLView({ onContinue }: { onContinue: (name: string) => void }) {
   const [name, setName] = useState("");
   const [muted, setMuted] = useState(true);
   const trimmed = name.trim();
-  const playerRef = React.useRef<any>(null);
-  const iframeRef = React.useRef<HTMLIFrameElement | null>(null);
+  const playerRef = useRef<any>(null);
+  const iframeRef = useRef<HTMLIFrameElement | null>(null);
 
   useEffect(() => {
     let cancelled = false;
