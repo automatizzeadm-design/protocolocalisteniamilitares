@@ -1999,7 +1999,7 @@ function VSLView({ onContinue }: { onContinue: (name: string) => void }) {
             <iframe
               ref={iframeRef}
               id="vsl-iframe"
-              src="https://player.vimeo.com/video/1207588194?badge=0&autopause=0&autoplay=1&muted=1&playsinline=1&title=0&byline=0&portrait=0&controls=0"
+              src="https://player.vimeo.com/video/1207588194?badge=0&autopause=0&autoplay=1&muted=1&playsinline=1&title=0&byline=0&portrait=0&controls=0&loop=1"
               allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
               referrerPolicy="strict-origin-when-cross-origin"
               style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%" }}
