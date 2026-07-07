@@ -2013,16 +2013,8 @@ function VSLView({ onContinue }: { onContinue: (name: string) => void }) {
               </button>
             )}
 
-            {!muted && (
-              <button
-                type="button"
-                onClick={togglePause}
-                aria-label={paused ? "Play" : "Pause"}
-                className="absolute bottom-2 right-2 h-10 w-10 rounded-full bg-black/70 text-white flex items-center justify-center hover:bg-black/90"
-              >
-                {paused ? "▶" : "❚❚"}
-              </button>
-            )}
+
+
           </div>
         </div>
 
