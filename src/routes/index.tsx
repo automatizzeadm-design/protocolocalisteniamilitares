@@ -989,133 +989,123 @@ function HeightStepView({
   onChange: (v: string) => void;
   onNext: () => void;
 }) {
-  const [unit, setUnit] = useState<"cm" | "ftin">("cm");
-  const [ft, setFt] = useState("");
-  const [inch, setIn] = useState("");
+  const MIN = 140;
+  const MAX = 210;
+  const current = Math.min(MAX, Math.max(MIN, Number(value) || 174));
 
-  const cmFromFtIn = () => {
-    const f = Number(ft) || 0;
-    const i = Number(inch) || 0;
-    return Math.round((f * 12 + i) * 2.54);
-  };
+  useEffect(() => {
+    if (!value) onChange("174");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-  const commit = (cm: number) => {
+  const trackRef = useRef<HTMLDivElement | null>(null);
+  const draggingRef = useRef(false);
+
+  const setFromClientX = (clientX: number) => {
+    const el = trackRef.current;
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    const pct = Math.min(1, Math.max(0, (clientX - rect.left) / rect.width));
+    const cm = Math.round(MIN + pct * (MAX - MIN));
     onChange(String(cm));
   };
 
-  const valid =
-    unit === "cm" ? Number(value) > 0 : (Number(ft) || 0) > 0;
+  const onPointerDown = (e: React.PointerEvent) => {
+    draggingRef.current = true;
+    (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
+    setFromClientX(e.clientX);
+  };
+  const onPointerMove = (e: React.PointerEvent) => {
+    if (!draggingRef.current) return;
+    setFromClientX(e.clientX);
+  };
+  const onPointerUp = (e: React.PointerEvent) => {
+    draggingRef.current = false;
+    try { (e.currentTarget as HTMLElement).releasePointerCapture(e.pointerId); } catch {}
+  };
+
+  const pct = ((current - MIN) / (MAX - MIN)) * 100;
+  const ticks = Array.from({ length: MAX - MIN + 1 }, (_, i) => MIN + i);
 
   return (
     <>
-      <div className="grid grid-cols-2 gap-2">
-        {(["ftin", "cm"] as const).map((u) => (
-          <button
-            key={u}
-            onClick={() => setUnit(u)}
-            className={`mil-stencil text-sm py-2 rounded-md border-2 transition-colors ${
-              unit === u
-                ? "border-accent bg-primary/20 text-foreground"
-                : "border-border bg-card text-muted-foreground"
-            }`}
+      <div className="text-center py-4">
+        <div className="inline-flex items-baseline gap-2">
+          <span
+            className="mil-stencil font-black text-white leading-none"
+            style={{ fontSize: "5rem", textShadow: "0 0 30px rgba(74,222,128,0.35)" }}
           >
-            {u === "ftin" ? "pies, pulgadas" : "cm"}
-          </button>
-        ))}
+            {current}
+          </span>
+          <span className="mil-stencil text-accent text-2xl font-bold italic">CM</span>
+        </div>
       </div>
 
-      {unit === "cm" ? (
-        <div>
-          <label className="mil-stencil text-xs text-muted-foreground">
-            Estatura (cm)
-          </label>
-          <div className="relative mt-1">
-            <Input
-              type="number"
-              inputMode="numeric"
-              value={value}
-              placeholder="175"
-              onChange={(e) => onChange(e.target.value)}
-              className="h-12 text-lg"
-              onKeyDown={(e) => {
-                if (e.key === "Enter" && valid) onNext();
-              }}
-            />
-            <span className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground text-sm">
-              cm
-            </span>
-          </div>
+      <div
+        ref={trackRef}
+        onPointerDown={onPointerDown}
+        onPointerMove={onPointerMove}
+        onPointerUp={onPointerUp}
+        onPointerCancel={onPointerUp}
+        className="relative h-24 rounded-xl bg-card border-2 border-border overflow-hidden touch-none select-none cursor-grab active:cursor-grabbing"
+      >
+        <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 flex items-center justify-between px-1">
+          {ticks.map((t) => {
+            const isMajor = t % 10 === 0;
+            const isMid = t % 5 === 0;
+            return (
+              <div
+                key={t}
+                className="flex-1 flex flex-col items-center justify-center"
+                style={{ height: 60 }}
+              >
+                <div
+                  className="bg-muted-foreground/60"
+                  style={{
+                    width: 2,
+                    height: isMajor ? 34 : isMid ? 22 : 12,
+                    opacity: isMajor ? 0.9 : isMid ? 0.6 : 0.35,
+                  }}
+                />
+                {isMajor && (
+                  <span className="mt-1 text-[10px] text-muted-foreground">{t}</span>
+                )}
+              </div>
+            );
+          })}
         </div>
-      ) : (
-        <div className="grid grid-cols-2 gap-3">
-          <div>
-            <label className="mil-stencil text-xs text-muted-foreground">
-              Pies
-            </label>
-            <div className="relative mt-1">
-              <Input
-                type="number"
-                inputMode="numeric"
-                value={ft}
-                placeholder="5"
-                onChange={(e) => {
-                  setFt(e.target.value);
-                  commit(cmFromFtIn());
-                }}
-                className="h-12 text-lg"
-              />
-              <span className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground text-sm">
-                ft
-              </span>
-            </div>
-          </div>
-          <div>
-            <label className="mil-stencil text-xs text-muted-foreground">
-              Pulgadas
-            </label>
-            <div className="relative mt-1">
-              <Input
-                type="number"
-                inputMode="numeric"
-                value={inch}
-                placeholder="9"
-                onChange={(e) => {
-                  setIn(e.target.value);
-                  commit(cmFromFtIn());
-                }}
-                className="h-12 text-lg"
-              />
-              <span className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground text-sm">
-                in
-              </span>
-            </div>
-          </div>
-        </div>
-      )}
 
-      <p className="text-xs text-muted-foreground leading-relaxed">
-        Acepto que MadMuscles procese mis datos de salud para brindar servicios
-        y mejorar mi experiencia de usuario.{" "}
-        <a href="#" className="text-accent underline">
-          Política de Privacidad
-        </a>
-        . Para retirar tu consentimiento, contáctanos en cualquier momento.
+        <div
+          className="pointer-events-none absolute top-0 bottom-0"
+          style={{ left: `calc(${pct}% - 1px)` }}
+        >
+          <div className="absolute inset-y-0 w-0.5 bg-accent shadow-[0_0_12px_rgba(74,222,128,0.9)]" />
+          <div
+            className="absolute -top-1 left-1/2 -translate-x-1/2 w-0 h-0"
+            style={{ borderLeft: "6px solid transparent", borderRight: "6px solid transparent", borderTop: "8px solid hsl(var(--accent))" }}
+          />
+          <div
+            className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-0 h-0"
+            style={{ borderLeft: "6px solid transparent", borderRight: "6px solid transparent", borderBottom: "8px solid hsl(var(--accent))" }}
+          />
+        </div>
+      </div>
+
+      <p className="text-center mil-stencil text-[11px] tracking-widest text-muted-foreground">
+        ARRASTE PARA AJUSTAR
       </p>
 
       <Button
-        className="w-full mil-stencil bg-accent text-accent-foreground hover:bg-accent/90"
+        className="w-full mil-stencil bg-accent text-accent-foreground hover:bg-accent/90 shadow-[0_0_30px_rgba(74,222,128,0.4)]"
         size="lg"
-        disabled={!valid}
-        onClick={() => {
-          if (unit === "ftin") commit(cmFromFtIn());
-          onNext();
-        }}
+        onClick={onNext}
       >
-        Continuar
+        Continuar →
       </Button>
     </>
   );
 }
+
 
 function WeightStepView({
   current,
