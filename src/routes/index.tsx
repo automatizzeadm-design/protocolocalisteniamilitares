@@ -1950,7 +1950,6 @@ import soldierIntro from "@/assets/soldier-intro.png.asset.json";
 function VSLView({ onContinue }: { onContinue: (name: string) => void }) {
   const [name, setName] = useState("");
   const [muted, setMuted] = useState(true);
-  const [paused, setPaused] = useState(false);
   const trimmed = name.trim();
 
   const post = (method: string, value?: unknown) => {
@@ -1963,13 +1962,8 @@ function VSLView({ onContinue }: { onContinue: (name: string) => void }) {
     post("setMuted", false);
     post("play");
     setMuted(false);
-    setPaused(false);
   };
 
-  const togglePause = () => {
-    if (paused) { post("play"); setPaused(false); }
-    else { post("pause"); setPaused(true); }
-  };
 
   return (
     <main className="min-h-screen bg-background text-foreground">
