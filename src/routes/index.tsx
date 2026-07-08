@@ -34,7 +34,7 @@ export const Route = createFileRoute("/")({
 
 type Answers = Record<string, string | string[]>;
 
-const TOTAL = 34;
+const TOTAL = 33;
 
 type SingleStep = {
   kind: "single";
@@ -478,28 +478,10 @@ const STEPS: Step[] = [
     ],
   },
   {
-    kind: "dob",
-    key: "dob",
-    section: "Vamos criar sua conta Protocolo Calistenia Militar",
-    banner: "¡Tu plan de entrenamiento militar está listo!",
-    stepLabel: "1/3",
-    title: "¿Cuál es tu fecha de nacimiento?",
-    progress: 23,
-  },
-  {
-    kind: "acct-email",
-    key: "acct-email",
-    section: "Vamos criar sua conta Protocolo Calistenia Militar",
-    banner: "¡Tu plan de entrenamiento militar está listo!",
-    stepLabel: "2/3",
-    title: "Email",
-    progress: 24,
-  },
-  {
     kind: "single",
     key: "experience",
     title: "¿Cuál es tu nivel de experiencia?",
-    progress: 25,
+    progress: 23,
     options: [
       { value: "debutant", label: "Principiante" },
       { value: "intermediaire", label: "Intermedio" },
@@ -510,14 +492,14 @@ const STEPS: Step[] = [
     kind: "height",
     key: "height",
     title: "¿Cuánto mides?",
-    progress: 26,
+    progress: 24,
   },
 
   {
     kind: "weight",
     key: "weight",
     title: "¿Cuál es tu peso actual y cuál es tu peso ideal?",
-    progress: 27,
+    progress: 25,
   },
 
   {
@@ -526,13 +508,13 @@ const STEPS: Step[] = [
     title: "Objetivo realista y alcanzable",
     body: "Según tus respuestas, tu meta es totalmente alcanzable con nuestro plan militar personalizado.",
     cta: "Continuar",
-    progress: 28,
+    progress: 26,
   },
   {
     kind: "single",
     key: "event-date",
     title: "¿Cuándo quieres lograr tu objetivo?",
-    progress: 29,
+    progress: 27,
     options: [
       { value: "1m", label: "En 1 mes" },
       { value: "3m", label: "En 3 meses" },
@@ -544,7 +526,7 @@ const STEPS: Step[] = [
     kind: "single",
     key: "motivation-level",
     title: "¿Qué tan motivado estás?",
-    progress: 30,
+    progress: 28,
     options: [
       { value: "extreme", label: "Extremadamente motivado" },
       { value: "high", label: "Muy motivado" },
@@ -557,7 +539,7 @@ const STEPS: Step[] = [
     title: "¿Estás listo para comprometerte?",
     body: "El protocolo militar exige disciplina. Necesitamos tu compromiso antes de generar tu plan personalizado.",
     cta: "¡Sí! Me comprometo a cumplir el protocolo",
-    progress: 31,
+    progress: 29,
   },
   {
     kind: "loading",
@@ -571,13 +553,22 @@ const STEPS: Step[] = [
       "🧠 Adaptando a tu estilo de vida",
       "🚀 Casi listo...",
     ],
-    progress: 32,
+    progress: 30,
   },
 
   {
+    kind: "acct-email",
+    key: "acct-email",
+    section: "Vamos criar sua conta Protocolo Calistenia Militar",
+    banner: "¡Tu plan de entrenamiento militar está listo!",
+    stepLabel: "1/1",
+    title: "Email",
+    progress: 31,
+  },
+  {
     kind: "plan",
     key: "plan",
-    progress: 33,
+    progress: 32,
   },
 
 ];
