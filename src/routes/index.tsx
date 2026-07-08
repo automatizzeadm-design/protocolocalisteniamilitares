@@ -1450,7 +1450,7 @@ function GraphStepView({
 
 
 
-function LoadingStepView({
+function RecruitmentLoadingView({
   step,
   onDone,
 }: {
@@ -1458,50 +1458,155 @@ function LoadingStepView({
   onDone: () => void;
 }) {
   const [progress, setProgress] = useState(0);
-  const phrases = step.phrases ?? [];
-  const [phraseIdx, setPhraseIdx] = useState(0);
+  const duration = 5200;
 
   useEffect(() => {
     const start = Date.now();
-    const duration = 4500;
     const id = setInterval(() => {
       const p = Math.min(100, ((Date.now() - start) / duration) * 100);
       setProgress(p);
       if (p >= 100) {
         clearInterval(id);
-        setTimeout(onDone, 300);
+        setTimeout(onDone, 500);
       }
     }, 60);
     return () => clearInterval(id);
   }, [onDone]);
 
-  useEffect(() => {
-    if (phrases.length === 0) return;
-    const id = setInterval(() => {
-      setPhraseIdx((i) => (i + 1) % phrases.length);
-    }, 900);
-    return () => clearInterval(id);
-  }, [phrases.length]);
+  const rawPhrases = step.phrases && step.phrases.length >= 4
+    ? step.phrases
+    : [
+        "Analizando perfil táctico",
+        "Generando protocolo militar",
+        "Preparando tu misión de 21 días",
+        "Finalizando tu reclutamiento",
+      ];
+  const cleanPhrase = (s: string) => s.replace(/^[^\p{L}\p{N}]+/u, "").trim();
+
+  // Divide 4 fases sobre 100%
+  const stages = rawPhrases.slice(0, 4).map((label, i) => ({
+    label: cleanPhrase(label).toUpperCase(),
+    start: i * 25,
+    end: (i + 1) * 25,
+  }));
+
+  const currentIdx = stages.findIndex(
+    (s) => progress >= s.start && progress < s.end,
+  );
+  const activeIdx = currentIdx === -1 ? stages.length - 1 : currentIdx;
+
+  const icons = ["◈", "◉", "▣", "◆"];
 
   return (
-    <div className="space-y-4">
-      <Progress value={progress} />
-      <p className="text-center text-sm text-muted-foreground tabular-nums mil-stencil">
-        {Math.round(progress)}%
-      </p>
-      {phrases.length > 0 && (
-        <div className="min-h-[3rem] flex items-center justify-center">
-          <p
-            key={phraseIdx}
-            className="text-center text-sm text-foreground animate-fade-in"
-          >
-            {phrases[phraseIdx]}
-          </p>
+    <main className="min-h-screen bg-background text-foreground flex items-center justify-center px-4 py-10">
+      {/* fundo com grade sutil */}
+      <div
+        aria-hidden
+        className="pointer-events-none fixed inset-0 opacity-[0.08]"
+        style={{
+          backgroundImage:
+            "linear-gradient(hsl(var(--accent)) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--accent)) 1px, transparent 1px)",
+          backgroundSize: "42px 42px",
+          maskImage:
+            "radial-gradient(ellipse at center, black 40%, transparent 75%)",
+        }}
+      />
+
+      <div className="relative w-full max-w-md rounded-2xl border border-accent/30 bg-card/70 backdrop-blur-sm p-6 sm:p-8 shadow-[0_0_60px_-15px_rgba(74,222,128,0.25)]">
+        {/* Badge */}
+        <div className="flex justify-center mb-6">
+          <div className="inline-flex items-center gap-2 rounded-full border border-accent/50 bg-accent/10 px-3 py-1">
+            <span className="relative flex h-2 w-2">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-70" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-accent" />
+            </span>
+            <span className="mil-stencil text-[10px] font-bold tracking-widest text-accent">
+              PROTOCOLO · 2026
+            </span>
+          </div>
         </div>
-      )}
-    </div>
+
+        {/* Título */}
+        <h1 className="mil-stencil text-2xl sm:text-3xl font-bold text-center tracking-wide">
+          PROCESANDO RECLUTAMIENTO
+        </h1>
+        <p className="mt-2 text-center text-sm text-muted-foreground">
+          Verificando compatibilidad operativa...
+        </p>
+
+        {/* Barra de status */}
+        <div className="mt-6">
+          <div className="flex items-center justify-between mil-stencil text-[10px] tracking-widest text-muted-foreground">
+            <span>ESTADO: ANALIZANDO</span>
+            <span className="text-accent tabular-nums">
+              {Math.round(progress)}%
+            </span>
+          </div>
+          <div className="mt-2 h-1.5 rounded-full bg-secondary overflow-hidden">
+            <div
+              className="h-full bg-gradient-to-r from-accent/70 to-accent transition-[width] duration-150 ease-out shadow-[0_0_12px_rgba(74,222,128,0.7)]"
+              style={{ width: `${progress}%` }}
+            />
+          </div>
+        </div>
+
+        {/* Etapas */}
+        <ul className="mt-6 space-y-2.5">
+          {stages.map((s, i) => {
+            const done = progress >= s.end;
+            const active = i === activeIdx && !done;
+            const pending = !done && !active;
+            return (
+              <li
+                key={s.label}
+                className={`rounded-xl border px-4 py-3 flex items-center gap-3 transition-all ${
+                  active
+                    ? "border-accent/70 bg-accent/10 shadow-[0_0_18px_-8px_rgba(74,222,128,0.7)]"
+                    : done
+                      ? "border-accent/40 bg-accent/5"
+                      : "border-border/60 bg-card/40 opacity-60"
+                }`}
+              >
+                <span
+                  className={`flex h-7 w-7 items-center justify-center rounded-md border text-sm ${
+                    done
+                      ? "border-accent/60 bg-accent/20 text-accent"
+                      : active
+                        ? "border-accent bg-accent/15 text-accent animate-pulse"
+                        : "border-border/60 text-muted-foreground"
+                  }`}
+                  aria-hidden
+                >
+                  {done ? "✓" : icons[i]}
+                </span>
+                <div className="flex-1 min-w-0">
+                  <div
+                    className={`mil-stencil text-[12px] sm:text-sm font-bold tracking-wide ${
+                      pending ? "text-muted-foreground" : "text-foreground"
+                    }`}
+                  >
+                    {s.label}
+                  </div>
+                  {active && (
+                    <div className="mt-0.5 text-[10px] text-accent/80 font-mono animate-pulse">
+                      &gt; Ejecutando secuencia<span className="tracking-[0.3em]">...</span>
+                    </div>
+                  )}
+                </div>
+              </li>
+            );
+          })}
+        </ul>
+
+        {/* Rodapé */}
+        <div className="mt-6 pt-4 border-t border-border/60 text-center mil-stencil text-[10px] tracking-widest text-muted-foreground">
+          SISTEMA SEGURO <span className="text-accent/70">//</span> ACCESO LIMITADO
+        </div>
+      </div>
+    </main>
   );
 }
+
 
 function PlanView({
   answers,
