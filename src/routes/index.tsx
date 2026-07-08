@@ -1545,25 +1545,12 @@ function PlanView({
       </div>
 
       <section className="max-w-md mx-auto px-4 py-6 space-y-6">
-        {/* Before / After */}
+        {/* Weight projection chart */}
         <div>
           <div className="mil-stencil text-xs text-accent font-bold mb-2">
             Tu objetivo, {name}
           </div>
-          <div className="rounded-md border-2 border-border bg-card overflow-hidden">
-            <div className="grid grid-cols-2 mil-stencil text-[10px] font-bold text-accent border-b border-border">
-              <div className="px-2 py-1 border-r border-border">AHORA · 20-24%</div>
-              <div className="px-2 py-1">OBJETIVO · 15-17%</div>
-            </div>
-            <img
-              src={beforeAfterAsset.url}
-              alt="Antes y después"
-              loading="lazy"
-              className="w-full h-auto object-contain bg-white min-h-[420px] md:min-h-[560px]"
-            />
-
-          </div>
-
+          <WeightProjectionChart currentKg={currentKg} targetKg={targetKg} />
         </div>
 
         {/* BMI */}
