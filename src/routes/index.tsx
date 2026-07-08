@@ -34,7 +34,7 @@ export const Route = createFileRoute("/")({
 
 type Answers = Record<string, string | string[]>;
 
-const TOTAL = 33;
+const TOTAL = 34;
 
 type SingleStep = {
   kind: "single";
@@ -150,6 +150,17 @@ type PlanStep = {
   progress: number;
 };
 
+type VideoStep = {
+  kind: "video";
+  key: string;
+  title: string;
+  subtitle?: string;
+  videoId: string;
+  paddingPct: number; // e.g. 152.04 for 9:16-ish
+  cta: string;
+  progress: number;
+};
+
 type Step =
   | SingleStep
   | MultiStep
@@ -162,7 +173,8 @@ type Step =
   | GraphStep
   | DobStep
   | AcctEmailStep
-  | PlanStep;
+  | PlanStep
+  | VideoStep;
 
 
 
@@ -466,11 +478,21 @@ const STEPS: Step[] = [
     progress: 21,
   },
   {
+    kind: "video",
+    key: "feedback-video",
+    title: "Escucha esta prueba antes de continuar",
+    subtitle: "Un testimonio real de quien ya siguió el protocolo. Toca para activar el sonido.",
+    videoId: "1207588540",
+    paddingPct: 152.04,
+    cta: "Continuar",
+    progress: 22,
+  },
+  {
     kind: "single",
     key: "needs-structure",
     title: "¿En qué medida te reconoces en esta afirmación?",
     subtitle: "Necesito estructura o guía durante las sesiones de entrenamiento para mantenerme motivado.",
-    progress: 22,
+    progress: 23,
     options: [
       { value: "disagree", label: "En desacuerdo" },
       { value: "neutral", label: "Neutral" },
@@ -481,7 +503,7 @@ const STEPS: Step[] = [
     kind: "single",
     key: "experience",
     title: "¿Cuál es tu nivel de experiencia?",
-    progress: 23,
+    progress: 24,
     options: [
       { value: "debutant", label: "Principiante" },
       { value: "intermediaire", label: "Intermedio" },
@@ -492,14 +514,14 @@ const STEPS: Step[] = [
     kind: "height",
     key: "height",
     title: "¿Cuánto mides?",
-    progress: 24,
+    progress: 25,
   },
 
   {
     kind: "weight",
     key: "weight",
     title: "¿Cuál es tu peso actual y cuál es tu peso ideal?",
-    progress: 25,
+    progress: 26,
   },
 
   {
@@ -508,13 +530,13 @@ const STEPS: Step[] = [
     title: "Objetivo realista y alcanzable",
     body: "Según tus respuestas, tu meta es totalmente alcanzable con nuestro plan militar personalizado.",
     cta: "Continuar",
-    progress: 26,
+    progress: 27,
   },
   {
     kind: "single",
     key: "event-date",
     title: "¿Cuándo quieres lograr tu objetivo?",
-    progress: 27,
+    progress: 28,
     options: [
       { value: "1m", label: "En 1 mes" },
       { value: "3m", label: "En 3 meses" },
@@ -526,7 +548,7 @@ const STEPS: Step[] = [
     kind: "single",
     key: "motivation-level",
     title: "¿Qué tan motivado estás?",
-    progress: 28,
+    progress: 29,
     options: [
       { value: "extreme", label: "Extremadamente motivado" },
       { value: "high", label: "Muy motivado" },
@@ -539,7 +561,7 @@ const STEPS: Step[] = [
     title: "¿Estás listo para comprometerte?",
     body: "El protocolo militar exige disciplina. Necesitamos tu compromiso antes de generar tu plan personalizado.",
     cta: "¡Sí! Me comprometo a cumplir el protocolo",
-    progress: 29,
+    progress: 30,
   },
   {
     kind: "loading",
@@ -553,7 +575,7 @@ const STEPS: Step[] = [
       "🧠 Adaptando a tu estilo de vida",
       "🚀 Casi listo...",
     ],
-    progress: 30,
+    progress: 31,
   },
 
   {
@@ -563,12 +585,12 @@ const STEPS: Step[] = [
     banner: "¡Tu plan de entrenamiento militar está listo!",
     stepLabel: "1/1",
     title: "Email",
-    progress: 31,
+    progress: 32,
   },
   {
     kind: "plan",
     key: "plan",
-    progress: 32,
+    progress: 33,
   },
 
 ];
@@ -898,6 +920,9 @@ function Quiz() {
           />
         )}
 
+        {step.kind === "video" && (
+          <VideoStepView step={step} onNext={next} />
+        )}
 
         {/* loading step is handled by early return above */}
 
@@ -1996,6 +2021,97 @@ function SalesView({
         </div>
       </section>
     </main>
+  );
+}
+
+function VideoStepView({ step, onNext }: { step: VideoStep; onNext: () => void }) {
+  const [muted, setMuted] = useState(true);
+  const [paused, setPaused] = useState(false);
+  const playerRef = useRef<any>(null);
+  const iframeRef = useRef<HTMLIFrameElement | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      const { default: Player } = await import("@vimeo/player");
+      if (cancelled || !iframeRef.current) return;
+      playerRef.current = new Player(iframeRef.current);
+      try {
+        await playerRef.current.ready();
+        await playerRef.current.play();
+      } catch {}
+    })();
+    return () => { cancelled = true; try { playerRef.current?.destroy(); } catch {} };
+  }, []);
+
+  const unmute = async () => {
+    setMuted(false);
+    try {
+      const p = playerRef.current;
+      if (!p) return;
+      await p.setMuted(false);
+      await p.setVolume(1);
+      await p.setCurrentTime(0);
+      await p.play();
+      setPaused(false);
+    } catch (e) { console.error(e); }
+  };
+
+  const togglePause = async (e: React.MouseEvent) => {
+    e.stopPropagation();
+    const p = playerRef.current;
+    if (!p) return;
+    try {
+      if (paused) { await p.play(); setPaused(false); }
+      else { await p.pause(); setPaused(true); }
+    } catch {}
+  };
+
+  return (
+    <div className="space-y-5">
+      <div className="rounded-xl overflow-hidden border-2 border-accent/40 shadow-lg shadow-accent/10 bg-black">
+        <div style={{ padding: `${step.paddingPct}% 0 0 0`, position: "relative" }}>
+          <iframe
+            ref={iframeRef}
+            src={`https://player.vimeo.com/video/${step.videoId}?badge=0&autopause=0&autoplay=1&muted=1&playsinline=1&title=0&byline=0&portrait=0&controls=0&loop=0`}
+            allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+            referrerPolicy="strict-origin-when-cross-origin"
+            style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%" }}
+            title="Testimonio"
+          />
+
+          {muted ? (
+            <button
+              type="button"
+              onClick={unmute}
+              className="absolute inset-0 flex flex-col items-center justify-center gap-2 bg-black/60 text-white cursor-pointer"
+              style={{ position: "absolute", inset: 0 }}
+            >
+              <div className="h-14 w-14 rounded-full bg-accent flex items-center justify-center text-2xl">🔊</div>
+              <div className="mil-stencil font-bold text-sm sm:text-base">TU VÍDEO YA COMENZÓ</div>
+              <div className="text-xs sm:text-sm opacity-90">Toca para activar el sonido</div>
+            </button>
+          ) : (
+            <button
+              type="button"
+              onClick={togglePause}
+              aria-label={paused ? "Reproducir" : "Pausar"}
+              className="absolute bottom-3 right-3 h-11 w-11 rounded-full bg-black/70 hover:bg-black/85 text-white flex items-center justify-center text-lg backdrop-blur"
+            >
+              {paused ? "▶" : "❚❚"}
+            </button>
+          )}
+        </div>
+      </div>
+
+      <Button
+        onClick={onNext}
+        className="w-full mil-stencil bg-accent text-accent-foreground hover:bg-accent/90"
+        size="lg"
+      >
+        {step.cta}
+      </Button>
+    </div>
   );
 }
 
