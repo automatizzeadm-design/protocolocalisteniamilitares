@@ -533,6 +533,16 @@ const STEPS: Step[] = [
     progress: 27,
   },
   {
+    kind: "video",
+    key: "andre-testimonial",
+    title: "André, 26 años — resultados con los entrenamientos ocultos de los militares",
+    subtitle: "Otro caso real. Toca para activar el sonido.",
+    videoId: "1207949697",
+    paddingPct: 75,
+    cta: "Continuar",
+    progress: 27,
+  },
+  {
     kind: "single",
     key: "event-date",
     title: "¿Cuándo quieres lograr tu objetivo?",
