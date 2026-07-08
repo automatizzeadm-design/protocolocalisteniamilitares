@@ -1364,81 +1364,163 @@ function GraphStepView({
     };
   }, [step]);
 
+  const size = 240;
+  const cx = size / 2;
+  const cy = size / 2;
+  const rOuter = 108;
+  const rInner = 78;
+  const total = step.bars.reduce((s, b) => s + b.value, 0) || 1;
+  const gapDeg = 4;
+  const totalGap = gapDeg * step.bars.length;
+  const availDeg = 360 - totalGap;
+
+  const polar = (angleDeg: number, r: number) => {
+    const a = ((angleDeg - 90) * Math.PI) / 180;
+    return [cx + r * Math.cos(a), cy + r * Math.sin(a)];
+  };
+  const arcPath = (startDeg: number, endDeg: number) => {
+    const [x1, y1] = polar(startDeg, rOuter);
+    const [x2, y2] = polar(endDeg, rOuter);
+    const [x3, y3] = polar(endDeg, rInner);
+    const [x4, y4] = polar(startDeg, rInner);
+    const large = endDeg - startDeg > 180 ? 1 : 0;
+    return `M ${x1} ${y1} A ${rOuter} ${rOuter} 0 ${large} 1 ${x2} ${y2} L ${x3} ${y3} A ${rInner} ${rInner} 0 ${large} 0 ${x4} ${y4} Z`;
+  };
+
+  let cursor = 0;
+  const segments = step.bars.map((b, i) => {
+    const share = b.value / total;
+    const sweep = availDeg * share;
+    const start = cursor;
+    const end = cursor + sweep;
+    cursor = end + gapDeg;
+    const isHi = b.label === step.highlight;
+    const animated = (barValues[i] / (b.value || 1)) * sweep;
+    return {
+      label: b.label,
+      value: b.value,
+      isHi,
+      full: arcPath(start, end),
+      anim: arcPath(start, start + Math.max(0.001, animated)),
+    };
+  });
+
   return (
     <>
       <div className="rounded-md border-2 border-border bg-card p-5 space-y-5">
-        <div className="flex items-center gap-5">
+        <div className="flex flex-col items-center gap-4">
           <div className="relative shrink-0">
-            <svg width="160" height="160" viewBox="0 0 160 160">
-              <circle
-                cx="80"
-                cy="80"
-                r={radius}
-                fill="none"
-                stroke="hsl(var(--border))"
-                strokeWidth="12"
-              />
-              <circle
-                cx="80"
-                cy="80"
-                r={radius}
-                fill="none"
-                stroke="hsl(var(--destructive))"
-                strokeWidth="12"
-                strokeLinecap="round"
-                strokeDasharray={circ}
-                strokeDashoffset={targetOffset}
-                transform="rotate(-90 80 80)"
-                style={{ transition: "stroke-dashoffset 1.2s ease-out" }}
-              />
+            <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
+              <defs>
+                <radialGradient id="dg-center" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" stopColor="#ef4444" stopOpacity="0.35" />
+                  <stop offset="70%" stopColor="#ef4444" stopOpacity="0" />
+                </radialGradient>
+                <linearGradient id="dg-hi" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stopColor="#f87171" />
+                  <stop offset="100%" stopColor="#dc2626" />
+                </linearGradient>
+                <linearGradient id="dg-lo" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stopColor="#a3e635" />
+                  <stop offset="100%" stopColor="#22c55e" />
+                </linearGradient>
+                <filter id="dg-glow" x="-20%" y="-20%" width="140%" height="140%">
+                  <feGaussianBlur stdDeviation="3" result="b" />
+                  <feMerge>
+                    <feMergeNode in="b" />
+                    <feMergeNode in="SourceGraphic" />
+                  </feMerge>
+                </filter>
+              </defs>
+
+              <circle cx={cx} cy={cy} r={rInner - 4} fill="url(#dg-center)" />
+
+              {segments.map((s, i) => (
+                <g key={i}>
+                  <path d={s.full} fill="hsl(var(--border))" opacity="0.25" />
+                  <path
+                    d={s.anim}
+                    fill={s.isHi ? "url(#dg-hi)" : "url(#dg-lo)"}
+                    filter={s.isHi ? "url(#dg-glow)" : undefined}
+                    style={{ transition: "d 900ms ease-out" }}
+                  />
+                </g>
+              ))}
+
+              {[...Array(60)].map((_, i) => {
+                const a = (i * 6 - 90) * (Math.PI / 180);
+                const r1 = rInner - 10;
+                const r2 = rInner - (i % 5 === 0 ? 16 : 13);
+                return (
+                  <line
+                    key={i}
+                    x1={cx + r1 * Math.cos(a)}
+                    y1={cy + r1 * Math.sin(a)}
+                    x2={cx + r2 * Math.cos(a)}
+                    y2={cy + r2 * Math.sin(a)}
+                    stroke="hsl(var(--muted-foreground))"
+                    strokeOpacity={i % 5 === 0 ? 0.5 : 0.2}
+                    strokeWidth="1"
+                  />
+                );
+              })}
             </svg>
-            <div className="absolute inset-0 flex flex-col items-center justify-center">
-              <div className="mil-stencil text-3xl font-bold text-destructive">
+            <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+              <div
+                className="mil-stencil text-5xl font-bold text-destructive"
+                style={{ textShadow: "0 0 24px rgba(239,68,68,0.55)" }}
+              >
                 {score}%
               </div>
-              <div className="mil-stencil text-[10px] text-muted-foreground">
+              <div className="mil-stencil text-[10px] tracking-[0.3em] text-muted-foreground mt-1">
                 RIESGO
               </div>
             </div>
           </div>
-          <div className="flex-1 space-y-2">
-            {step.bars.map((b, i) => (
-              <div key={b.label}>
-                <div className="flex justify-between text-xs mil-stencil">
-                  <span
+
+          <div className="w-full grid grid-cols-3 gap-2">
+            {step.bars.map((b, i) => {
+              const isHi = b.label === step.highlight;
+              return (
+                <div
+                  key={b.label}
+                  className={
+                    "rounded-md border p-2 text-center " +
+                    (isHi
+                      ? "border-destructive/60 bg-destructive/10"
+                      : "border-border bg-background/40")
+                  }
+                >
+                  <div className="flex items-center justify-center gap-1.5">
+                    <span
+                      className="inline-block w-2 h-2 rounded-full"
+                      style={{
+                        background: isHi ? "#ef4444" : "#22c55e",
+                        boxShadow: isHi
+                          ? "0 0 8px rgba(239,68,68,0.8)"
+                          : "0 0 8px rgba(34,197,94,0.6)",
+                      }}
+                    />
+                    <span
+                      className={
+                        "mil-stencil text-[10px] " +
+                        (isHi ? "text-destructive font-bold" : "text-muted-foreground")
+                      }
+                    >
+                      {b.label}
+                    </span>
+                  </div>
+                  <div
                     className={
-                      b.label === step.highlight
-                        ? "text-destructive font-bold"
-                        : "text-muted-foreground"
-                    }
-                  >
-                    {b.label}
-                  </span>
-                  <span
-                    className={
-                      b.label === step.highlight
-                        ? "text-destructive"
-                        : "text-muted-foreground"
+                      "mil-stencil text-lg font-bold mt-1 " +
+                      (isHi ? "text-destructive" : "text-foreground")
                     }
                   >
                     {barValues[i]}%
-                  </span>
+                  </div>
                 </div>
-                <div className="h-2 bg-border rounded-full overflow-hidden">
-                  <div
-                    className={
-                      b.label === step.highlight
-                        ? "h-full bg-destructive"
-                        : "h-full bg-accent"
-                    }
-                    style={{
-                      width: `${barValues[i]}%`,
-                      transition: "width 1.2s ease-out",
-                    }}
-                  />
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
 
@@ -1460,6 +1542,7 @@ function GraphStepView({
           </p>
         </div>
       </div>
+
 
       <Button
         className="w-full mil-stencil bg-accent text-accent-foreground hover:bg-accent/90"
