@@ -1681,178 +1681,195 @@ function PlanView({
 
       <section className="max-w-md mx-auto px-4 py-6 space-y-6">
         {/* Weight projection chart */}
-        <div>
-          <div className="mil-stencil text-xs text-accent font-bold mb-2">
-            Tu objetivo, {name}
+        <Reveal>
+          <div>
+            <div className="mil-stencil text-xs text-accent font-bold mb-2">
+              Tu objetivo, {name}
+            </div>
+            <WeightProjectionChart currentKg={currentKg} targetKg={targetKg} />
           </div>
-          <WeightProjectionChart currentKg={currentKg} targetKg={targetKg} />
-        </div>
+        </Reveal>
 
         {/* BMI */}
-        <div className="rounded-md border-2 border-border bg-card p-4 space-y-3">
-          <div className="mil-stencil text-xs text-accent font-bold">
-            IMC actual
+        <Reveal delay={80}>
+          <div className="rounded-md border-2 border-border bg-card p-4 space-y-3">
+            <div className="mil-stencil text-xs text-accent font-bold">
+              IMC actual
+            </div>
+            <div className="mil-stencil text-2xl font-bold">
+              {bmi.toFixed(1)}
+            </div>
+            <div className="relative h-3 rounded-full overflow-hidden flex">
+              {bmiZones.map((z) => (
+                <div key={z.label} className={`${z.color} h-full`} style={{ width: `${z.w}%` }} />
+              ))}
+              <div
+                className="absolute top-1/2 -translate-y-1/2 w-3 h-3 rounded-full bg-foreground border-2 border-background"
+                style={{ left: `calc(${bmiTargetPos}% - 6px)` }}
+              />
+            </div>
+            <div className="grid grid-cols-4 text-[9px] mil-stencil text-muted-foreground">
+              {bmiZones.map((z) => (
+                <span key={z.label}>{z.label}</span>
+              ))}
+            </div>
+            <p className="text-xs text-muted-foreground leading-relaxed">
+              El índice de masa corporal (IMC) usa tu altura y peso para
+              determinar si tu peso es saludable.
+            </p>
           </div>
-          <div className="mil-stencil text-2xl font-bold">
-            {bmi.toFixed(1)}
-          </div>
-          <div className="relative h-3 rounded-full overflow-hidden flex">
-            {bmiZones.map((z) => (
-              <div key={z.label} className={`${z.color} h-full`} style={{ width: `${z.w}%` }} />
-            ))}
-            <div
-              className="absolute top-1/2 -translate-y-1/2 w-3 h-3 rounded-full bg-foreground border-2 border-background"
-              style={{ left: `calc(${bmiTargetPos}% - 6px)` }}
-            />
-          </div>
-          <div className="grid grid-cols-4 text-[9px] mil-stencil text-muted-foreground">
-            {bmiZones.map((z) => (
-              <span key={z.label}>{z.label}</span>
-            ))}
-          </div>
-          <p className="text-xs text-muted-foreground leading-relaxed">
-            El índice de masa corporal (IMC) usa tu altura y peso para
-            determinar si tu peso es saludable.
-          </p>
-        </div>
+        </Reveal>
 
         {/* Recommended */}
-        <div className="grid grid-cols-2 gap-3">
-          {[
-            { emoji: "🍔", label: "Calorías diarias", value: "2 400", scale: "1000-5000 kcal" },
-            { emoji: "💧", label: "Agua diaria", value: "3,1 L", scale: "recomendado" },
-          ].map((c) => (
-            <div
-              key={c.label}
-              className="rounded-md border-2 border-border bg-card p-3 space-y-1"
-            >
-              <div className="text-2xl">{c.emoji}</div>
-              <div className="mil-stencil text-[10px] text-accent">
-                RECOMENDADO
-              </div>
-              <div className="mil-stencil text-[11px] text-muted-foreground">
-                {c.label}
-              </div>
-              <div className="mil-stencil text-lg font-bold">{c.value}</div>
-              <div className="text-[10px] text-muted-foreground">{c.scale}</div>
-            </div>
-          ))}
-        </div>
-
-        {/* What you get */}
-        <div className="space-y-3">
-          <h2 className="mil-stencil text-lg font-bold">Qué recibes</h2>
-          {[
-            {
-              t: "Plan de entrenamiento militar",
-              d: "Personalizado para tu edad, tipo físico y nivel.",
-            },
-            {
-              t: "Sesiones de 15 a 30 minutos por día",
-              d: "Diseñadas para construir fuerza real.",
-            },
-            {
-              t: "Paso a paso",
-              d: "Un enfoque simple para lograr resultados en semanas.",
-            },
-          ].map((f) => (
-            <div
-              key={f.t}
-              className="rounded-md border-2 border-border bg-card p-3"
-            >
-              <div className="mil-stencil text-sm font-bold">{f.t}</div>
-              <div className="text-xs text-muted-foreground">{f.d}</div>
-            </div>
-          ))}
-          <img
-            src={programPreview}
-            alt="Vista previa del programa"
-            width={1024}
-            height={768}
-            loading="lazy"
-            className="w-full rounded-md border-2 border-border"
-          />
-        </div>
-
-        {/* Bonus */}
-        <div className="rounded-md border-2 border-accent bg-primary/10 p-3 space-y-2">
-          <div className="mil-stencil text-xs text-accent font-bold">
-            🎁 BONUS IMPRIMIBLE
-          </div>
-          <div className="mil-stencil text-sm font-bold">
-            Mapa imprimible para 2026
-          </div>
-          <img
-            src={calendar2026}
-            alt="Calendario 2026"
-            width={1024}
-            height={768}
-            loading="lazy"
-            className="w-full rounded-md border border-border"
-          />
-        </div>
-
-        {/* Goals */}
-        <div className="space-y-2">
-          <h3 className="mil-stencil text-sm font-bold">
-            Los objetivos de tu programa también son:
-          </h3>
-          <div className="grid grid-cols-1 gap-2">
-            {goals.map((g) => (
+        <Reveal delay={120}>
+          <div className="grid grid-cols-2 gap-3">
+            {[
+              { emoji: "🍔", label: "Calorías diarias", value: "2 400", scale: "1000-5000 kcal" },
+              { emoji: "💧", label: "Agua diaria", value: "3,1 L", scale: "recomendado" },
+            ].map((c) => (
               <div
-                key={g}
-                className="flex items-center gap-2 rounded-md border border-border bg-card px-3 py-2 text-sm"
+                key={c.label}
+                className="rounded-md border-2 border-border bg-card p-3 space-y-1"
               >
-                <span className="text-accent">▸</span> {g}
+                <div className="text-2xl">{c.emoji}</div>
+                <div className="mil-stencil text-[10px] text-accent">
+                  RECOMENDADO
+                </div>
+                <div className="mil-stencil text-[11px] text-muted-foreground">
+                  {c.label}
+                </div>
+                <div className="mil-stencil text-lg font-bold">{c.value}</div>
+                <div className="text-[10px] text-muted-foreground">{c.scale}</div>
               </div>
             ))}
           </div>
-        </div>
+        </Reveal>
+
+        {/* What you get */}
+        <Reveal delay={80}>
+          <div className="space-y-3">
+            <h2 className="mil-stencil text-lg font-bold">Qué recibes</h2>
+            {[
+              {
+                t: "Plan de entrenamiento militar",
+                d: "Personalizado para tu edad, tipo físico y nivel.",
+              },
+              {
+                t: "Sesiones de 15 a 30 minutos por día",
+                d: "Diseñadas para construir fuerza real.",
+              },
+              {
+                t: "Paso a paso",
+                d: "Un enfoque simple para lograr resultados en semanas.",
+              },
+            ].map((f) => (
+              <div
+                key={f.t}
+                className="rounded-md border-2 border-border bg-card p-3"
+              >
+                <div className="mil-stencil text-sm font-bold">{f.t}</div>
+                <div className="text-xs text-muted-foreground">{f.d}</div>
+              </div>
+            ))}
+            <img
+              src={programPreview}
+              alt="Vista previa del programa"
+              width={1024}
+              height={768}
+              loading="lazy"
+              className="w-full rounded-md border-2 border-border"
+            />
+          </div>
+        </Reveal>
+
+        {/* Bonus */}
+        <Reveal delay={80}>
+          <div className="rounded-md border-2 border-accent bg-primary/10 p-3 space-y-2">
+            <div className="mil-stencil text-xs text-accent font-bold">
+              🎁 BONUS IMPRIMIBLE
+            </div>
+            <div className="mil-stencil text-sm font-bold">
+              Mapa imprimible para 2026
+            </div>
+            <img
+              src={calendar2026}
+              alt="Calendario 2026"
+              width={1024}
+              height={768}
+              loading="lazy"
+              className="w-full rounded-md border border-border"
+            />
+          </div>
+        </Reveal>
+
+        {/* Goals */}
+        <Reveal delay={80}>
+          <div className="space-y-2">
+            <h3 className="mil-stencil text-sm font-bold">
+              Los objetivos de tu programa también son:
+            </h3>
+            <div className="grid grid-cols-1 gap-2">
+              {goals.map((g, i) => (
+                <Reveal key={g} delay={i * 60}>
+                  <div className="flex items-center gap-2 rounded-md border border-border bg-card px-3 py-2 text-sm">
+                    <span className="text-accent">▸</span> {g}
+                  </div>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </Reveal>
 
         {/* Social proof */}
-        <div className="grid grid-cols-2 gap-3">
-          <div className="rounded-md border-2 border-border bg-card p-3 text-center">
-            <div className="mil-stencil text-xl font-bold text-accent">
-              4M+
+        <Reveal delay={80}>
+          <div className="grid grid-cols-2 gap-3">
+            <div className="rounded-md border-2 border-border bg-card p-3 text-center">
+              <div className="mil-stencil text-xl font-bold text-accent">
+                4M+
+              </div>
+              <div className="text-[10px] text-muted-foreground leading-tight">
+                comenzaron su journey fitness con nosotros
+              </div>
             </div>
-            <div className="text-[10px] text-muted-foreground leading-tight">
-              comenzaron su journey fitness con nosotros
+            <div className="rounded-md border-2 border-border bg-card p-3 text-center">
+              <div className="mil-stencil text-xl font-bold text-accent">
+                4,4 / 5
+              </div>
+              <div className="text-[10px] text-muted-foreground leading-tight">
+                +200 000 reseñas 5★ (App Store & Play, jun 2026)
+              </div>
             </div>
           </div>
-          <div className="rounded-md border-2 border-border bg-card p-3 text-center">
-            <div className="mil-stencil text-xl font-bold text-accent">
-              4,4 / 5
-            </div>
-            <div className="text-[10px] text-muted-foreground leading-tight">
-              +200 000 reseñas 5★ (App Store & Play, jun 2026)
-            </div>
-          </div>
-        </div>
+        </Reveal>
 
         {/* Complete plan */}
-        <div className="rounded-md border-2 border-border bg-card p-4 space-y-2">
-          <h3 className="mil-stencil text-sm font-bold">
-            Plan de entrenamiento completo
-          </h3>
-          {[
-            "Desarrolla el hábito y las técnicas correctas de ejercicio.",
-            "Elimina el exceso de grasa y mejora la intensidad de tus entrenamientos.",
-            "Alcanza tu objetivo y cambia tu vida para siempre.",
-          ].map((l) => (
-            <div key={l} className="flex gap-2 text-sm">
-              <span className="text-accent">☑️</span>
-              <span className="text-muted-foreground">{l}</span>
-            </div>
-          ))}
-        </div>
+        <Reveal delay={80}>
+          <div className="rounded-md border-2 border-border bg-card p-4 space-y-2">
+            <h3 className="mil-stencil text-sm font-bold">
+              Plan de entrenamiento completo
+            </h3>
+            {[
+              "Desarrolla el hábito y las técnicas correctas de ejercicio.",
+              "Elimina el exceso de grasa y mejora la intensidad de tus entrenamientos.",
+              "Alcanza tu objetivo y cambia tu vida para siempre.",
+            ].map((l) => (
+              <div key={l} className="flex gap-2 text-sm">
+                <span className="text-accent">☑️</span>
+                <span className="text-muted-foreground">{l}</span>
+              </div>
+            ))}
+          </div>
+        </Reveal>
 
-        <Button
-          className="w-full mil-stencil bg-accent text-accent-foreground hover:bg-accent/90"
-          size="lg"
-          onClick={onFinish}
-        >
-          Obtener mi plan
-        </Button>
+        <Reveal delay={80}>
+          <Button
+            className="w-full mil-stencil bg-accent text-accent-foreground hover:bg-accent/90"
+            size="lg"
+            onClick={onFinish}
+          >
+            Obtener mi plan
+          </Button>
+        </Reveal>
       </section>
     </main>
   );
@@ -1920,105 +1937,118 @@ function SalesView({
       </div>
 
       <section className="max-w-md mx-auto px-4 py-6 space-y-6">
-        <div className="text-center space-y-2">
-          <div className="text-5xl">🎉</div>
-          <h1 className="text-2xl font-bold mil-stencil text-accent">
-            ¡Felicidades!
-          </h1>
-          <p className="text-sm text-muted-foreground">
-            Has ganado el mayor descuento adicional
-          </p>
-          <p className="text-base font-semibold mt-3">
-            {name}, obtén tu plan de entrenamiento militar
-          </p>
-        </div>
+        <Reveal>
+          <div className="text-center space-y-2">
+            <div className="text-5xl">🎉</div>
+            <h1 className="text-2xl font-bold mil-stencil text-accent">
+              ¡Felicidades!
+            </h1>
+            <p className="text-sm text-muted-foreground">
+              Has ganado el mayor descuento adicional
+            </p>
+            <p className="text-base font-semibold mt-3">
+              {name}, obtén tu plan de entrenamiento militar
+            </p>
+          </div>
+        </Reveal>
 
-        <div className="rounded-lg border border-accent/40 bg-accent/10 p-3 text-center">
-          <div className="mil-stencil text-xs text-accent font-bold mb-1">
-            ⏳ El descuento expira en
+        <Reveal delay={80}>
+          <div className="rounded-lg border border-accent/40 bg-accent/10 p-3 text-center">
+            <div className="mil-stencil text-xs text-accent font-bold mb-1">
+              ⏳ El descuento expira en
+            </div>
+            <div className="text-3xl font-bold text-accent tabular-nums">
+              {mm}:{ss}
+            </div>
           </div>
-          <div className="text-3xl font-bold text-accent tabular-nums">
-            {mm}:{ss}
-          </div>
-        </div>
+        </Reveal>
 
         <div className="space-y-3">
-          {plans.map((p) => {
+          {plans.map((p, i) => {
             const active = selected === p.id;
             return (
-              <button
-                key={p.id}
-                onClick={() => setSelected(p.id)}
-                className={`w-full text-left rounded-lg border-2 p-4 transition ${
-                  active
-                    ? "border-accent bg-accent/10"
-                    : "border-border bg-card"
-                }`}
-              >
-                {p.badge && (
-                  <div className="mil-stencil text-[10px] bg-accent text-accent-foreground inline-block px-2 py-0.5 rounded mb-2 font-bold">
-                    {p.badge}
-                  </div>
-                )}
-                <div className="flex items-center justify-between">
-                  <div>
-                    <div className="mil-stencil font-bold text-sm">{p.label}</div>
-                    <div className="text-xs text-muted-foreground">
-                      <span className="line-through">{p.old}</span>{" "}
-                      <span className="text-accent font-bold">{p.now}</span>
+              <Reveal key={p.id} delay={i * 80}>
+                <button
+                  onClick={() => setSelected(p.id)}
+                  className={`w-full text-left rounded-lg border-2 p-4 transition ${
+                    active
+                      ? "border-accent bg-accent/10"
+                      : "border-border bg-card"
+                  }`}
+                >
+                  {p.badge && (
+                    <div className="mil-stencil text-[10px] bg-accent text-accent-foreground inline-block px-2 py-0.5 rounded mb-2 font-bold">
+                      {p.badge}
+                    </div>
+                  )}
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <div className="mil-stencil font-bold text-sm">{p.label}</div>
+                      <div className="text-xs text-muted-foreground">
+                        <span className="line-through">{p.old}</span>{" "}
+                        <span className="text-accent font-bold">{p.now}</span>
+                      </div>
+                    </div>
+                    <div className="text-right">
+                      <div className="text-xl font-bold">{p.per}</div>
+                      <div className="text-[10px] text-muted-foreground">por día</div>
                     </div>
                   </div>
-                  <div className="text-right">
-                    <div className="text-xl font-bold">{p.per}</div>
-                    <div className="text-[10px] text-muted-foreground">por día</div>
-                  </div>
-                </div>
-                {p.bonus && (
-                  <div className="text-[11px] text-accent mt-2">
-                    🎁 Programa imprimible 2026 incluido
-                  </div>
-                )}
-              </button>
+                  {p.bonus && (
+                    <div className="text-[11px] text-accent mt-2">
+                      🎁 Programa imprimible 2026 incluido
+                    </div>
+                  )}
+                </button>
+              </Reveal>
             );
           })}
         </div>
 
-        <Button
-          className="w-full mil-stencil bg-accent text-accent-foreground hover:bg-accent/90"
-          size="lg"
-          onClick={onFinish}
-        >
-          Continuar
-        </Button>
+        <Reveal delay={80}>
+          <Button
+            className="w-full mil-stencil bg-accent text-accent-foreground hover:bg-accent/90"
+            size="lg"
+            onClick={onFinish}
+          >
+            Continuar
+          </Button>
+        </Reveal>
 
-        <p className="text-[10px] text-muted-foreground leading-relaxed">
-          Al continuar, aceptas que tu suscripción se renueve automáticamente al
-          precio total al finalizar el período de introducción, a menos que la
-          canceles en la configuración. Consulta nuestros términos y política de
-          reembolso.
-        </p>
-
-        <div className="rounded-lg border border-border bg-card p-4 space-y-2">
-          <div className="mil-stencil font-bold text-sm text-accent">
-            🛡️ Política de reembolso garantizado
-          </div>
-          <p className="text-xs text-muted-foreground">
-            Creemos que nuestro plan puede funcionar para ti y verás resultados
-            visibles en 4 semanas. Estamos dispuestos a reembolsar el 100%
-            dentro de los 30 días posteriores a la compra si no obtienes
-            resultados visibles y demuestras que seguiste el plan.
+        <Reveal delay={60}>
+          <p className="text-[10px] text-muted-foreground leading-relaxed">
+            Al continuar, aceptas que tu suscripción se renueve automáticamente al
+            precio total al finalizar el período de introducción, a menos que la
+            canceles en la configuración. Consulta nuestros términos y política de
+            reembolso.
           </p>
-        </div>
+        </Reveal>
 
-        <div className="text-center space-y-1 pt-4">
-          <div className="text-xs text-muted-foreground">Hemos ayudado a más de</div>
-          <div className="text-3xl font-bold mil-stencil text-accent">
-            55.000 personas
+        <Reveal delay={80}>
+          <div className="rounded-lg border border-border bg-card p-4 space-y-2">
+            <div className="mil-stencil font-bold text-sm text-accent">
+              🛡️ Política de reembolso garantizado
+            </div>
+            <p className="text-xs text-muted-foreground">
+              Creemos que nuestro plan puede funcionar para ti y verás resultados
+              visibles en 4 semanas. Estamos dispuestos a reembolsar el 100%
+              dentro de los 30 días posteriores a la compra si no obtienes
+              resultados visibles y demuestras que seguiste el plan.
+            </p>
           </div>
-          <div className="text-xs text-muted-foreground">
-            a esculpir el cuerpo de sus sueños
+        </Reveal>
+
+        <Reveal delay={80}>
+          <div className="text-center space-y-1 pt-4">
+            <div className="text-xs text-muted-foreground">Hemos ayudado a más de</div>
+            <div className="text-3xl font-bold mil-stencil text-accent">
+              55.000 personas
+            </div>
+            <div className="text-xs text-muted-foreground">
+              a esculpir el cuerpo de sus sueños
+            </div>
           </div>
-        </div>
+        </Reveal>
       </section>
     </main>
   );
@@ -2268,6 +2298,50 @@ function IntroView({ onStart, initialName = "" }: { onStart: (age: string, name:
   );
 }
 
+function Reveal({
+  children,
+  delay = 0,
+  className = "",
+}: {
+  children: React.ReactNode;
+  delay?: number;
+  className?: string;
+}) {
+  const ref = useRef<HTMLDivElement | null>(null);
+  const [shown, setShown] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            setShown(true);
+            io.disconnect();
+          }
+        });
+      },
+      { threshold: 0.15, rootMargin: "0px 0px -40px 0px" },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+  return (
+    <div
+      ref={ref}
+      className={className}
+      style={{
+        opacity: shown ? 1 : 0,
+        transform: shown ? "translateY(0)" : "translateY(24px)",
+        transition: `opacity 700ms ease-out ${delay}ms, transform 700ms cubic-bezier(0.22, 1, 0.36, 1) ${delay}ms`,
+        willChange: "opacity, transform",
+      }}
+    >
+      {children}
+    </div>
+  );
+}
+
 function WeightProjectionChart({
   currentKg,
   targetKg,
@@ -2277,7 +2351,6 @@ function WeightProjectionChart({
 }) {
   const weeks = 12;
   const isLoss = targetKg <= currentKg;
-  // Ease-out curve: rápido no início, desacelera no fim
   const points = Array.from({ length: weeks + 1 }, (_, i) => {
     const t = i / weeks;
     const eased = 1 - Math.pow(1 - t, 2.2);
@@ -2286,15 +2359,14 @@ function WeightProjectionChart({
   });
 
   const W = 320;
-  const H = 180;
-  const padL = 34;
-  const padR = 14;
-  const padT = 18;
-  const padB = 26;
+  const H = 200;
+  const padL = 36;
+  const padR = 16;
+  const padT = 22;
+  const padB = 28;
   const minKg = Math.min(currentKg, targetKg) - 2;
   const maxKg = Math.max(currentKg, targetKg) + 2;
-  const xAt = (i: number) =>
-    padL + (i / weeks) * (W - padL - padR);
+  const xAt = (i: number) => padL + (i / weeks) * (W - padL - padR);
   const yAt = (kg: number) =>
     padT + (1 - (kg - minKg) / (maxKg - minKg)) * (H - padT - padB);
 
@@ -2314,12 +2386,44 @@ function WeightProjectionChart({
 
   const diff = Math.abs(currentKg - targetKg).toFixed(1);
 
+  // Animate line draw
+  const pathRef = useRef<SVGPathElement | null>(null);
+  const [len, setLen] = useState(0);
+  const [drawn, setDrawn] = useState(false);
+  const wrapRef = useRef<HTMLDivElement | null>(null);
+  useEffect(() => {
+    if (pathRef.current) setLen(pathRef.current.getTotalLength());
+  }, []);
+  useEffect(() => {
+    const el = wrapRef.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            setDrawn(true);
+            io.disconnect();
+          }
+        });
+      },
+      { threshold: 0.3 },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
+  const RED = "#ef4444";
+  const GREEN = "#22c55e";
+
   return (
-    <div className="rounded-md border-2 border-border bg-card overflow-hidden">
+    <div
+      ref={wrapRef}
+      className="rounded-xl border-2 border-accent/40 bg-card overflow-hidden shadow-lg shadow-accent/10"
+    >
       <div className="grid grid-cols-3 mil-stencil text-[10px] font-bold border-b border-border">
         <div className="px-2 py-2 border-r border-border">
           <div className="text-muted-foreground">AHORA</div>
-          <div className="text-accent text-sm">{currentKg} kg</div>
+          <div className="text-sm" style={{ color: RED }}>{currentKg} kg</div>
         </div>
         <div className="px-2 py-2 border-r border-border text-center">
           <div className="text-muted-foreground">{isLoss ? "PERDERÁS" : "GANARÁS"}</div>
@@ -2327,7 +2431,7 @@ function WeightProjectionChart({
         </div>
         <div className="px-2 py-2 text-right">
           <div className="text-muted-foreground">OBJETIVO</div>
-          <div className="text-accent text-sm">{targetKg} kg</div>
+          <div className="text-sm" style={{ color: GREEN }}>{targetKg} kg</div>
         </div>
       </div>
 
@@ -2339,10 +2443,30 @@ function WeightProjectionChart({
           aria-label="Proyección de peso"
         >
           <defs>
-            <linearGradient id="wpArea" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="hsl(var(--accent))" stopOpacity="0.55" />
-              <stop offset="100%" stopColor="hsl(var(--accent))" stopOpacity="0" />
+            <linearGradient id="wpLine" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stopColor={RED} />
+              <stop offset="50%" stopColor="#f59e0b" />
+              <stop offset="100%" stopColor={GREEN} />
             </linearGradient>
+            <linearGradient id="wpArea" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stopColor={RED} stopOpacity="0.55" />
+              <stop offset="50%" stopColor="#f59e0b" stopOpacity="0.35" />
+              <stop offset="100%" stopColor={GREEN} stopOpacity="0.55" />
+            </linearGradient>
+            <linearGradient id="wpAreaFade" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="#ffffff" stopOpacity="1" />
+              <stop offset="100%" stopColor="#ffffff" stopOpacity="0" />
+            </linearGradient>
+            <mask id="wpAreaMask">
+              <rect x="0" y="0" width={W} height={H} fill="url(#wpAreaFade)" />
+            </mask>
+            <filter id="wpGlow" x="-20%" y="-20%" width="140%" height="140%">
+              <feGaussianBlur stdDeviation="2.5" result="b" />
+              <feMerge>
+                <feMergeNode in="b" />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
           </defs>
 
           {/* grid */}
@@ -2353,15 +2477,16 @@ function WeightProjectionChart({
                 x2={W - padR}
                 y1={yAt(kg)}
                 y2={yAt(kg)}
-                stroke="hsl(var(--border))"
-                strokeDasharray="2 3"
+                stroke="oklch(0.35 0.02 140)"
+                strokeDasharray="2 4"
                 strokeWidth="1"
+                opacity="0.6"
               />
               <text
                 x={padL - 6}
                 y={yAt(kg) + 3}
                 textAnchor="end"
-                className="fill-muted-foreground"
+                fill="oklch(0.72 0.03 120)"
                 style={{ font: "600 9px ui-monospace, monospace" }}
               >
                 {kg.toFixed(0)}
@@ -2369,26 +2494,60 @@ function WeightProjectionChart({
             </g>
           ))}
 
-          {/* area + line */}
-          <path d={area} fill="url(#wpArea)" />
+          {/* area */}
+          <g mask="url(#wpAreaMask)">
+            <path
+              d={area}
+              fill="url(#wpArea)"
+              style={{
+                opacity: drawn ? 1 : 0,
+                transition: "opacity 900ms ease-out 400ms",
+              }}
+            />
+          </g>
+
+          {/* animated line */}
           <path
+            ref={pathRef}
             d={line}
             fill="none"
-            stroke="hsl(var(--accent))"
-            strokeWidth="2.5"
+            stroke="url(#wpLine)"
+            strokeWidth="3.5"
             strokeLinecap="round"
             strokeLinejoin="round"
+            filter="url(#wpGlow)"
+            style={{
+              strokeDasharray: len,
+              strokeDashoffset: drawn ? 0 : len,
+              transition: "stroke-dashoffset 1600ms cubic-bezier(0.22, 1, 0.36, 1)",
+            }}
           />
 
           {/* markers */}
-          <circle cx={xAt(0)} cy={yAt(currentKg)} r="5" fill="hsl(var(--foreground))" />
+          <circle
+            cx={xAt(0)}
+            cy={yAt(currentKg)}
+            r="6"
+            fill={RED}
+            stroke="#fff"
+            strokeWidth="2"
+            style={{
+              opacity: drawn ? 1 : 0,
+              transition: "opacity 400ms ease-out 200ms",
+            }}
+          />
           <circle
             cx={xAt(weeks)}
             cy={yAt(targetKg)}
-            r="6"
-            fill="hsl(var(--accent))"
-            stroke="hsl(var(--background))"
+            r="7"
+            fill={GREEN}
+            stroke="#fff"
             strokeWidth="2"
+            filter="url(#wpGlow)"
+            style={{
+              opacity: drawn ? 1 : 0,
+              transition: "opacity 500ms ease-out 1500ms",
+            }}
           />
 
           {/* x labels */}
@@ -2398,13 +2557,24 @@ function WeightProjectionChart({
               x={xAt(w)}
               y={H - 8}
               textAnchor="middle"
-              className="fill-muted-foreground"
+              fill="oklch(0.72 0.03 120)"
               style={{ font: "600 9px ui-monospace, monospace" }}
             >
               {w === 0 ? "HOY" : `S${w}`}
             </text>
           ))}
         </svg>
+
+        <div className="mt-3 flex items-center justify-between text-[10px] mil-stencil">
+          <span className="flex items-center gap-1.5">
+            <span className="inline-block h-2.5 w-2.5 rounded-full" style={{ background: RED }} />
+            <span className="text-muted-foreground">Peso actual</span>
+          </span>
+          <span className="flex items-center gap-1.5">
+            <span className="inline-block h-2.5 w-2.5 rounded-full" style={{ background: GREEN }} />
+            <span className="text-muted-foreground">Peso ideal</span>
+          </span>
+        </div>
 
         <p className="mt-2 text-[11px] text-muted-foreground leading-relaxed">
           Proyección estimada con el Protocolo Militar en{" "}
