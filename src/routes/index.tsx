@@ -7,6 +7,7 @@ import homeTraining from "@/assets/home-training.jpg";
 import beforeAfterAsset from "@/assets/before-after.png.asset.json";
 import injuriesBody from "@/assets/injuries-body.jpg.asset.json";
 import attentionPushup from "@/assets/attention-pushup.jpg.asset.json";
+import transformationFeedback from "@/assets/transformation-feedback.jpg.asset.json";
 import logoMilitary from "@/assets/logo-military.png.asset.json";
 
 
