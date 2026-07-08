@@ -651,6 +651,11 @@ function Quiz() {
     return <PlanView answers={answers} onFinish={() => setShowSales(true)} />;
   }
 
+  if (step.kind === "loading") {
+    return <RecruitmentLoadingView step={step} onDone={next} />;
+  }
+
+
 
   return (
     <main className="min-h-screen bg-background text-foreground">
