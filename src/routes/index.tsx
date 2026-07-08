@@ -34,7 +34,7 @@ export const Route = createFileRoute("/")({
 
 type Answers = Record<string, string | string[]>;
 
-const TOTAL = 41;
+const TOTAL = 34;
 
 type SingleStep = {
   kind: "single";
@@ -406,7 +406,7 @@ const STEPS: Step[] = [
     kind: "single",
     key: "water",
     title: "¿Cuánta agua bebes al día?",
-    progress: 20,
+    progress: 17,
     options: [
       { value: "coffee", label: "Solo un café o un té ☕️" },
       { value: "<2", label: "Menos de 2 vasos 💧", hint: "hasta 0,5 l / 17 oz" },
@@ -419,7 +419,7 @@ const STEPS: Step[] = [
     kind: "single",
     key: "daily-life",
     title: "¿Cómo describirías un día típico tuyo?",
-    progress: 21,
+    progress: 18,
     options: [
       { value: "sitting", label: "Paso la mayor parte del día sentado" },
       { value: "traveling", label: "Viajo de vez en cuando" },
@@ -430,7 +430,7 @@ const STEPS: Step[] = [
     kind: "single",
     key: "energy",
     title: "¿Cuál es tu nivel medio de energía a lo largo del día?",
-    progress: 22,
+    progress: 19,
     options: [
       { value: "exhausted", label: "Me siento agotado la mayor parte del tiempo 😓" },
       { value: "varies", label: "Mi nivel de energía varía a lo largo del día 📊" },
@@ -441,7 +441,7 @@ const STEPS: Step[] = [
     kind: "single",
     key: "sleep",
     title: "¿Cuántas horas sueles dormir?",
-    progress: 23,
+    progress: 20,
     options: [
       { value: "<5", label: "Menos de 5 horas 🙄" },
       { value: "5-6", label: "5-6 horas 🥱" },
@@ -463,14 +463,14 @@ const STEPS: Step[] = [
     body: "Dormir bien es esencial para tu salud física. Una buena noche de sueño mejora el metabolismo, controla el apetito y aporta más energía.",
     callout: "Los estudios muestran que hacer al menos 30 minutos de ejercicio moderado puede mejorar la calidad del sueño esa misma noche.",
     cta: "Continuar",
-    progress: 24,
+    progress: 21,
   },
   {
     kind: "single",
     key: "needs-structure",
     title: "¿En qué medida te reconoces en esta afirmación?",
     subtitle: "Necesito estructura o guía durante las sesiones de entrenamiento para mantenerme motivado.",
-    progress: 25,
+    progress: 22,
     options: [
       { value: "disagree", label: "En desacuerdo" },
       { value: "neutral", label: "Neutral" },
@@ -484,7 +484,7 @@ const STEPS: Step[] = [
     banner: "¡Tu plan de entrenamiento militar está listo!",
     stepLabel: "1/3",
     title: "¿Cuál es tu fecha de nacimiento?",
-    progress: 26,
+    progress: 23,
   },
   {
     kind: "acct-email",
@@ -493,13 +493,13 @@ const STEPS: Step[] = [
     banner: "¡Tu plan de entrenamiento militar está listo!",
     stepLabel: "2/3",
     title: "Email",
-    progress: 27,
+    progress: 24,
   },
   {
     kind: "single",
     key: "experience",
     title: "¿Cuál es tu nivel de experiencia?",
-    progress: 30,
+    progress: 25,
     options: [
       { value: "debutant", label: "Principiante" },
       { value: "intermediaire", label: "Intermedio" },
@@ -510,14 +510,14 @@ const STEPS: Step[] = [
     kind: "height",
     key: "height",
     title: "¿Cuánto mides?",
-    progress: 31,
+    progress: 26,
   },
 
   {
     kind: "weight",
     key: "weight",
     title: "¿Cuál es tu peso actual y cuál es tu peso ideal?",
-    progress: 32,
+    progress: 27,
   },
 
   {
@@ -526,13 +526,13 @@ const STEPS: Step[] = [
     title: "Objetivo realista y alcanzable",
     body: "Según tus respuestas, tu meta es totalmente alcanzable con nuestro plan militar personalizado.",
     cta: "Continuar",
-    progress: 33,
+    progress: 28,
   },
   {
     kind: "single",
     key: "event-date",
     title: "¿Cuándo quieres lograr tu objetivo?",
-    progress: 34,
+    progress: 29,
     options: [
       { value: "1m", label: "En 1 mes" },
       { value: "3m", label: "En 3 meses" },
@@ -544,7 +544,7 @@ const STEPS: Step[] = [
     kind: "single",
     key: "motivation-level",
     title: "¿Qué tan motivado estás?",
-    progress: 35,
+    progress: 30,
     options: [
       { value: "extreme", label: "Extremadamente motivado" },
       { value: "high", label: "Muy motivado" },
@@ -557,7 +557,7 @@ const STEPS: Step[] = [
     title: "¿Estás listo para comprometerte?",
     body: "El protocolo militar exige disciplina. Necesitamos tu compromiso antes de generar tu plan personalizado.",
     cta: "¡Sí! Me comprometo a cumplir el protocolo",
-    progress: 38,
+    progress: 31,
   },
   {
     kind: "loading",
@@ -571,13 +571,13 @@ const STEPS: Step[] = [
       "🧠 Adaptando a tu estilo de vida",
       "🚀 Casi listo...",
     ],
-    progress: 39,
+    progress: 32,
   },
 
   {
     kind: "plan",
     key: "plan",
-    progress: 40,
+    progress: 33,
   },
 
 ];
