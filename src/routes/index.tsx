@@ -246,10 +246,10 @@ const STEPS: Step[] = [
   {
     kind: "info",
     key: "attention",
-    title: "¡Estás en el lugar correcto!",
-    body: "Nuestro programa militar está diseñado para transformar tu cuerpo rápido, sin importar tu punto de partida. Vamos con todo.",
-    cta: "Entendido",
-    image: attentionPushup.url,
+    title: "Más de 7.000 hombres ya desbloquearon el físico de sus sueños",
+    body: "Esta es la prueba viva: el Protocolo Militar transformó a miles de hombres comunes en versiones más fuertes, magras y disciplinadas de sí mismos. Sin gimnasio, sin excusas — solo el método probado que las fuerzas de élite usan hace décadas. El próximo eres tú.",
+    cta: "Quiero mi transformación",
+    image: transformationFeedback.url,
     progress: 6,
   },
 
