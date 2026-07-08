@@ -1545,25 +1545,12 @@ function PlanView({
       </div>
 
       <section className="max-w-md mx-auto px-4 py-6 space-y-6">
-        {/* Before / After */}
+        {/* Weight projection chart */}
         <div>
           <div className="mil-stencil text-xs text-accent font-bold mb-2">
             Tu objetivo, {name}
           </div>
-          <div className="rounded-md border-2 border-border bg-card overflow-hidden">
-            <div className="grid grid-cols-2 mil-stencil text-[10px] font-bold text-accent border-b border-border">
-              <div className="px-2 py-1 border-r border-border">AHORA · 20-24%</div>
-              <div className="px-2 py-1">OBJETIVO · 15-17%</div>
-            </div>
-            <img
-              src={beforeAfterAsset.url}
-              alt="Antes y después"
-              loading="lazy"
-              className="w-full h-auto object-contain bg-white min-h-[420px] md:min-h-[560px]"
-            />
-
-          </div>
-
+          <WeightProjectionChart currentKg={currentKg} targetKg={targetKg} />
         </div>
 
         {/* BMI */}
@@ -2054,3 +2041,152 @@ function IntroView({ onStart, initialName = "" }: { onStart: (age: string, name:
     </main>
   );
 }
+
+function WeightProjectionChart({
+  currentKg,
+  targetKg,
+}: {
+  currentKg: number;
+  targetKg: number;
+}) {
+  const weeks = 12;
+  const isLoss = targetKg <= currentKg;
+  // Ease-out curve: rápido no início, desacelera no fim
+  const points = Array.from({ length: weeks + 1 }, (_, i) => {
+    const t = i / weeks;
+    const eased = 1 - Math.pow(1 - t, 2.2);
+    const kg = currentKg + (targetKg - currentKg) * eased;
+    return { i, kg };
+  });
+
+  const W = 320;
+  const H = 180;
+  const padL = 34;
+  const padR = 14;
+  const padT = 18;
+  const padB = 26;
+  const minKg = Math.min(currentKg, targetKg) - 2;
+  const maxKg = Math.max(currentKg, targetKg) + 2;
+  const xAt = (i: number) =>
+    padL + (i / weeks) * (W - padL - padR);
+  const yAt = (kg: number) =>
+    padT + (1 - (kg - minKg) / (maxKg - minKg)) * (H - padT - padB);
+
+  const line = points
+    .map((p, idx) => `${idx === 0 ? "M" : "L"} ${xAt(p.i).toFixed(1)} ${yAt(p.kg).toFixed(1)}`)
+    .join(" ");
+  const area =
+    `M ${xAt(0)} ${H - padB} ` +
+    points.map((p) => `L ${xAt(p.i).toFixed(1)} ${yAt(p.kg).toFixed(1)}`).join(" ") +
+    ` L ${xAt(weeks)} ${H - padB} Z`;
+
+  const yTicks = 4;
+  const ticks = Array.from({ length: yTicks + 1 }, (_, i) => {
+    const kg = minKg + ((maxKg - minKg) * i) / yTicks;
+    return kg;
+  });
+
+  const diff = Math.abs(currentKg - targetKg).toFixed(1);
+
+  return (
+    <div className="rounded-md border-2 border-border bg-card overflow-hidden">
+      <div className="grid grid-cols-3 mil-stencil text-[10px] font-bold border-b border-border">
+        <div className="px-2 py-2 border-r border-border">
+          <div className="text-muted-foreground">AHORA</div>
+          <div className="text-accent text-sm">{currentKg} kg</div>
+        </div>
+        <div className="px-2 py-2 border-r border-border text-center">
+          <div className="text-muted-foreground">{isLoss ? "PERDERÁS" : "GANARÁS"}</div>
+          <div className="text-accent text-sm">{diff} kg</div>
+        </div>
+        <div className="px-2 py-2 text-right">
+          <div className="text-muted-foreground">OBJETIVO</div>
+          <div className="text-accent text-sm">{targetKg} kg</div>
+        </div>
+      </div>
+
+      <div className="p-3">
+        <svg
+          viewBox={`0 0 ${W} ${H}`}
+          className="w-full h-auto"
+          role="img"
+          aria-label="Proyección de peso"
+        >
+          <defs>
+            <linearGradient id="wpArea" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="hsl(var(--accent))" stopOpacity="0.55" />
+              <stop offset="100%" stopColor="hsl(var(--accent))" stopOpacity="0" />
+            </linearGradient>
+          </defs>
+
+          {/* grid */}
+          {ticks.map((kg, i) => (
+            <g key={i}>
+              <line
+                x1={padL}
+                x2={W - padR}
+                y1={yAt(kg)}
+                y2={yAt(kg)}
+                stroke="hsl(var(--border))"
+                strokeDasharray="2 3"
+                strokeWidth="1"
+              />
+              <text
+                x={padL - 6}
+                y={yAt(kg) + 3}
+                textAnchor="end"
+                className="fill-muted-foreground"
+                style={{ font: "600 9px ui-monospace, monospace" }}
+              >
+                {kg.toFixed(0)}
+              </text>
+            </g>
+          ))}
+
+          {/* area + line */}
+          <path d={area} fill="url(#wpArea)" />
+          <path
+            d={line}
+            fill="none"
+            stroke="hsl(var(--accent))"
+            strokeWidth="2.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+
+          {/* markers */}
+          <circle cx={xAt(0)} cy={yAt(currentKg)} r="5" fill="hsl(var(--foreground))" />
+          <circle
+            cx={xAt(weeks)}
+            cy={yAt(targetKg)}
+            r="6"
+            fill="hsl(var(--accent))"
+            stroke="hsl(var(--background))"
+            strokeWidth="2"
+          />
+
+          {/* x labels */}
+          {[0, 4, 8, 12].map((w) => (
+            <text
+              key={w}
+              x={xAt(w)}
+              y={H - 8}
+              textAnchor="middle"
+              className="fill-muted-foreground"
+              style={{ font: "600 9px ui-monospace, monospace" }}
+            >
+              {w === 0 ? "HOY" : `S${w}`}
+            </text>
+          ))}
+        </svg>
+
+        <p className="mt-2 text-[11px] text-muted-foreground leading-relaxed">
+          Proyección estimada con el Protocolo Militar en{" "}
+          <span className="text-accent font-bold">12 semanas</span>, calculada a
+          partir de tus respuestas.
+        </p>
+      </div>
+    </div>
+  );
+}
+
