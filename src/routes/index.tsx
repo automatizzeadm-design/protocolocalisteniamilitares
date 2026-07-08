@@ -899,7 +899,7 @@ function Quiz() {
         )}
 
 
-        {step.kind === "loading" && <LoadingStepView step={step} onDone={next} />}
+        {/* loading step is handled by early return above */}
 
 
 
