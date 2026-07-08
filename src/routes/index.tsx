@@ -2024,6 +2024,97 @@ function SalesView({
   );
 }
 
+function VideoStepView({ step, onNext }: { step: VideoStep; onNext: () => void }) {
+  const [muted, setMuted] = useState(true);
+  const [paused, setPaused] = useState(false);
+  const playerRef = useRef<any>(null);
+  const iframeRef = useRef<HTMLIFrameElement | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      const { default: Player } = await import("@vimeo/player");
+      if (cancelled || !iframeRef.current) return;
+      playerRef.current = new Player(iframeRef.current);
+      try {
+        await playerRef.current.ready();
+        await playerRef.current.play();
+      } catch {}
+    })();
+    return () => { cancelled = true; try { playerRef.current?.destroy(); } catch {} };
+  }, []);
+
+  const unmute = async () => {
+    setMuted(false);
+    try {
+      const p = playerRef.current;
+      if (!p) return;
+      await p.setMuted(false);
+      await p.setVolume(1);
+      await p.setCurrentTime(0);
+      await p.play();
+      setPaused(false);
+    } catch (e) { console.error(e); }
+  };
+
+  const togglePause = async (e: React.MouseEvent) => {
+    e.stopPropagation();
+    const p = playerRef.current;
+    if (!p) return;
+    try {
+      if (paused) { await p.play(); setPaused(false); }
+      else { await p.pause(); setPaused(true); }
+    } catch {}
+  };
+
+  return (
+    <div className="space-y-5">
+      <div className="rounded-xl overflow-hidden border-2 border-accent/40 shadow-lg shadow-accent/10 bg-black">
+        <div style={{ padding: `${step.paddingPct}% 0 0 0`, position: "relative" }}>
+          <iframe
+            ref={iframeRef}
+            src={`https://player.vimeo.com/video/${step.videoId}?badge=0&autopause=0&autoplay=1&muted=1&playsinline=1&title=0&byline=0&portrait=0&controls=0&loop=0`}
+            allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+            referrerPolicy="strict-origin-when-cross-origin"
+            style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%" }}
+            title="Testimonio"
+          />
+
+          {muted ? (
+            <button
+              type="button"
+              onClick={unmute}
+              className="absolute inset-0 flex flex-col items-center justify-center gap-2 bg-black/60 text-white cursor-pointer"
+              style={{ position: "absolute", inset: 0 }}
+            >
+              <div className="h-14 w-14 rounded-full bg-accent flex items-center justify-center text-2xl">🔊</div>
+              <div className="mil-stencil font-bold text-sm sm:text-base">TU VÍDEO YA COMENZÓ</div>
+              <div className="text-xs sm:text-sm opacity-90">Toca para activar el sonido</div>
+            </button>
+          ) : (
+            <button
+              type="button"
+              onClick={togglePause}
+              aria-label={paused ? "Reproducir" : "Pausar"}
+              className="absolute bottom-3 right-3 h-11 w-11 rounded-full bg-black/70 hover:bg-black/85 text-white flex items-center justify-center text-lg backdrop-blur"
+            >
+              {paused ? "▶" : "❚❚"}
+            </button>
+          )}
+        </div>
+      </div>
+
+      <Button
+        onClick={onNext}
+        className="w-full mil-stencil bg-accent text-accent-foreground hover:bg-accent/90"
+        size="lg"
+      >
+        {step.cta}
+      </Button>
+    </div>
+  );
+}
+
 import soldierIntro from "@/assets/soldier-intro.png.asset.json";
 
 function VSLView({ onContinue }: { onContinue: (name: string) => void }) {
