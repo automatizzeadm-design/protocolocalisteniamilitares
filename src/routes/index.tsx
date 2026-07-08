@@ -8,6 +8,7 @@ import beforeAfterAsset from "@/assets/before-after.png.asset.json";
 import injuriesBody from "@/assets/injuries-body.jpg.asset.json";
 import attentionPushup from "@/assets/attention-pushup.jpg.asset.json";
 import transformationFeedback from "@/assets/transformation-feedback.jpg.asset.json";
+import militaryTransformation from "@/assets/military-transformation.png.asset.json";
 import logoMilitary from "@/assets/logo-military.png.asset.json";
 
 
@@ -864,6 +865,18 @@ function Quiz() {
             <p className="text-muted-foreground text-sm leading-relaxed">
               {step.body}
             </p>
+
+            <figure className="space-y-3 rounded-md border-2 border-accent/60 bg-primary/10 p-3">
+              <img
+                src={militaryTransformation.url}
+                alt="Transformación real con el protocolo militar"
+                className="w-full rounded-sm object-cover"
+                loading="lazy"
+              />
+              <figcaption className="mil-stencil text-xs leading-relaxed text-foreground/90">
+                El entrenamiento militar es el verdadero catalizador de estética y fuerza real: forja un cuerpo funcional, definido y poderoso, hasta el punto de volverte irreconocible.
+              </figcaption>
+            </figure>
             <Button
               className="w-full mil-stencil bg-accent text-accent-foreground hover:bg-accent/90"
               size="lg"
