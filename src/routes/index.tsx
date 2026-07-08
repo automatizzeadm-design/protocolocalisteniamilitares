@@ -635,7 +635,9 @@ function Quiz() {
 
 
   const step = STEPS[index];
-  const pct = Math.round(((step?.progress ?? TOTAL) / TOTAL) * 100);
+  const rawPct = (step?.progress ?? TOTAL) / TOTAL;
+  // Ease-out: avança rápido no início e desacelera no fim
+  const pct = Math.round(Math.pow(rawPct, 0.45) * 100);
 
   const next = () => {
     if (index + 1 >= STEPS.length) setDone(true);
