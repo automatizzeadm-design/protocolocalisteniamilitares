@@ -401,39 +401,7 @@ const STEPS: Step[] = [
     ],
   },
 
-  {
-    kind: "info",
-    key: "no-gym",
-    title: "No necesitas gimnasio.",
-    body: "Sin gimnasio. Sin saltos. Sin ejercicios en el suelo. Solo ejercicios con el peso del cuerpo — 15 minutos, hechos para tu sala de estar.",
-    cta: "Continuar",
-    image: homeTraining,
-    progress: 17,
-  },
-  {
-    kind: "multi",
-    key: "equipment",
-    title: "¿Qué equipo tienes a la mano?",
-    progress: 18,
-    options: [
-      { value: "aucun", label: "Ninguno" },
-      { value: "halteres", label: "Mancuernas" },
-      { value: "barre", label: "Barra de dominadas" },
-      { value: "elastiques", label: "Bandas elásticas" },
-      { value: "salle", label: "Acceso a un gimnasio" },
-    ],
-  },
-  {
-    kind: "single",
-    key: "location",
-    title: "¿Dónde prefieres entrenar?",
-    progress: 19,
-    options: [
-      { value: "maison", label: "En casa" },
-      { value: "salle", label: "En el gimnasio" },
-      { value: "exterieur", label: "Al aire libre" },
-    ],
-  },
+
   {
     kind: "single",
     key: "water",
