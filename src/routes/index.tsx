@@ -714,9 +714,6 @@ function Quiz() {
           <div className="flex-1">
             <Progress value={pct} className="bg-secondary" />
           </div>
-          <span className="mil-stencil text-xs text-accent tabular-nums">
-            {step.progress}/{TOTAL}
-          </span>
         </div>
       </header>
 
