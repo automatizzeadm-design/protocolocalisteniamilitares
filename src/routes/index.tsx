@@ -1564,11 +1564,6 @@ function PlanView({
 
           </div>
 
-          <p className="mt-3 text-[10px] text-muted-foreground leading-relaxed">
-            *Los resultados son solo indicativos y no garantizados. Los
-            resultados individuales pueden variar según dieta, ejercicio y
-            metabolismo. Las imágenes son meramente motivacionales.
-          </p>
         </div>
 
         {/* BMI */}
