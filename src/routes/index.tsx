@@ -2268,6 +2268,50 @@ function IntroView({ onStart, initialName = "" }: { onStart: (age: string, name:
   );
 }
 
+function Reveal({
+  children,
+  delay = 0,
+  className = "",
+}: {
+  children: React.ReactNode;
+  delay?: number;
+  className?: string;
+}) {
+  const ref = useRef<HTMLDivElement | null>(null);
+  const [shown, setShown] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            setShown(true);
+            io.disconnect();
+          }
+        });
+      },
+      { threshold: 0.15, rootMargin: "0px 0px -40px 0px" },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+  return (
+    <div
+      ref={ref}
+      className={className}
+      style={{
+        opacity: shown ? 1 : 0,
+        transform: shown ? "translateY(0)" : "translateY(24px)",
+        transition: `opacity 700ms ease-out ${delay}ms, transform 700ms cubic-bezier(0.22, 1, 0.36, 1) ${delay}ms`,
+        willChange: "opacity, transform",
+      }}
+    >
+      {children}
+    </div>
+  );
+}
+
 function WeightProjectionChart({
   currentKg,
   targetKg,
@@ -2277,7 +2321,6 @@ function WeightProjectionChart({
 }) {
   const weeks = 12;
   const isLoss = targetKg <= currentKg;
-  // Ease-out curve: rápido no início, desacelera no fim
   const points = Array.from({ length: weeks + 1 }, (_, i) => {
     const t = i / weeks;
     const eased = 1 - Math.pow(1 - t, 2.2);
@@ -2286,15 +2329,14 @@ function WeightProjectionChart({
   });
 
   const W = 320;
-  const H = 180;
-  const padL = 34;
-  const padR = 14;
-  const padT = 18;
-  const padB = 26;
+  const H = 200;
+  const padL = 36;
+  const padR = 16;
+  const padT = 22;
+  const padB = 28;
   const minKg = Math.min(currentKg, targetKg) - 2;
   const maxKg = Math.max(currentKg, targetKg) + 2;
-  const xAt = (i: number) =>
-    padL + (i / weeks) * (W - padL - padR);
+  const xAt = (i: number) => padL + (i / weeks) * (W - padL - padR);
   const yAt = (kg: number) =>
     padT + (1 - (kg - minKg) / (maxKg - minKg)) * (H - padT - padB);
 
@@ -2314,12 +2356,44 @@ function WeightProjectionChart({
 
   const diff = Math.abs(currentKg - targetKg).toFixed(1);
 
+  // Animate line draw
+  const pathRef = useRef<SVGPathElement | null>(null);
+  const [len, setLen] = useState(0);
+  const [drawn, setDrawn] = useState(false);
+  const wrapRef = useRef<HTMLDivElement | null>(null);
+  useEffect(() => {
+    if (pathRef.current) setLen(pathRef.current.getTotalLength());
+  }, []);
+  useEffect(() => {
+    const el = wrapRef.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            setDrawn(true);
+            io.disconnect();
+          }
+        });
+      },
+      { threshold: 0.3 },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
+  const RED = "#ef4444";
+  const GREEN = "#22c55e";
+
   return (
-    <div className="rounded-md border-2 border-border bg-card overflow-hidden">
+    <div
+      ref={wrapRef}
+      className="rounded-xl border-2 border-accent/40 bg-card overflow-hidden shadow-lg shadow-accent/10"
+    >
       <div className="grid grid-cols-3 mil-stencil text-[10px] font-bold border-b border-border">
         <div className="px-2 py-2 border-r border-border">
           <div className="text-muted-foreground">AHORA</div>
-          <div className="text-accent text-sm">{currentKg} kg</div>
+          <div className="text-sm" style={{ color: RED }}>{currentKg} kg</div>
         </div>
         <div className="px-2 py-2 border-r border-border text-center">
           <div className="text-muted-foreground">{isLoss ? "PERDERÁS" : "GANARÁS"}</div>
@@ -2327,7 +2401,7 @@ function WeightProjectionChart({
         </div>
         <div className="px-2 py-2 text-right">
           <div className="text-muted-foreground">OBJETIVO</div>
-          <div className="text-accent text-sm">{targetKg} kg</div>
+          <div className="text-sm" style={{ color: GREEN }}>{targetKg} kg</div>
         </div>
       </div>
 
@@ -2339,10 +2413,30 @@ function WeightProjectionChart({
           aria-label="Proyección de peso"
         >
           <defs>
-            <linearGradient id="wpArea" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="hsl(var(--accent))" stopOpacity="0.55" />
-              <stop offset="100%" stopColor="hsl(var(--accent))" stopOpacity="0" />
+            <linearGradient id="wpLine" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stopColor={RED} />
+              <stop offset="50%" stopColor="#f59e0b" />
+              <stop offset="100%" stopColor={GREEN} />
             </linearGradient>
+            <linearGradient id="wpArea" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stopColor={RED} stopOpacity="0.55" />
+              <stop offset="50%" stopColor="#f59e0b" stopOpacity="0.35" />
+              <stop offset="100%" stopColor={GREEN} stopOpacity="0.55" />
+            </linearGradient>
+            <linearGradient id="wpAreaFade" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="#ffffff" stopOpacity="1" />
+              <stop offset="100%" stopColor="#ffffff" stopOpacity="0" />
+            </linearGradient>
+            <mask id="wpAreaMask">
+              <rect x="0" y="0" width={W} height={H} fill="url(#wpAreaFade)" />
+            </mask>
+            <filter id="wpGlow" x="-20%" y="-20%" width="140%" height="140%">
+              <feGaussianBlur stdDeviation="2.5" result="b" />
+              <feMerge>
+                <feMergeNode in="b" />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
           </defs>
 
           {/* grid */}
@@ -2353,15 +2447,16 @@ function WeightProjectionChart({
                 x2={W - padR}
                 y1={yAt(kg)}
                 y2={yAt(kg)}
-                stroke="hsl(var(--border))"
-                strokeDasharray="2 3"
+                stroke="oklch(0.35 0.02 140)"
+                strokeDasharray="2 4"
                 strokeWidth="1"
+                opacity="0.6"
               />
               <text
                 x={padL - 6}
                 y={yAt(kg) + 3}
                 textAnchor="end"
-                className="fill-muted-foreground"
+                fill="oklch(0.72 0.03 120)"
                 style={{ font: "600 9px ui-monospace, monospace" }}
               >
                 {kg.toFixed(0)}
@@ -2369,26 +2464,60 @@ function WeightProjectionChart({
             </g>
           ))}
 
-          {/* area + line */}
-          <path d={area} fill="url(#wpArea)" />
+          {/* area */}
+          <g mask="url(#wpAreaMask)">
+            <path
+              d={area}
+              fill="url(#wpArea)"
+              style={{
+                opacity: drawn ? 1 : 0,
+                transition: "opacity 900ms ease-out 400ms",
+              }}
+            />
+          </g>
+
+          {/* animated line */}
           <path
+            ref={pathRef}
             d={line}
             fill="none"
-            stroke="hsl(var(--accent))"
-            strokeWidth="2.5"
+            stroke="url(#wpLine)"
+            strokeWidth="3.5"
             strokeLinecap="round"
             strokeLinejoin="round"
+            filter="url(#wpGlow)"
+            style={{
+              strokeDasharray: len,
+              strokeDashoffset: drawn ? 0 : len,
+              transition: "stroke-dashoffset 1600ms cubic-bezier(0.22, 1, 0.36, 1)",
+            }}
           />
 
           {/* markers */}
-          <circle cx={xAt(0)} cy={yAt(currentKg)} r="5" fill="hsl(var(--foreground))" />
+          <circle
+            cx={xAt(0)}
+            cy={yAt(currentKg)}
+            r="6"
+            fill={RED}
+            stroke="#fff"
+            strokeWidth="2"
+            style={{
+              opacity: drawn ? 1 : 0,
+              transition: "opacity 400ms ease-out 200ms",
+            }}
+          />
           <circle
             cx={xAt(weeks)}
             cy={yAt(targetKg)}
-            r="6"
-            fill="hsl(var(--accent))"
-            stroke="hsl(var(--background))"
+            r="7"
+            fill={GREEN}
+            stroke="#fff"
             strokeWidth="2"
+            filter="url(#wpGlow)"
+            style={{
+              opacity: drawn ? 1 : 0,
+              transition: "opacity 500ms ease-out 1500ms",
+            }}
           />
 
           {/* x labels */}
@@ -2398,13 +2527,24 @@ function WeightProjectionChart({
               x={xAt(w)}
               y={H - 8}
               textAnchor="middle"
-              className="fill-muted-foreground"
+              fill="oklch(0.72 0.03 120)"
               style={{ font: "600 9px ui-monospace, monospace" }}
             >
               {w === 0 ? "HOY" : `S${w}`}
             </text>
           ))}
         </svg>
+
+        <div className="mt-3 flex items-center justify-between text-[10px] mil-stencil">
+          <span className="flex items-center gap-1.5">
+            <span className="inline-block h-2.5 w-2.5 rounded-full" style={{ background: RED }} />
+            <span className="text-muted-foreground">Peso actual</span>
+          </span>
+          <span className="flex items-center gap-1.5">
+            <span className="inline-block h-2.5 w-2.5 rounded-full" style={{ background: GREEN }} />
+            <span className="text-muted-foreground">Peso ideal</span>
+          </span>
+        </div>
 
         <p className="mt-2 text-[11px] text-muted-foreground leading-relaxed">
           Proyección estimada con el Protocolo Militar en{" "}
