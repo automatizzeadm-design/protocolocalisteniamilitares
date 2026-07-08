@@ -1937,105 +1937,118 @@ function SalesView({
       </div>
 
       <section className="max-w-md mx-auto px-4 py-6 space-y-6">
-        <div className="text-center space-y-2">
-          <div className="text-5xl">🎉</div>
-          <h1 className="text-2xl font-bold mil-stencil text-accent">
-            ¡Felicidades!
-          </h1>
-          <p className="text-sm text-muted-foreground">
-            Has ganado el mayor descuento adicional
-          </p>
-          <p className="text-base font-semibold mt-3">
-            {name}, obtén tu plan de entrenamiento militar
-          </p>
-        </div>
+        <Reveal>
+          <div className="text-center space-y-2">
+            <div className="text-5xl">🎉</div>
+            <h1 className="text-2xl font-bold mil-stencil text-accent">
+              ¡Felicidades!
+            </h1>
+            <p className="text-sm text-muted-foreground">
+              Has ganado el mayor descuento adicional
+            </p>
+            <p className="text-base font-semibold mt-3">
+              {name}, obtén tu plan de entrenamiento militar
+            </p>
+          </div>
+        </Reveal>
 
-        <div className="rounded-lg border border-accent/40 bg-accent/10 p-3 text-center">
-          <div className="mil-stencil text-xs text-accent font-bold mb-1">
-            ⏳ El descuento expira en
+        <Reveal delay={80}>
+          <div className="rounded-lg border border-accent/40 bg-accent/10 p-3 text-center">
+            <div className="mil-stencil text-xs text-accent font-bold mb-1">
+              ⏳ El descuento expira en
+            </div>
+            <div className="text-3xl font-bold text-accent tabular-nums">
+              {mm}:{ss}
+            </div>
           </div>
-          <div className="text-3xl font-bold text-accent tabular-nums">
-            {mm}:{ss}
-          </div>
-        </div>
+        </Reveal>
 
         <div className="space-y-3">
-          {plans.map((p) => {
+          {plans.map((p, i) => {
             const active = selected === p.id;
             return (
-              <button
-                key={p.id}
-                onClick={() => setSelected(p.id)}
-                className={`w-full text-left rounded-lg border-2 p-4 transition ${
-                  active
-                    ? "border-accent bg-accent/10"
-                    : "border-border bg-card"
-                }`}
-              >
-                {p.badge && (
-                  <div className="mil-stencil text-[10px] bg-accent text-accent-foreground inline-block px-2 py-0.5 rounded mb-2 font-bold">
-                    {p.badge}
-                  </div>
-                )}
-                <div className="flex items-center justify-between">
-                  <div>
-                    <div className="mil-stencil font-bold text-sm">{p.label}</div>
-                    <div className="text-xs text-muted-foreground">
-                      <span className="line-through">{p.old}</span>{" "}
-                      <span className="text-accent font-bold">{p.now}</span>
+              <Reveal key={p.id} delay={i * 80}>
+                <button
+                  onClick={() => setSelected(p.id)}
+                  className={`w-full text-left rounded-lg border-2 p-4 transition ${
+                    active
+                      ? "border-accent bg-accent/10"
+                      : "border-border bg-card"
+                  }`}
+                >
+                  {p.badge && (
+                    <div className="mil-stencil text-[10px] bg-accent text-accent-foreground inline-block px-2 py-0.5 rounded mb-2 font-bold">
+                      {p.badge}
+                    </div>
+                  )}
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <div className="mil-stencil font-bold text-sm">{p.label}</div>
+                      <div className="text-xs text-muted-foreground">
+                        <span className="line-through">{p.old}</span>{" "}
+                        <span className="text-accent font-bold">{p.now}</span>
+                      </div>
+                    </div>
+                    <div className="text-right">
+                      <div className="text-xl font-bold">{p.per}</div>
+                      <div className="text-[10px] text-muted-foreground">por día</div>
                     </div>
                   </div>
-                  <div className="text-right">
-                    <div className="text-xl font-bold">{p.per}</div>
-                    <div className="text-[10px] text-muted-foreground">por día</div>
-                  </div>
-                </div>
-                {p.bonus && (
-                  <div className="text-[11px] text-accent mt-2">
-                    🎁 Programa imprimible 2026 incluido
-                  </div>
-                )}
-              </button>
+                  {p.bonus && (
+                    <div className="text-[11px] text-accent mt-2">
+                      🎁 Programa imprimible 2026 incluido
+                    </div>
+                  )}
+                </button>
+              </Reveal>
             );
           })}
         </div>
 
-        <Button
-          className="w-full mil-stencil bg-accent text-accent-foreground hover:bg-accent/90"
-          size="lg"
-          onClick={onFinish}
-        >
-          Continuar
-        </Button>
+        <Reveal delay={80}>
+          <Button
+            className="w-full mil-stencil bg-accent text-accent-foreground hover:bg-accent/90"
+            size="lg"
+            onClick={onFinish}
+          >
+            Continuar
+          </Button>
+        </Reveal>
 
-        <p className="text-[10px] text-muted-foreground leading-relaxed">
-          Al continuar, aceptas que tu suscripción se renueve automáticamente al
-          precio total al finalizar el período de introducción, a menos que la
-          canceles en la configuración. Consulta nuestros términos y política de
-          reembolso.
-        </p>
-
-        <div className="rounded-lg border border-border bg-card p-4 space-y-2">
-          <div className="mil-stencil font-bold text-sm text-accent">
-            🛡️ Política de reembolso garantizado
-          </div>
-          <p className="text-xs text-muted-foreground">
-            Creemos que nuestro plan puede funcionar para ti y verás resultados
-            visibles en 4 semanas. Estamos dispuestos a reembolsar el 100%
-            dentro de los 30 días posteriores a la compra si no obtienes
-            resultados visibles y demuestras que seguiste el plan.
+        <Reveal delay={60}>
+          <p className="text-[10px] text-muted-foreground leading-relaxed">
+            Al continuar, aceptas que tu suscripción se renueve automáticamente al
+            precio total al finalizar el período de introducción, a menos que la
+            canceles en la configuración. Consulta nuestros términos y política de
+            reembolso.
           </p>
-        </div>
+        </Reveal>
 
-        <div className="text-center space-y-1 pt-4">
-          <div className="text-xs text-muted-foreground">Hemos ayudado a más de</div>
-          <div className="text-3xl font-bold mil-stencil text-accent">
-            55.000 personas
+        <Reveal delay={80}>
+          <div className="rounded-lg border border-border bg-card p-4 space-y-2">
+            <div className="mil-stencil font-bold text-sm text-accent">
+              🛡️ Política de reembolso garantizado
+            </div>
+            <p className="text-xs text-muted-foreground">
+              Creemos que nuestro plan puede funcionar para ti y verás resultados
+              visibles en 4 semanas. Estamos dispuestos a reembolsar el 100%
+              dentro de los 30 días posteriores a la compra si no obtienes
+              resultados visibles y demuestras que seguiste el plan.
+            </p>
           </div>
-          <div className="text-xs text-muted-foreground">
-            a esculpir el cuerpo de sus sueños
+        </Reveal>
+
+        <Reveal delay={80}>
+          <div className="text-center space-y-1 pt-4">
+            <div className="text-xs text-muted-foreground">Hemos ayudado a más de</div>
+            <div className="text-3xl font-bold mil-stencil text-accent">
+              55.000 personas
+            </div>
+            <div className="text-xs text-muted-foreground">
+              a esculpir el cuerpo de sus sueños
+            </div>
           </div>
-        </div>
+        </Reveal>
       </section>
     </main>
   );
