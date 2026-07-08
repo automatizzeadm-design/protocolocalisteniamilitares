@@ -1885,7 +1885,6 @@ function SalesView({
   onFinish: () => void;
 }) {
   const name = (answers.name as string) || "soldado";
-  const [selected, setSelected] = useState<"1w" | "1m" | "3m">("1m");
   const [seconds, setSeconds] = useState(10 * 60);
 
   useEffect(() => {
@@ -1895,36 +1894,6 @@ function SalesView({
 
   const mm = String(Math.floor(seconds / 60)).padStart(2, "0");
   const ss = String(seconds % 60).padStart(2, "0");
-
-  const plans = [
-    {
-      id: "1w" as const,
-      label: "PLAN 1 SEMANA DE PRUEBA",
-      old: "R$ 29,99",
-      now: "R$ 4,28",
-      per: "R$ 0,61",
-      badge: null,
-      bonus: false,
-    },
-    {
-      id: "1m" as const,
-      label: "PLAN 1 MES",
-      old: "R$ 239,99",
-      now: "R$ 59,99",
-      per: "R$ 2,00",
-      badge: "El más popular",
-      bonus: true,
-    },
-    {
-      id: "3m" as const,
-      label: "PLAN 3 MESES",
-      old: "R$ 519,99",
-      now: "R$ 109,99",
-      per: "R$ 1,20",
-      badge: null,
-      bonus: true,
-    },
-  ];
 
   return (
     <main className="min-h-screen bg-background text-foreground">
@@ -1952,6 +1921,18 @@ function SalesView({
           </div>
         </Reveal>
 
+        <Reveal delay={60}>
+          <div className="text-center space-y-1 pt-2">
+            <div className="text-xs text-muted-foreground">Hemos ayudado a más de</div>
+            <div className="text-3xl font-bold mil-stencil text-accent">
+              55.000 personas
+            </div>
+            <div className="text-xs text-muted-foreground">
+              a esculpir el cuerpo de sus sueños
+            </div>
+          </div>
+        </Reveal>
+
         <Reveal delay={80}>
           <div className="rounded-lg border border-accent/40 bg-accent/10 p-3 text-center">
             <div className="mil-stencil text-xs text-accent font-bold mb-1">
@@ -1963,47 +1944,33 @@ function SalesView({
           </div>
         </Reveal>
 
-        <div className="space-y-3">
-          {plans.map((p, i) => {
-            const active = selected === p.id;
-            return (
-              <Reveal key={p.id} delay={i * 80}>
-                <button
-                  onClick={() => setSelected(p.id)}
-                  className={`w-full text-left rounded-lg border-2 p-4 transition ${
-                    active
-                      ? "border-accent bg-accent/10"
-                      : "border-border bg-card"
-                  }`}
-                >
-                  {p.badge && (
-                    <div className="mil-stencil text-[10px] bg-accent text-accent-foreground inline-block px-2 py-0.5 rounded mb-2 font-bold">
-                      {p.badge}
-                    </div>
-                  )}
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <div className="mil-stencil font-bold text-sm">{p.label}</div>
-                      <div className="text-xs text-muted-foreground">
-                        <span className="line-through">{p.old}</span>{" "}
-                        <span className="text-accent font-bold">{p.now}</span>
-                      </div>
-                    </div>
-                    <div className="text-right">
-                      <div className="text-xl font-bold">{p.per}</div>
-                      <div className="text-[10px] text-muted-foreground">por día</div>
-                    </div>
-                  </div>
-                  {p.bonus && (
-                    <div className="text-[11px] text-accent mt-2">
-                      🎁 Programa imprimible 2026 incluido
-                    </div>
-                  )}
-                </button>
-              </Reveal>
-            );
-          })}
-        </div>
+        <Reveal delay={80}>
+          <div className="rounded-xl border-2 border-accent bg-accent/10 p-5 text-center space-y-3">
+            <div className="mil-stencil text-[10px] bg-accent text-accent-foreground inline-block px-2 py-0.5 rounded font-bold">
+              OFERTA ÚNICA
+            </div>
+            <div className="mil-stencil font-bold text-lg">
+              PROTOCOLO CALISTENIA MILITAR
+            </div>
+            <div className="flex items-baseline justify-center gap-2">
+              <span className="text-sm text-muted-foreground line-through">
+                $47
+              </span>
+              <span className="text-5xl font-extrabold text-accent mil-stencil">
+                $7
+              </span>
+            </div>
+            <div className="text-xs text-muted-foreground">
+              Pago único · Acceso vitalicio
+            </div>
+            <ul className="text-left text-sm space-y-2 pt-2">
+              <li className="flex gap-2"><span className="text-accent">✓</span> Plan de entrenamiento militar personalizado</li>
+              <li className="flex gap-2"><span className="text-accent">✓</span> Sesiones de 15 a 30 minutos por día</li>
+              <li className="flex gap-2"><span className="text-accent">✓</span> Bonus: mapa imprimible para 2026</li>
+              <li className="flex gap-2"><span className="text-accent">✓</span> Soporte y actualizaciones</li>
+            </ul>
+          </div>
+        </Reveal>
 
         <Reveal delay={80}>
           <Button
@@ -2011,43 +1978,34 @@ function SalesView({
             size="lg"
             onClick={onFinish}
           >
-            Continuar
+            QUIERO MI PLAN POR $7
           </Button>
         </Reveal>
 
-        <Reveal delay={60}>
-          <p className="text-[10px] text-muted-foreground leading-relaxed">
-            Al continuar, aceptas que tu suscripción se renueve automáticamente al
-            precio total al finalizar el período de introducción, a menos que la
-            canceles en la configuración. Consulta nuestros términos y política de
-            reembolso.
-          </p>
-        </Reveal>
-
         <Reveal delay={80}>
-          <div className="rounded-lg border border-border bg-card p-4 space-y-2">
-            <div className="mil-stencil font-bold text-sm text-accent">
-              🛡️ Política de reembolso garantizado
+          <div className="rounded-lg border-2 border-accent/60 bg-card p-4 space-y-3">
+            <div className="flex items-center gap-2">
+              <div className="text-3xl">🛡️</div>
+              <div className="mil-stencil font-bold text-sm text-accent">
+                GARANTÍA DE 7 DÍAS
+              </div>
             </div>
-            <p className="text-xs text-muted-foreground">
-              Creemos que nuestro plan puede funcionar para ti y verás resultados
-              visibles en 4 semanas. Estamos dispuestos a reembolsar el 100%
-              dentro de los 30 días posteriores a la compra si no obtienes
-              resultados visibles y demuestras que seguiste el plan.
+            <p className="text-xs text-muted-foreground leading-relaxed">
+              Si en 7 días no estás 100% satisfecho con tu Protocolo Calistenia
+              Militar, te devolvemos cada centavo. Sin preguntas, sin trámites.
+              Todo el riesgo es nuestro.
             </p>
+            <div className="text-[10px] mil-stencil text-accent">
+              REEMBOLSO GARANTIZADO · COMPRA 100% SEGURA
+            </div>
           </div>
         </Reveal>
 
-        <Reveal delay={80}>
-          <div className="text-center space-y-1 pt-4">
-            <div className="text-xs text-muted-foreground">Hemos ayudado a más de</div>
-            <div className="text-3xl font-bold mil-stencil text-accent">
-              55.000 personas
-            </div>
-            <div className="text-xs text-muted-foreground">
-              a esculpir el cuerpo de sus sueños
-            </div>
-          </div>
+        <Reveal delay={60}>
+          <p className="text-[10px] text-muted-foreground leading-relaxed text-center">
+            Pago único de $7. Sin renovaciones automáticas. Consulta nuestros
+            términos y política de reembolso.
+          </p>
         </Reveal>
       </section>
     </main>
