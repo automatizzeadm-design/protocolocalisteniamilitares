@@ -918,8 +918,9 @@ function Quiz() {
             onChange={(v) => setAnswers((a) => ({ ...a, [step.key]: v }))}
             onNext={next}
           />
+        {step.kind === "video" && (
+          <VideoStepView step={step} onNext={next} />
         )}
-
 
         {/* loading step is handled by early return above */}
 
