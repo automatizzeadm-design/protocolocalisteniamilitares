@@ -855,7 +855,7 @@ function Quiz() {
                 </div>
               ))}
             </div>
-            <p className="text-muted-foreground text-sm leading-relaxed">
+            <p className="text-muted-foreground text-xs leading-snug">
               {step.body}
             </p>
 
