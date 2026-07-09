@@ -717,9 +717,6 @@ function Quiz() {
 
       <section className="max-w-md mx-auto px-4 py-8 space-y-6">
         <div className="space-y-2">
-          <div className="mil-stencil text-xs text-accent font-bold">
-            Misión {String(step.progress + 1).padStart(2, "0")}
-          </div>
           <h1 className="text-2xl font-bold leading-tight mil-stencil">
             {step.title}
           </h1>
