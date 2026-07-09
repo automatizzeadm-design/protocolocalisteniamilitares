@@ -863,7 +863,7 @@ function Quiz() {
               <img
                 src={militaryTransformation.url}
                 alt="Transformación real con el protocolo militar"
-                className="w-full rounded-sm object-cover max-h-36"
+                className="w-full h-32 rounded-sm object-cover"
                 loading="lazy"
               />
               <figcaption className="mil-stencil text-[11px] leading-snug text-foreground/90">
