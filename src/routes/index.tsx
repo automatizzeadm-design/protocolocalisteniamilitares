@@ -521,8 +521,16 @@ const STEPS: Step[] = [
   {
     kind: "weight",
     key: "weight",
-    title: "¿Cuál es tu peso actual y cuál es tu peso ideal?",
+    title: "¿Cuál es tu peso actual?",
+    mode: "current",
     progress: 26,
+  },
+  {
+    kind: "weight",
+    key: "target-weight",
+    title: "¿Cuál es tu peso objetivo?",
+    mode: "target",
+    progress: 27,
   },
 
   {
