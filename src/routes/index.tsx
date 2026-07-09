@@ -762,7 +762,7 @@ function Quiz() {
         {step.kind === "multi" && (
           <>
             <div className={step.key === "injuries" ? "flex gap-3 items-start" : ""}>
-              <div className="space-y-2 flex-1 min-w-0">
+              <div className="space-y-1.5 flex-1 min-w-0">
                 {step.options.map((o) => {
                   const selected =
                     ((answers[step.key] as string[]) ?? []).includes(o.value);
