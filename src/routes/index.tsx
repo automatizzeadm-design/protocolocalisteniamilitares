@@ -770,19 +770,20 @@ function Quiz() {
                     <button
                       key={o.value}
                       onClick={() => toggle(step.key, o.value)}
-                      className={`w-full text-left rounded-md border-2 px-3 py-3 flex items-center justify-between transition-colors ${
+                      className={`w-full text-left rounded-md border-2 px-3 py-2 flex items-center justify-between transition-colors ${
                         selected
                           ? "border-accent bg-primary/25 text-foreground"
                           : "border-border bg-card hover:border-accent"
                       }`}
                     >
-                      <span className="font-semibold text-sm">{o.label}</span>
+                      <span className="font-semibold text-xs sm:text-sm">{o.label}</span>
                       <span
                         className={`text-accent ${selected ? "" : "opacity-40"}`}
                       >
                         {selected ? "✓" : "▢"}
                       </span>
                     </button>
+
                   );
                 })}
               </div>
