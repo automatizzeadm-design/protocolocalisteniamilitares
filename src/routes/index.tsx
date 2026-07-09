@@ -1967,6 +1967,64 @@ function PlanView({
 
 
 
+function BuyerNotifications() {
+  const buyers = [
+    "Carlos M.", "Miguel Á.", "Diego R.", "Andrés P.", "Sebastián L.",
+    "Rodrigo V.", "Mateo G.", "Javier O.", "Luis Fernando", "Emiliano C.",
+    "Santiago H.", "Alejandro T.", "Iván S.", "Bruno N.", "Cristian D.",
+    "Nicolás F.", "Julián A.", "Rafael E.", "Gabriel Q.", "Tomás B.",
+  ];
+  const cities = ["CDMX", "Bogotá", "Lima", "Buenos Aires", "Santiago", "Guadalajara", "Medellín", "Quito", "Monterrey", "Rosario"];
+  const [i, setI] = useState(0);
+  const [visible, setVisible] = useState(false);
+  const [mins, setMins] = useState(2);
+
+  useEffect(() => {
+    let alive = true;
+    const cycle = () => {
+      if (!alive) return;
+      setI((v) => (v + 1) % buyers.length);
+      setMins(1 + Math.floor(Math.random() * 8));
+      setVisible(true);
+      setTimeout(() => alive && setVisible(false), 5000);
+    };
+    const first = setTimeout(cycle, 1500);
+    const iv = setInterval(cycle, 9000);
+    return () => { alive = false; clearTimeout(first); clearInterval(iv); };
+  }, []);
+
+  const buyer = buyers[i];
+  const city = cities[i % cities.length];
+
+  return (
+    <div
+      className={`fixed bottom-4 left-4 z-50 max-w-[280px] transition-all duration-500 ${
+        visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3 pointer-events-none"
+      }`}
+      role="status"
+      aria-live="polite"
+    >
+      <div className="flex items-start gap-3 rounded-lg border border-accent/40 bg-card/95 backdrop-blur shadow-lg shadow-black/40 p-3">
+        <div className="h-9 w-9 shrink-0 rounded-full bg-accent/20 border border-accent/50 flex items-center justify-center text-accent">
+          ✓
+        </div>
+        <div className="min-w-0 flex-1">
+          <div className="text-xs text-foreground">
+            <span className="font-bold">{buyer}</span>{" "}
+            <span className="text-muted-foreground">de {city}</span>
+          </div>
+          <div className="text-[11px] text-muted-foreground truncate">
+            Acaba de reclamar su protocolo
+          </div>
+          <div className="mil-stencil text-[10px] text-accent mt-0.5">
+            hace {mins}m
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function SalesView({
   answers,
   onFinish,
