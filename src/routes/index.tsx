@@ -1535,23 +1535,24 @@ function GraphStepView({
           </div>
         </div>
 
-        <div className="space-y-2">
-          <div className="mil-stencil text-sm font-bold text-destructive">
+        <div className="space-y-1">
+          <div className="mil-stencil text-xs font-bold text-destructive">
             {step.highlight}
           </div>
-          <p className="text-sm text-muted-foreground leading-relaxed">
+          <p className="text-xs text-muted-foreground leading-snug">
             {step.body}
           </p>
         </div>
 
-        <div className="rounded-md border-l-4 border-accent bg-primary/10 p-3">
-          <div className="mil-stencil text-xs font-bold text-accent mb-1">
+        <div className="rounded-md border-l-4 border-accent bg-primary/10 p-2">
+          <div className="mil-stencil text-[11px] font-bold text-accent mb-0.5">
             ¡Mejora la calidad de tu sueño!
           </div>
-          <p className="text-xs text-muted-foreground leading-relaxed">
+          <p className="text-[11px] text-muted-foreground leading-snug">
             {step.callout}
           </p>
         </div>
+
       </div>
 
 
