@@ -770,7 +770,7 @@ function Quiz() {
                     <button
                       key={o.value}
                       onClick={() => toggle(step.key, o.value)}
-                      className={`w-full text-left rounded-md border-2 px-3 py-2 flex items-center justify-between transition-colors ${
+                      className={`w-full text-left rounded-md border-2 px-3 py-1.5 sm:py-2 flex items-center justify-between transition-colors ${
                         selected
                           ? "border-accent bg-primary/25 text-foreground"
                           : "border-border bg-card hover:border-accent"
