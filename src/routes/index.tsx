@@ -1474,7 +1474,7 @@ function GraphStepView({
             </svg>
             <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
               <div
-                className="mil-stencil text-5xl font-bold text-destructive"
+                className="mil-stencil text-4xl font-bold text-destructive"
                 style={{ textShadow: "0 0 24px rgba(239,68,68,0.55)" }}
               >
                 {score}%
