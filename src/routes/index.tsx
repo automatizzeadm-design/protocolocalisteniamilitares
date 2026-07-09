@@ -715,18 +715,19 @@ function Quiz() {
         </div>
       </header>
 
-      <section className="max-w-md mx-auto px-4 py-8 space-y-6">
-        <div className="space-y-2">
-          <h1 className="text-2xl font-bold leading-tight mil-stencil">
+      <section className="max-w-md mx-auto px-4 py-4 sm:py-6 space-y-4">
+        <div className="space-y-1.5">
+          <h1 className="text-lg sm:text-2xl font-bold leading-tight mil-stencil">
             {step.title}
           </h1>
           {"subtitle" in step && step.subtitle && (
-            <p className="text-muted-foreground">{step.subtitle}</p>
+            <p className="text-xs sm:text-sm text-muted-foreground">{step.subtitle}</p>
           )}
           {step.kind === "info" && (
-            <p className="text-sm text-muted-foreground">{step.body}</p>
+            <p className="text-xs sm:text-sm text-muted-foreground">{step.body}</p>
           )}
         </div>
+
 
         {step.kind === "single" && (
           <div className="space-y-3">
