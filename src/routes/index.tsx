@@ -1377,8 +1377,9 @@ function GraphStepView({
   const size = 160;
   const cx = size / 2;
   const cy = size / 2;
-  const rOuter = 90;
-  const rInner = 66;
+  const rOuter = 72;
+  const rInner = 52;
+
   const total = step.bars.reduce((s, b) => s + b.value, 0) || 1;
   const gapDeg = 4;
   const totalGap = gapDeg * step.bars.length;
