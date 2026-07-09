@@ -724,7 +724,7 @@ function Quiz() {
             <p className="text-muted-foreground">{step.subtitle}</p>
           )}
           {step.kind === "info" && (
-            <p className="text-muted-foreground">{step.body}</p>
+            <p className="text-sm text-muted-foreground">{step.body}</p>
           )}
         </div>
 
@@ -814,7 +814,7 @@ function Quiz() {
                 width={1024}
                 height={1024}
                 loading="lazy"
-                className="w-full rounded-md border-2 border-border object-cover aspect-square"
+                className="w-full h-48 rounded-md border-2 border-border object-cover"
               />
             )}
             <Button
@@ -855,19 +855,19 @@ function Quiz() {
                 </div>
               ))}
             </div>
-            <p className="text-muted-foreground text-sm leading-relaxed">
+            <p className="text-muted-foreground text-xs leading-snug">
               {step.body}
             </p>
 
-            <figure className="space-y-3 rounded-md border-2 border-accent/60 bg-primary/10 p-3">
+            <figure className="space-y-1.5 rounded-md border-2 border-accent/60 bg-primary/10 p-2">
               <img
                 src={militaryTransformation.url}
                 alt="Transformación real con el protocolo militar"
-                className="w-full rounded-sm object-cover"
+                className="w-full h-24 rounded-sm object-cover"
                 loading="lazy"
               />
-              <figcaption className="mil-stencil text-xs leading-relaxed text-foreground/90">
-                El entrenamiento militar es el verdadero catalizador de estética y fuerza real: forja un cuerpo funcional, definido y poderoso, hasta el punto de volverte irreconocible.
+              <figcaption className="mil-stencil text-[10px] leading-snug text-foreground/90">
+                El entrenamiento militar forja un cuerpo funcional, definido y poderoso.
               </figcaption>
             </figure>
             <Button
@@ -1371,11 +1371,11 @@ function GraphStepView({
     };
   }, [step]);
 
-  const size = 240;
+  const size = 200;
   const cx = size / 2;
   const cy = size / 2;
-  const rOuter = 108;
-  const rInner = 78;
+  const rOuter = 90;
+  const rInner = 66;
   const total = step.bars.reduce((s, b) => s + b.value, 0) || 1;
   const gapDeg = 4;
   const totalGap = gapDeg * step.bars.length;
@@ -1414,8 +1414,8 @@ function GraphStepView({
 
   return (
     <>
-      <div className="rounded-md border-2 border-border bg-card p-5 space-y-5">
-        <div className="flex flex-col items-center gap-4">
+      <div className="rounded-md border-2 border-border bg-card p-3 space-y-3">
+        <div className="flex flex-col items-center gap-3">
           <div className="relative shrink-0">
             <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
               <defs>
@@ -1474,7 +1474,7 @@ function GraphStepView({
             </svg>
             <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
               <div
-                className="mil-stencil text-5xl font-bold text-destructive"
+                className="mil-stencil text-4xl font-bold text-destructive"
                 style={{ textShadow: "0 0 24px rgba(239,68,68,0.55)" }}
               >
                 {score}%
@@ -2148,7 +2148,7 @@ function VideoStepView({ step, onNext }: { step: VideoStep; onNext: () => void }
   return (
     <div className="space-y-5">
       <div className="rounded-xl overflow-hidden border-2 border-accent/40 shadow-lg shadow-accent/10 bg-black">
-        <div style={{ padding: `${step.paddingPct}% 0 0 0`, position: "relative" }}>
+        <div className="relative w-full aspect-video max-h-[55vh]">
           <iframe
             ref={iframeRef}
             src={`https://player.vimeo.com/video/${step.videoId}?badge=0&autopause=0&autoplay=1&muted=1&playsinline=1&title=0&byline=0&portrait=0&controls=0&loop=0`}
