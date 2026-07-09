@@ -912,10 +912,10 @@ function Quiz() {
 
         {step.kind === "weight" && (
           <WeightStepView
-            current={(answers["weight"] as string) ?? ""}
-            target={(answers["target-weight"] as string) ?? ""}
-            onChangeCurrent={(v) => setAnswers((a) => ({ ...a, weight: v }))}
-            onChangeTarget={(v) => setAnswers((a) => ({ ...a, "target-weight": v }))}
+            mode={step.mode}
+            value={(answers[step.key] as string) ?? ""}
+            reference={(answers["weight"] as string) ?? ""}
+            onChange={(v) => setAnswers((a) => ({ ...a, [step.key]: v }))}
             onNext={next}
           />
         )}
