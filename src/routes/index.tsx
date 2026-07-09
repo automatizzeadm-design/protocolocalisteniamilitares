@@ -724,7 +724,7 @@ function Quiz() {
             <p className="text-muted-foreground">{step.subtitle}</p>
           )}
           {step.kind === "info" && (
-            <p className="text-muted-foreground">{step.body}</p>
+            <p className="text-sm text-muted-foreground">{step.body}</p>
           )}
         </div>
 
