@@ -814,7 +814,7 @@ function Quiz() {
                 width={1024}
                 height={1024}
                 loading="lazy"
-                className="w-full rounded-md border-2 border-border object-cover aspect-[16/10] max-h-52"
+                className="w-full h-48 rounded-md border-2 border-border object-cover"
               />
             )}
             <Button
