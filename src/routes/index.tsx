@@ -730,12 +730,12 @@ function Quiz() {
 
 
         {step.kind === "single" && (
-          <div className="space-y-3">
+          <div className="space-y-2">
             {step.options.map((o) => (
               <button
                 key={o.value}
                 onClick={() => pick(step.key, o.value)}
-                className="group relative w-full text-left rounded-md border-2 border-border bg-card px-4 py-4 flex items-center justify-between hover:border-accent hover:bg-primary/20 transition-colors"
+                className="group relative w-full text-left rounded-md border-2 border-border bg-card px-3 py-2.5 sm:py-3 flex items-center justify-between hover:border-accent hover:bg-primary/20 transition-colors"
               >
                 {o.badge && (
                   <span className="absolute -top-2 right-3 mil-stencil text-[10px] font-bold bg-accent text-accent-foreground px-2 py-0.5 rounded">
@@ -743,9 +743,9 @@ function Quiz() {
                   </span>
                 )}
                 <span className="flex-1">
-                  <span className="block font-semibold">{o.label}</span>
+                  <span className="block font-semibold text-sm sm:text-base">{o.label}</span>
                   {o.hint && (
-                    <span className="block text-sm text-muted-foreground mt-1">
+                    <span className="block text-xs text-muted-foreground mt-0.5">
                       {o.hint}
                     </span>
                   )}
@@ -757,6 +757,7 @@ function Quiz() {
             ))}
           </div>
         )}
+
 
         {step.kind === "multi" && (
           <>
