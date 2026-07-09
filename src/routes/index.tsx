@@ -1374,7 +1374,7 @@ function GraphStepView({
     };
   }, [step]);
 
-  const size = 200;
+  const size = 160;
   const cx = size / 2;
   const cy = size / 2;
   const rOuter = 90;
