@@ -1371,11 +1371,11 @@ function GraphStepView({
     };
   }, [step]);
 
-  const size = 240;
+  const size = 200;
   const cx = size / 2;
   const cy = size / 2;
-  const rOuter = 108;
-  const rInner = 78;
+  const rOuter = 90;
+  const rInner = 66;
   const total = step.bars.reduce((s, b) => s + b.value, 0) || 1;
   const gapDeg = 4;
   const totalGap = gapDeg * step.bars.length;
