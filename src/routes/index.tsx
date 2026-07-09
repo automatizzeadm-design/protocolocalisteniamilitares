@@ -2148,7 +2148,7 @@ function VideoStepView({ step, onNext }: { step: VideoStep; onNext: () => void }
   return (
     <div className="space-y-5">
       <div className="rounded-xl overflow-hidden border-2 border-accent/40 shadow-lg shadow-accent/10 bg-black">
-        <div style={{ padding: `${step.paddingPct}% 0 0 0`, position: "relative" }}>
+        <div className="relative w-full aspect-video max-h-[55vh]">
           <iframe
             ref={iframeRef}
             src={`https://player.vimeo.com/video/${step.videoId}?badge=0&autopause=0&autoplay=1&muted=1&playsinline=1&title=0&byline=0&portrait=0&controls=0&loop=0`}
