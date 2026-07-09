@@ -715,7 +715,7 @@ function Quiz() {
         </div>
       </header>
 
-      <section className="max-w-md mx-auto px-4 py-4 sm:py-6 space-y-4">
+      <section className="max-w-md mx-auto px-4 py-3 sm:py-6 space-y-3 sm:space-y-4">
         <div className="space-y-1.5">
           <h1 className="text-lg sm:text-2xl font-bold leading-tight mil-stencil">
             {step.title}
