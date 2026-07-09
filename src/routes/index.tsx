@@ -108,6 +108,7 @@ type WeightStep = {
   kind: "weight";
   key: string;
   title: string;
+  mode: "current" | "target";
   progress: number;
 };
 
