@@ -1414,8 +1414,8 @@ function GraphStepView({
 
   return (
     <>
-      <div className="rounded-md border-2 border-border bg-card p-5 space-y-5">
-        <div className="flex flex-col items-center gap-4">
+      <div className="rounded-md border-2 border-border bg-card p-3 space-y-3">
+        <div className="flex flex-col items-center gap-3">
           <div className="relative shrink-0">
             <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
               <defs>
