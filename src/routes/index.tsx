@@ -862,17 +862,18 @@ function Quiz() {
               {step.body}
             </p>
 
-            <figure className="space-y-1.5 rounded-md border-2 border-accent/60 bg-primary/10 p-2">
+            <figure className="space-y-1 rounded-md border-2 border-accent/60 bg-primary/10 p-1.5">
               <img
                 src={militaryTransformation.url}
                 alt="Transformación real con el protocolo militar"
-                className="w-full h-24 rounded-sm object-cover"
+                className="w-full h-16 sm:h-24 rounded-sm object-cover"
                 loading="lazy"
               />
-              <figcaption className="mil-stencil text-[10px] leading-snug text-foreground/90">
-                El entrenamiento militar forja un cuerpo funcional, definido y poderoso.
+              <figcaption className="mil-stencil text-[9px] leading-tight text-foreground/90">
+                El entrenamiento militar forja un cuerpo funcional y poderoso.
               </figcaption>
             </figure>
+
             <Button
               className="w-full mil-stencil bg-accent text-accent-foreground hover:bg-accent/90"
               size="lg"
