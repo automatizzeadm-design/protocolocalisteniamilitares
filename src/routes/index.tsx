@@ -1130,47 +1130,36 @@ function HeightStepView({
 
 
 function WeightStepView({
-  current,
-  target,
-  onChangeCurrent,
-  onChangeTarget,
+  mode,
+  value,
+  reference,
+  onChange,
   onNext,
 }: {
-  current: string;
-  target: string;
-  onChangeCurrent: (v: string) => void;
-  onChangeTarget: (v: string) => void;
+  mode: "current" | "target";
+  value: string;
+  reference: string;
+  onChange: (v: string) => void;
   onNext: () => void;
 }) {
   const [unit, setUnit] = useState<"kg" | "lb">("kg");
   const suffix = unit === "kg" ? "kg" : "lb";
-  const valid = Number(current) > 0 && Number(target) > 0;
+  const num = Number(value);
+  const valid = num > 0;
 
-  const field = (
-    label: string,
-    value: string,
-    onChange: (v: string) => void,
-    placeholder: string,
-  ) => (
-    <div>
-      <label className="mil-stencil text-xs text-muted-foreground">
-        {label} ({suffix})
-      </label>
-      <div className="relative mt-1">
-        <Input
-          type="number"
-          inputMode="numeric"
-          value={value}
-          placeholder={placeholder}
-          onChange={(e) => onChange(e.target.value)}
-          className="h-12 text-lg"
-        />
-        <span className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground text-sm">
-          {suffix}
-        </span>
-      </div>
-    </div>
-  );
+  // Body silhouette scaling based on weight vs "average" 75kg / 165lb
+  const baseline = unit === "kg" ? 75 : 165;
+  const shown = valid ? num : baseline;
+  const ratio = Math.max(0.7, Math.min(1.5, shown / baseline));
+  // torso width scales; head stays similar
+  const torsoW = 60 * ratio;
+  const bellyW = 66 * Math.pow(ratio, 1.6);
+  const hipW = 58 * Math.pow(ratio, 1.3);
+
+  const label = mode === "current" ? "Peso actual" : "Peso objetivo";
+  const placeholder = mode === "current"
+    ? (unit === "kg" ? "75" : "165")
+    : (unit === "kg" ? "70" : "154");
 
   return (
     <>
@@ -1190,8 +1179,61 @@ function WeightStepView({
         ))}
       </div>
 
-      {field("Peso actual", current, onChangeCurrent, unit === "kg" ? "75" : "165")}
-      {field("Peso objetivo", target, onChangeTarget, unit === "kg" ? "70" : "154")}
+      <div className="flex justify-center py-2">
+        <svg viewBox="0 0 160 220" width="140" height="200" className="drop-shadow-lg">
+          {/* head */}
+          <circle cx="80" cy="24" r="16" fill="hsl(var(--accent))" />
+          {/* neck */}
+          <rect x="74" y="38" width="12" height="8" fill="hsl(var(--accent))" />
+          {/* torso */}
+          <path
+            d={`M ${80 - torsoW / 2} 48
+                Q 80 52 ${80 + torsoW / 2} 48
+                L ${80 + bellyW / 2} 110
+                Q 80 128 ${80 - bellyW / 2} 110 Z`}
+            fill="hsl(var(--accent))"
+            style={{ transition: "d 0.3s ease" }}
+          />
+          {/* hips */}
+          <path
+            d={`M ${80 - bellyW / 2} 108
+                L ${80 + bellyW / 2} 108
+                L ${80 + hipW / 2} 140
+                L ${80 - hipW / 2} 140 Z`}
+            fill="hsl(var(--accent))"
+          />
+          {/* arms */}
+          <rect x={80 - torsoW / 2 - 12} y="50" width="12" height="60" rx="6" fill="hsl(var(--accent))" />
+          <rect x={80 + torsoW / 2} y="50" width="12" height="60" rx="6" fill="hsl(var(--accent))" />
+          {/* legs */}
+          <rect x={80 - hipW / 2 + 4} y="140" width={hipW / 2 - 6} height="70" rx="6" fill="hsl(var(--accent))" />
+          <rect x="82" y="140" width={hipW / 2 - 6} height="70" rx="6" fill="hsl(var(--accent))" />
+        </svg>
+      </div>
+
+      <div>
+        <label className="mil-stencil text-xs text-muted-foreground">
+          {label} ({suffix})
+        </label>
+        <div className="relative mt-1">
+          <Input
+            type="number"
+            inputMode="numeric"
+            value={value}
+            placeholder={placeholder}
+            onChange={(e) => onChange(e.target.value)}
+            className="h-12 text-lg"
+          />
+          <span className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground text-sm">
+            {suffix}
+          </span>
+        </div>
+        {mode === "target" && reference && (
+          <p className="mt-2 text-xs text-muted-foreground">
+            Peso actual: {reference} {suffix}
+          </p>
+        )}
+      </div>
 
       <Button
         className="w-full mil-stencil bg-accent text-accent-foreground hover:bg-accent/90"
