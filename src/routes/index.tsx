@@ -715,26 +715,27 @@ function Quiz() {
         </div>
       </header>
 
-      <section className="max-w-md mx-auto px-4 py-8 space-y-6">
-        <div className="space-y-2">
-          <h1 className="text-2xl font-bold leading-tight mil-stencil">
+      <section className="max-w-md mx-auto px-4 py-3 sm:py-6 space-y-3 sm:space-y-4">
+        <div className="space-y-1.5">
+          <h1 className="text-lg sm:text-2xl font-bold leading-tight mil-stencil">
             {step.title}
           </h1>
           {"subtitle" in step && step.subtitle && (
-            <p className="text-muted-foreground">{step.subtitle}</p>
+            <p className="text-xs sm:text-sm text-muted-foreground">{step.subtitle}</p>
           )}
           {step.kind === "info" && (
-            <p className="text-sm text-muted-foreground">{step.body}</p>
+            <p className="text-xs sm:text-sm text-muted-foreground">{step.body}</p>
           )}
         </div>
 
+
         {step.kind === "single" && (
-          <div className="space-y-3">
+          <div className="space-y-2">
             {step.options.map((o) => (
               <button
                 key={o.value}
                 onClick={() => pick(step.key, o.value)}
-                className="group relative w-full text-left rounded-md border-2 border-border bg-card px-4 py-4 flex items-center justify-between hover:border-accent hover:bg-primary/20 transition-colors"
+                className="group relative w-full text-left rounded-md border-2 border-border bg-card px-3 py-2.5 sm:py-3 flex items-center justify-between hover:border-accent hover:bg-primary/20 transition-colors"
               >
                 {o.badge && (
                   <span className="absolute -top-2 right-3 mil-stencil text-[10px] font-bold bg-accent text-accent-foreground px-2 py-0.5 rounded">
@@ -742,9 +743,9 @@ function Quiz() {
                   </span>
                 )}
                 <span className="flex-1">
-                  <span className="block font-semibold">{o.label}</span>
+                  <span className="block font-semibold text-sm sm:text-base">{o.label}</span>
                   {o.hint && (
-                    <span className="block text-sm text-muted-foreground mt-1">
+                    <span className="block text-xs text-muted-foreground mt-0.5">
                       {o.hint}
                     </span>
                   )}
@@ -757,10 +758,11 @@ function Quiz() {
           </div>
         )}
 
+
         {step.kind === "multi" && (
           <>
             <div className={step.key === "injuries" ? "flex gap-3 items-start" : ""}>
-              <div className="space-y-2 flex-1 min-w-0">
+              <div className="space-y-1.5 flex-1 min-w-0">
                 {step.options.map((o) => {
                   const selected =
                     ((answers[step.key] as string[]) ?? []).includes(o.value);
@@ -768,19 +770,20 @@ function Quiz() {
                     <button
                       key={o.value}
                       onClick={() => toggle(step.key, o.value)}
-                      className={`w-full text-left rounded-md border-2 px-3 py-3 flex items-center justify-between transition-colors ${
+                      className={`w-full text-left rounded-md border-2 px-3 py-1.5 sm:py-2 flex items-center justify-between transition-colors ${
                         selected
                           ? "border-accent bg-primary/25 text-foreground"
                           : "border-border bg-card hover:border-accent"
                       }`}
                     >
-                      <span className="font-semibold text-sm">{o.label}</span>
+                      <span className="font-semibold text-xs sm:text-sm">{o.label}</span>
                       <span
                         className={`text-accent ${selected ? "" : "opacity-40"}`}
                       >
                         {selected ? "✓" : "▢"}
                       </span>
                     </button>
+
                   );
                 })}
               </div>
@@ -814,7 +817,7 @@ function Quiz() {
                 width={1024}
                 height={1024}
                 loading="lazy"
-                className="w-full h-48 rounded-md border-2 border-border object-cover"
+                className="w-full h-36 sm:h-48 rounded-md border-2 border-border object-cover"
               />
             )}
             <Button
@@ -859,17 +862,18 @@ function Quiz() {
               {step.body}
             </p>
 
-            <figure className="space-y-1.5 rounded-md border-2 border-accent/60 bg-primary/10 p-2">
+            <figure className="space-y-1 rounded-md border-2 border-accent/60 bg-primary/10 p-1.5">
               <img
                 src={militaryTransformation.url}
                 alt="Transformación real con el protocolo militar"
-                className="w-full h-24 rounded-sm object-cover"
+                className="w-full h-16 sm:h-24 rounded-sm object-cover"
                 loading="lazy"
               />
-              <figcaption className="mil-stencil text-[10px] leading-snug text-foreground/90">
-                El entrenamiento militar forja un cuerpo funcional, definido y poderoso.
+              <figcaption className="mil-stencil text-[9px] leading-tight text-foreground/90">
+                El entrenamiento militar forja un cuerpo funcional y poderoso.
               </figcaption>
             </figure>
+
             <Button
               className="w-full mil-stencil bg-accent text-accent-foreground hover:bg-accent/90"
               size="lg"
@@ -1371,11 +1375,12 @@ function GraphStepView({
     };
   }, [step]);
 
-  const size = 200;
+  const size = 160;
   const cx = size / 2;
   const cy = size / 2;
-  const rOuter = 90;
-  const rInner = 66;
+  const rOuter = 72;
+  const rInner = 52;
+
   const total = step.bars.reduce((s, b) => s + b.value, 0) || 1;
   const gapDeg = 4;
   const totalGap = gapDeg * step.bars.length;
@@ -1531,23 +1536,24 @@ function GraphStepView({
           </div>
         </div>
 
-        <div className="space-y-2">
-          <div className="mil-stencil text-sm font-bold text-destructive">
+        <div className="space-y-1">
+          <div className="mil-stencil text-xs font-bold text-destructive">
             {step.highlight}
           </div>
-          <p className="text-sm text-muted-foreground leading-relaxed">
+          <p className="text-xs text-muted-foreground leading-snug">
             {step.body}
           </p>
         </div>
 
-        <div className="rounded-md border-l-4 border-accent bg-primary/10 p-3">
-          <div className="mil-stencil text-xs font-bold text-accent mb-1">
+        <div className="rounded-md border-l-4 border-accent bg-primary/10 p-2">
+          <div className="mil-stencil text-[11px] font-bold text-accent mb-0.5">
             ¡Mejora la calidad de tu sueño!
           </div>
-          <p className="text-xs text-muted-foreground leading-relaxed">
+          <p className="text-[11px] text-muted-foreground leading-snug">
             {step.callout}
           </p>
         </div>
+
       </div>
 
 
