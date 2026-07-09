@@ -859,15 +859,15 @@ function Quiz() {
               {step.body}
             </p>
 
-            <figure className="space-y-2 rounded-md border-2 border-accent/60 bg-primary/10 p-2">
+            <figure className="space-y-1.5 rounded-md border-2 border-accent/60 bg-primary/10 p-2">
               <img
                 src={militaryTransformation.url}
                 alt="Transformación real con el protocolo militar"
-                className="w-full h-32 rounded-sm object-cover"
+                className="w-full h-24 rounded-sm object-cover"
                 loading="lazy"
               />
-              <figcaption className="mil-stencil text-[11px] leading-snug text-foreground/90">
-                El entrenamiento militar es el verdadero catalizador de estética y fuerza real: forja un cuerpo funcional, definido y poderoso.
+              <figcaption className="mil-stencil text-[10px] leading-snug text-foreground/90">
+                El entrenamiento militar forja un cuerpo funcional, definido y poderoso.
               </figcaption>
             </figure>
             <Button
