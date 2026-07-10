@@ -1911,6 +1911,89 @@ function RecruitmentLoadingView({
 }
 
 
+function OfferBlock({ onBuy }: { onBuy: () => void }) {
+  const [seconds, setSeconds] = useState(15 * 60);
+  useEffect(() => {
+    const t = setInterval(() => setSeconds((s) => (s > 0 ? s - 1 : 0)), 1000);
+    return () => clearInterval(t);
+  }, []);
+  const mm = String(Math.floor(seconds / 60)).padStart(2, "0");
+  const ss = String(seconds % 60).padStart(2, "0");
+
+  const items = [
+    { label: "Aplicación Protocolo Militar", value: "$97" },
+    { label: "Bonus #1 — Guía Alimentación Militar", value: "$27" },
+    { label: "Bonus #2 — Mapa Militar (Agenda)", value: "$14" },
+    { label: "Bonus #3 — Test TMB Online", value: "$12" },
+  ];
+
+  return (
+    <div className="space-y-4">
+      <Reveal>
+        <div className="rounded-md border-2 border-accent bg-primary/10 p-4 space-y-3">
+          <h3 className="mil-stencil text-sm font-bold text-accent text-center">
+            VALOR REAL DEL ARSENAL
+          </h3>
+          <ul className="space-y-2">
+            {items.map((it) => (
+              <li key={it.label} className="flex justify-between items-center text-sm border-b border-border/50 pb-2">
+                <span className="text-foreground">{it.label}</span>
+                <span className="mil-stencil font-bold text-accent">{it.value}</span>
+              </li>
+            ))}
+            <li className="flex justify-between items-center pt-2">
+              <span className="mil-stencil font-bold text-base">TOTAL</span>
+              <span className="mil-stencil font-bold text-2xl text-destructive line-through decoration-2">
+                $150
+              </span>
+            </li>
+          </ul>
+        </div>
+      </Reveal>
+
+      <Reveal delay={80}>
+        <p className="text-sm text-foreground leading-relaxed text-center">
+          Yo podría fácilmente cobrarte <span className="text-destructive line-through font-bold">$150</span>. Pero <span className="text-accent font-bold">NO</span> tendrás que pagar ese valor.
+        </p>
+      </Reveal>
+
+      <Reveal delay={120}>
+        <p className="text-sm text-foreground leading-relaxed text-center">
+          <span className="text-accent font-bold">Solo hoy</span>, exclusivamente en esta página, podrás acceder a todo este contenido secreto por solo <span className="text-accent font-bold text-lg">$7</span>. ¡Menos que una pizza con refresco!
+        </p>
+      </Reveal>
+
+      <Reveal delay={160}>
+        <div className="rounded-md border-2 border-destructive bg-destructive/10 p-3 text-center space-y-1">
+          <div className="mil-stencil text-xs text-destructive font-bold uppercase">
+            ⏱ Oferta expira en
+          </div>
+          <div className="mil-stencil text-4xl font-bold text-destructive tracking-wider">
+            {mm}:{ss}
+          </div>
+        </div>
+      </Reveal>
+
+      <Reveal delay={200}>
+        <button
+          onClick={onBuy}
+          className="w-full rounded-md border-2 border-accent bg-accent text-accent-foreground p-4 space-y-1 hover:scale-[1.02] active:scale-[0.98] transition-transform shadow-lg"
+        >
+          <div className="mil-stencil text-xs font-bold opacity-80">
+            🔒 OFERTA ESPECIAL — SOLO HOY
+          </div>
+          <div className="mil-stencil text-2xl font-bold">
+            RECLUTARME POR $7
+          </div>
+          <div className="text-xs opacity-80">
+            Acceso inmediato · Pago único · Sin mensualidades
+          </div>
+        </button>
+      </Reveal>
+    </div>
+  );
+}
+
 function PlanView({
   answers,
   onFinish,
@@ -2121,6 +2204,11 @@ function PlanView({
             </p>
           </div>
         </Reveal>
+
+        {/* Offer + Countdown */}
+        <OfferBlock onBuy={onFinish} />
+
+
 
         {/* Goals */}
         <Reveal delay={80}>
