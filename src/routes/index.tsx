@@ -627,7 +627,7 @@ function Quiz() {
   const [index, setIndex] = useState(0);
   const [answers, setAnswers] = useState<Answers>({});
   const [done, setDone] = useState(false);
-  const [showSales, setShowSales] = useState(false);
+  
 
   if (!vslDone) {
     return <VSLView onContinue={(name) => { setLeadName(name); setVslDone(true); }} />;
