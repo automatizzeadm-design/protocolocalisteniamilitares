@@ -687,7 +687,7 @@ function Quiz() {
   }
 
   if (showSales) {
-    return <SalesView answers={answers} onFinish={() => setDone(true)} />;
+    return <SalesView answers={answers} onFinish={() => setDone(true)} onBack={() => setShowSales(false)} />;
   }
 
   if (step.kind === "plan") {
@@ -1924,7 +1924,14 @@ function PlanView({
   ];
 
   return (
-    <main className="min-h-screen bg-background text-foreground">
+    <main className="min-h-screen bg-background text-foreground relative">
+      <button
+        onClick={onFinish}
+        aria-label="Continuar a la oferta"
+        className="fixed top-3 right-3 z-50 h-10 w-10 rounded-full bg-accent hover:bg-accent/90 text-accent-foreground border-2 border-primary flex items-center justify-center shadow-lg animate-pulse"
+      >
+        →
+      </button>
       <div className="bg-primary/20 border-b border-primary/40">
         <div className="max-w-md mx-auto px-4 py-2 flex items-center justify-between">
           <span className="mil-stencil text-xs text-accent font-bold">
@@ -1938,8 +1945,13 @@ function PlanView({
       </div>
 
       <section className="max-w-md mx-auto px-4 py-6 space-y-6">
-        {/* Weight projection chart */}
+        {/* VSL */}
         <Reveal>
+          <SalesVSL />
+        </Reveal>
+
+        {/* Weight projection chart */}
+        <Reveal delay={60}>
           <div>
             <div className="mil-stencil text-xs text-accent font-bold mb-2">
               Tu objetivo, {name}
@@ -2277,9 +2289,11 @@ function SalesVSL() {
 function SalesView({
   answers,
   onFinish,
+  onBack,
 }: {
   answers: Answers;
   onFinish: () => void;
+  onBack: () => void;
 }) {
   const name = (answers.name as string) || "soldado";
   const [seconds, setSeconds] = useState(10 * 60);
@@ -2295,6 +2309,13 @@ function SalesView({
   return (
     <main className="min-h-screen bg-background text-foreground">
       <BuyerNotifications />
+      <button
+        onClick={onBack}
+        aria-label="Volver"
+        className="fixed top-3 left-3 z-50 h-10 w-10 rounded-full bg-primary/80 hover:bg-primary text-primary-foreground border-2 border-accent flex items-center justify-center shadow-lg"
+      >
+        ←
+      </button>
       <div className="bg-primary/20 border-b border-primary/40">
         <div className="max-w-md mx-auto px-4 py-2 text-center">
           <span className="mil-stencil text-xs text-accent font-bold">
@@ -2303,11 +2324,8 @@ function SalesView({
         </div>
       </div>
 
-      <section className="max-w-md mx-auto px-4 pt-4 pb-2">
-        <SalesVSL />
-      </section>
-
       <section className="max-w-md mx-auto px-4 py-6 space-y-6">
+
 
         <Reveal>
           <div className="text-center space-y-2">
