@@ -1934,15 +1934,14 @@ function PlanView({
       </button>
       <div className="bg-primary/20 border-b border-primary/40">
         <div className="max-w-md mx-auto px-4 py-2 flex items-center justify-between">
-          <span className="mil-stencil text-xs text-accent font-bold">
-            ★ MadMuscles
-          </span>
+          <img src={logoMilitary.url} alt="Protocolo Calistenia Militar" className="h-12 object-contain" />
           <div className="flex items-center gap-3 text-[10px] mil-stencil text-muted-foreground">
             <span>Ayuda</span>
             <span>ES</span>
           </div>
         </div>
       </div>
+
 
       <section className="max-w-md mx-auto px-4 py-6 space-y-6">
         {/* VSL */}
