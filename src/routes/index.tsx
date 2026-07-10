@@ -19,6 +19,7 @@ import programPreview from "@/assets/program-preview.jpg";
 import calendar2026 from "@/assets/calendar-2026.jpg";
 import bonusAlimentacion from "@/assets/bonus-alimentacion-militar.png.asset.json";
 import mapaMilitar from "@/assets/mapa-militar-2026.png.asset.json";
+import bonusTmb from "@/assets/bonus-tmb.png.asset.json";
 
 
 
@@ -2096,6 +2097,27 @@ function PlanView({
             />
             <p className="text-xs text-muted-foreground leading-relaxed">
               Recibirás un plan en <span className="text-accent font-bold">agenda día por día</span> con cada misión de tu evolución, hasta el día en que alcances tu meta. Todo lo que debes ejecutar cada jornada, sin dudas ni improvisación.
+            </p>
+          </div>
+        </Reveal>
+
+        {/* Bonus 3 - TMB */}
+        <Reveal delay={80}>
+          <div className="rounded-md border-2 border-accent bg-primary/10 p-3 space-y-2">
+            <div className="mil-stencil text-xs text-accent font-bold">
+              🎁 BONUS #3 — TEST DE TASA METABÓLICA BASAL
+            </div>
+            <div className="mil-stencil text-sm font-bold">
+              Test online gratuito de TMB
+            </div>
+            <img
+              src={bonusTmb.url}
+              alt="Test de Tasa Metabólica Basal"
+              loading="lazy"
+              className="w-full rounded-md border border-border"
+            />
+            <p className="text-xs text-muted-foreground leading-relaxed">
+              Identifica tus <span className="text-accent font-bold">primeros cambios</span>, con cálculos nutricionales específicos para tu cuerpo y tu evolución. Datos precisos para decisiones inteligentes — resultados reales.
             </p>
           </div>
         </Reveal>
