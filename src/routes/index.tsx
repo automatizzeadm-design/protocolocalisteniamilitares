@@ -647,7 +647,7 @@ function Quiz() {
   const pct = Math.round(Math.pow(rawPct, 0.45) * 100);
 
   const next = () => {
-    if (index + 1 >= STEPS.length) setDone(true);
+    if (index + 1 >= STEPS.length) return;
     else setIndex(index + 1);
   };
 
