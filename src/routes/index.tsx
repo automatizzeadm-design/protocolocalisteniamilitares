@@ -1924,7 +1924,14 @@ function PlanView({
   ];
 
   return (
-    <main className="min-h-screen bg-background text-foreground">
+    <main className="min-h-screen bg-background text-foreground relative">
+      <button
+        onClick={onFinish}
+        aria-label="Continuar a la oferta"
+        className="fixed top-3 right-3 z-50 h-10 w-10 rounded-full bg-accent hover:bg-accent/90 text-accent-foreground border-2 border-primary flex items-center justify-center shadow-lg animate-pulse"
+      >
+        →
+      </button>
       <div className="bg-primary/20 border-b border-primary/40">
         <div className="max-w-md mx-auto px-4 py-2 flex items-center justify-between">
           <span className="mil-stencil text-xs text-accent font-bold">
