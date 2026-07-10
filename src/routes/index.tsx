@@ -687,7 +687,7 @@ function Quiz() {
   }
 
   if (showSales) {
-    return <SalesView answers={answers} onFinish={() => setDone(true)} />;
+    return <SalesView answers={answers} onFinish={() => setDone(true)} onBack={() => setShowSales(false)} />;
   }
 
   if (step.kind === "plan") {
