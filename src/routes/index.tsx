@@ -702,6 +702,23 @@ function Quiz() {
 
   return (
     <main className="min-h-screen bg-background text-foreground">
+      {index > 0 && (
+        <button
+          onClick={back}
+          aria-label="Volver"
+          className="fixed top-1/2 left-2 -translate-y-1/2 z-50 h-10 w-10 rounded-full bg-primary/80 hover:bg-primary text-primary-foreground border-2 border-accent flex items-center justify-center shadow-lg"
+        >
+          ←
+        </button>
+      )}
+      <button
+        onClick={next}
+        aria-label="Siguiente"
+        className="fixed top-1/2 right-2 -translate-y-1/2 z-50 h-10 w-10 rounded-full bg-accent hover:bg-accent/90 text-accent-foreground border-2 border-primary flex items-center justify-center shadow-lg"
+      >
+        →
+      </button>
+
 
       <div className="bg-primary/20 border-b border-primary/40">
         <div className="max-w-md mx-auto px-4 py-2 flex items-center justify-center">
