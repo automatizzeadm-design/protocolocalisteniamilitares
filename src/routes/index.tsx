@@ -2057,7 +2057,28 @@ function PlanView({
         </Reveal>
 
 
-        {/* Bonus */}
+        {/* Bonus 1 */}
+        <Reveal delay={80}>
+          <div className="rounded-md border-2 border-accent bg-primary/10 p-3 space-y-2">
+            <div className="mil-stencil text-xs text-accent font-bold">
+              🎁 BONUS #1 — GUÍA DE ALIMENTACIÓN MILITAR
+            </div>
+            <div className="mil-stencil text-sm font-bold">
+              Video-clases + Ebook: Nutrición Militar Desclasificada
+            </div>
+            <img
+              src={bonusAlimentacion.url}
+              alt="Guía de Alimentación Militar"
+              loading="lazy"
+              className="w-full rounded-md border border-border"
+            />
+            <p className="text-xs text-muted-foreground leading-relaxed">
+              Guía completa de alimentación para <span className="text-accent font-bold">ganancia de masa muscular</span>. Descubre las comidas que el ejército usa y que esconden un valor nutricional brutal — video-clases + ebook con protocolos exactos para maximizar tu rendimiento y recuperación.
+            </p>
+          </div>
+        </Reveal>
+
+        {/* Bonus imprimible */}
         <Reveal delay={80}>
           <div className="rounded-md border-2 border-accent bg-primary/10 p-3 space-y-2">
             <div className="mil-stencil text-xs text-accent font-bold">
