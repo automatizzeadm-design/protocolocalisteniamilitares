@@ -1934,9 +1934,7 @@ function PlanView({
       </button>
       <div className="bg-primary/20 border-b border-primary/40">
         <div className="max-w-md mx-auto px-4 py-2 flex items-center justify-between">
-          <span className="mil-stencil text-xs text-accent font-bold">
-            ★ MadMuscles
-          </span>
+          <img src={logoMilitary.url} alt="Protocolo Calistenia Militar" className="h-12 object-contain" />
           <div className="flex items-center gap-3 text-[10px] mil-stencil text-muted-foreground">
             <span>Ayuda</span>
             <span>ES</span>
@@ -1944,10 +1942,21 @@ function PlanView({
         </div>
       </div>
 
+
       <section className="max-w-md mx-auto px-4 py-6 space-y-6">
-        {/* VSL */}
+        {/* Headline + VSL */}
         <Reveal>
-          <SalesVSL />
+          <div className="space-y-3">
+            <div className="text-center space-y-1">
+              <h1 className="mil-stencil text-xl font-bold text-accent leading-tight">
+                Seu protocolo personalizado está pronto
+              </h1>
+              <p className="text-xs text-muted-foreground">
+                Assista ao vídeo antes de utilizá-lo
+              </p>
+            </div>
+            <SalesVSL />
+          </div>
         </Reveal>
 
         {/* Weight projection chart */}
@@ -1960,35 +1969,6 @@ function PlanView({
           </div>
         </Reveal>
 
-        {/* BMI */}
-        <Reveal delay={80}>
-          <div className="rounded-md border-2 border-border bg-card p-4 space-y-3">
-            <div className="mil-stencil text-xs text-accent font-bold">
-              IMC actual
-            </div>
-            <div className="mil-stencil text-2xl font-bold">
-              {bmi.toFixed(1)}
-            </div>
-            <div className="relative h-3 rounded-full overflow-hidden flex">
-              {bmiZones.map((z) => (
-                <div key={z.label} className={`${z.color} h-full`} style={{ width: `${z.w}%` }} />
-              ))}
-              <div
-                className="absolute top-1/2 -translate-y-1/2 w-3 h-3 rounded-full bg-foreground border-2 border-background"
-                style={{ left: `calc(${bmiTargetPos}% - 6px)` }}
-              />
-            </div>
-            <div className="grid grid-cols-4 text-[9px] mil-stencil text-muted-foreground">
-              {bmiZones.map((z) => (
-                <span key={z.label}>{z.label}</span>
-              ))}
-            </div>
-            <p className="text-xs text-muted-foreground leading-relaxed">
-              El índice de masa corporal (IMC) usa tu altura y peso para
-              determinar si tu peso es saludable.
-            </p>
-          </div>
-        </Reveal>
 
         {/* Recommended */}
         <Reveal delay={120}>
@@ -1999,7 +1979,7 @@ function PlanView({
             ].map((c) => (
               <div
                 key={c.label}
-                className="rounded-md border-2 border-border bg-card p-3 space-y-1"
+                className="relative rounded-md border-2 border-border bg-card p-3 space-y-1 overflow-hidden"
               >
                 <div className="text-2xl">{c.emoji}</div>
                 <div className="mil-stencil text-[10px] text-accent">
@@ -2008,9 +1988,15 @@ function PlanView({
                 <div className="mil-stencil text-[11px] text-muted-foreground">
                   {c.label}
                 </div>
-                <div className="mil-stencil text-lg font-bold">{c.value}</div>
-                <div className="text-[10px] text-muted-foreground">{c.scale}</div>
+                <div className="mil-stencil text-lg font-bold blur-md select-none">{c.value}</div>
+                <div className="text-[10px] text-muted-foreground blur-sm select-none">{c.scale}</div>
+                <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                  <div className="bg-background/70 border-2 border-accent rounded-full h-10 w-10 flex items-center justify-center text-accent text-lg">
+                    🔒
+                  </div>
+                </div>
               </div>
+
             ))}
           </div>
         </Reveal>
@@ -2317,12 +2303,11 @@ function SalesView({
         ←
       </button>
       <div className="bg-primary/20 border-b border-primary/40">
-        <div className="max-w-md mx-auto px-4 py-2 text-center">
-          <span className="mil-stencil text-xs text-accent font-bold">
-            ★ Oferta Especial Militar
-          </span>
+        <div className="max-w-md mx-auto px-4 py-2 flex items-center justify-center">
+          <img src={logoMilitary.url} alt="Protocolo Calistenia Militar" className="h-12 object-contain" />
         </div>
       </div>
+
 
       <section className="max-w-md mx-auto px-4 py-6 space-y-6">
 
