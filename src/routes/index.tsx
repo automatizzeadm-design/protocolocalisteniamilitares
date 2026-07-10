@@ -1938,8 +1938,13 @@ function PlanView({
       </div>
 
       <section className="max-w-md mx-auto px-4 py-6 space-y-6">
-        {/* Weight projection chart */}
+        {/* VSL */}
         <Reveal>
+          <SalesVSL />
+        </Reveal>
+
+        {/* Weight projection chart */}
+        <Reveal delay={60}>
           <div>
             <div className="mil-stencil text-xs text-accent font-bold mb-2">
               Tu objetivo, {name}
