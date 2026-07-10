@@ -2205,6 +2205,11 @@ function PlanView({
           </div>
         </Reveal>
 
+        {/* Offer + Countdown */}
+        <OfferBlock onBuy={onFinish} />
+
+
+
         {/* Goals */}
         <Reveal delay={80}>
           <div className="space-y-2">
