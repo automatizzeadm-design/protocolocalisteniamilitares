@@ -1151,15 +1151,25 @@ function WeightStepView({
   const baseline = unit === "kg" ? 75 : 165;
   const shown = valid ? num : baseline;
   const ratio = Math.max(0.7, Math.min(1.5, shown / baseline));
-  // torso width scales; head stays similar
-  const torsoW = 60 * ratio;
-  const bellyW = 66 * Math.pow(ratio, 1.6);
-  const hipW = 58 * Math.pow(ratio, 1.3);
+  const torsoW = 54 * ratio;
+  const bellyW = 60 * Math.pow(ratio, 1.7);
+  const hipW = 56 * Math.pow(ratio, 1.3);
+  const armW = 14 * Math.pow(ratio, 0.9);
+  const thighW = 22 * Math.pow(ratio, 1.1);
 
   const label = mode === "current" ? "Peso actual" : "Peso objetivo";
   const placeholder = mode === "current"
     ? (unit === "kg" ? "75" : "165")
     : (unit === "kg" ? "70" : "154");
+
+  // military palette
+  const skin = "#c9a27a";
+  const uniform = "#4b5320"; // olive drab
+  const uniformDark = "#3a4118";
+  const vest = "#2f3617";
+  const boot = "#1c1c14";
+  const helmet = "#3d4a1e";
+  const accent = "hsl(var(--accent))";
 
   return (
     <>
@@ -1180,36 +1190,98 @@ function WeightStepView({
       </div>
 
       <div className="flex justify-center py-2">
-        <svg viewBox="0 0 160 220" width="140" height="200" className="drop-shadow-lg">
+        <svg viewBox="0 0 180 260" width="150" height="220" className="drop-shadow-lg">
+          <defs>
+            <linearGradient id="uniGrad" x1="0" x2="0" y1="0" y2="1">
+              <stop offset="0%" stopColor={uniform} />
+              <stop offset="100%" stopColor={uniformDark} />
+            </linearGradient>
+            <pattern id="camo" width="20" height="20" patternUnits="userSpaceOnUse">
+              <rect width="20" height="20" fill={uniform} />
+              <circle cx="5" cy="6" r="4" fill={uniformDark} opacity="0.7" />
+              <circle cx="15" cy="14" r="5" fill="#5b6a24" opacity="0.6" />
+              <circle cx="12" cy="4" r="2" fill="#2a2f10" opacity="0.7" />
+            </pattern>
+          </defs>
+
+          {/* helmet back strap shadow */}
+          <ellipse cx="90" cy="34" rx="20" ry="6" fill="#000" opacity="0.25" />
           {/* head */}
-          <circle cx="80" cy="24" r="16" fill="hsl(var(--accent))" />
+          <ellipse cx="90" cy="34" rx="13" ry="15" fill={skin} />
+          {/* jaw shadow */}
+          <path d="M78 38 Q90 48 102 38 L102 42 Q90 52 78 42 Z" fill="#a8845e" />
+          {/* helmet */}
+          <path d="M74 28 Q90 10 106 28 L108 34 Q90 30 72 34 Z" fill={helmet} />
+          <rect x="72" y="32" width="36" height="4" rx="2" fill={uniformDark} />
+          {/* helmet star */}
+          <polygon points="90,18 92,24 98,24 93,28 95,34 90,30 85,34 87,28 82,24 88,24" fill={accent} />
+
           {/* neck */}
-          <rect x="74" y="38" width="12" height="8" fill="hsl(var(--accent))" />
-          {/* torso */}
+          <rect x="84" y="46" width="12" height="8" fill={skin} />
+
+          {/* torso - camo shirt */}
           <path
-            d={`M ${80 - torsoW / 2} 48
-                Q 80 52 ${80 + torsoW / 2} 48
-                L ${80 + bellyW / 2} 110
-                Q 80 128 ${80 - bellyW / 2} 110 Z`}
-            fill="hsl(var(--accent))"
+            d={`M ${90 - torsoW / 2} 54
+                Q 90 58 ${90 + torsoW / 2} 54
+                L ${90 + bellyW / 2} 130
+                Q 90 148 ${90 - bellyW / 2} 130 Z`}
+            fill="url(#camo)"
+            stroke={uniformDark}
+            strokeWidth="1.5"
             style={{ transition: "d 0.3s ease" }}
           />
-          {/* hips */}
+
+          {/* tactical vest */}
           <path
-            d={`M ${80 - bellyW / 2} 108
-                L ${80 + bellyW / 2} 108
-                L ${80 + hipW / 2} 140
-                L ${80 - hipW / 2} 140 Z`}
-            fill="hsl(var(--accent))"
+            d={`M ${90 - torsoW / 2 + 4} 58
+                L ${90 + torsoW / 2 - 4} 58
+                L ${90 + bellyW / 2 - 6} 118
+                L ${90 - bellyW / 2 + 6} 118 Z`}
+            fill={vest}
+            opacity="0.85"
+            style={{ transition: "d 0.3s ease" }}
           />
+          {/* vest pouches */}
+          <rect x={90 - 18} y="78" width="14" height="14" rx="2" fill={uniformDark} />
+          <rect x={90 + 4} y="78" width="14" height="14" rx="2" fill={uniformDark} />
+          {/* dog tag */}
+          <line x1="86" y1="54" x2="90" y2="72" stroke="#c0c0c0" strokeWidth="0.8" />
+          <line x1="94" y1="54" x2="90" y2="72" stroke="#c0c0c0" strokeWidth="0.8" />
+          <rect x="87" y="72" width="6" height="8" rx="1" fill="#d4d4aa" />
+
+          {/* hips - belt */}
+          <path
+            d={`M ${90 - bellyW / 2} 128
+                L ${90 + bellyW / 2} 128
+                L ${90 + hipW / 2} 148
+                L ${90 - hipW / 2} 148 Z`}
+            fill="url(#uniGrad)"
+          />
+          <rect x={90 - hipW / 2} y="130" width={hipW} height="6" fill={boot} />
+          <rect x="87" y="130" width="6" height="6" fill={accent} />
+
           {/* arms */}
-          <rect x={80 - torsoW / 2 - 12} y="50" width="12" height="60" rx="6" fill="hsl(var(--accent))" />
-          <rect x={80 + torsoW / 2} y="50" width="12" height="60" rx="6" fill="hsl(var(--accent))" />
-          {/* legs */}
-          <rect x={80 - hipW / 2 + 4} y="140" width={hipW / 2 - 6} height="70" rx="6" fill="hsl(var(--accent))" />
-          <rect x="82" y="140" width={hipW / 2 - 6} height="70" rx="6" fill="hsl(var(--accent))" />
+          <rect x={90 - torsoW / 2 - armW} y="56" width={armW} height="56" rx={armW / 2} fill="url(#camo)" />
+          <rect x={90 + torsoW / 2} y="56" width={armW} height="56" rx={armW / 2} fill="url(#camo)" />
+          {/* forearms / gloves */}
+          <rect x={90 - torsoW / 2 - armW} y="108" width={armW} height="20" rx={armW / 2} fill={skin} />
+          <rect x={90 + torsoW / 2} y="108" width={armW} height="20" rx={armW / 2} fill={skin} />
+
+          {/* cargo pants legs */}
+          <rect x={90 - hipW / 2 + 2} y="148" width={thighW} height="70" rx="4" fill="url(#uniGrad)" />
+          <rect x={90 + hipW / 2 - thighW - 2} y="148" width={thighW} height="70" rx="4" fill="url(#uniGrad)" />
+          {/* knee patches */}
+          <rect x={90 - hipW / 2 + 4} y="182" width={thighW - 4} height="8" fill={uniformDark} opacity="0.8" />
+          <rect x={90 + hipW / 2 - thighW} y="182" width={thighW - 4} height="8" fill={uniformDark} opacity="0.8" />
+
+          {/* boots */}
+          <rect x={90 - hipW / 2} y="216" width={thighW + 4} height="14" rx="3" fill={boot} />
+          <rect x={90 + hipW / 2 - thighW - 4} y="216" width={thighW + 4} height="14" rx="3" fill={boot} />
+          <rect x={90 - hipW / 2} y="226" width={thighW + 4} height="4" fill="#000" />
+          <rect x={90 + hipW / 2 - thighW - 4} y="226" width={thighW + 4} height="4" fill="#000" />
         </svg>
       </div>
+
 
       <div>
         <label className="mil-stencil text-xs text-muted-foreground">
