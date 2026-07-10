@@ -2222,7 +2222,12 @@ function SalesView({
         </div>
       </div>
 
+      <section className="max-w-md mx-auto px-4 pt-4 pb-2">
+        <SalesVSL />
+      </section>
+
       <section className="max-w-md mx-auto px-4 py-6 space-y-6">
+
         <Reveal>
           <div className="text-center space-y-2">
             <div className="text-5xl">🎉</div>
