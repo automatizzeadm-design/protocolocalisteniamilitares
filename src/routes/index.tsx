@@ -826,7 +826,7 @@ function Quiz() {
                 width={1024}
                 height={1024}
                 loading="lazy"
-                className="w-full h-36 sm:h-48 rounded-md border-2 border-border object-cover"
+                className="w-full h-56 sm:h-72 rounded-md border-2 border-border object-cover"
               />
             )}
             <Button
@@ -875,7 +875,7 @@ function Quiz() {
               <img
                 src={militaryTransformation.url}
                 alt="Transformación real con el protocolo militar"
-                className="w-full h-16 sm:h-24 rounded-sm object-cover"
+                className="w-full h-40 sm:h-56 rounded-sm object-cover"
                 loading="lazy"
               />
               <figcaption className="mil-stencil text-[9px] leading-tight text-foreground/90">
@@ -1498,11 +1498,11 @@ function GraphStepView({
     };
   }, [step]);
 
-  const size = 160;
+  const size = 220;
   const cx = size / 2;
   const cy = size / 2;
-  const rOuter = 72;
-  const rInner = 52;
+  const rOuter = 100;
+  const rInner = 72;
 
   const total = step.bars.reduce((s, b) => s + b.value, 0) || 1;
   const gapDeg = 4;
@@ -2336,7 +2336,7 @@ function VideoStepView({ step, onNext }: { step: VideoStep; onNext: () => void }
   return (
     <div className="space-y-5">
       <div className="rounded-xl overflow-hidden border-2 border-accent/40 shadow-lg shadow-accent/10 bg-black">
-        <div className="relative w-full aspect-video max-h-[55vh]">
+        <div className="relative w-full aspect-video max-h-[80vh]">
           <iframe
             ref={iframeRef}
             src={`https://player.vimeo.com/video/${step.videoId}?badge=0&autopause=0&autoplay=1&muted=1&playsinline=1&title=0&byline=0&portrait=0&controls=0&loop=0`}
