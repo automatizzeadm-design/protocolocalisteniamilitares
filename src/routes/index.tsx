@@ -2193,6 +2193,87 @@ function BuyerNotifications() {
   );
 }
 
+function SalesVSL() {
+  const [muted, setMuted] = useState(true);
+  const [playing, setPlaying] = useState(true);
+  const playerRef = useRef<any>(null);
+  const iframeRef = useRef<HTMLIFrameElement | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      const { default: Player } = await import("@vimeo/player");
+      if (cancelled || !iframeRef.current) return;
+      playerRef.current = new Player(iframeRef.current);
+      try {
+        await playerRef.current.ready();
+        await playerRef.current.setLoop(true);
+        await playerRef.current.play();
+        playerRef.current.on("ended", async () => {
+          try { await playerRef.current.setCurrentTime(0); await playerRef.current.play(); } catch {}
+        });
+        playerRef.current.on("play", () => setPlaying(true));
+        playerRef.current.on("pause", () => setPlaying(false));
+      } catch {}
+    })();
+    return () => { cancelled = true; try { playerRef.current?.destroy(); } catch {} };
+  }, []);
+
+  const unmute = async () => {
+    setMuted(false);
+    try {
+      const p = playerRef.current;
+      if (!p) return;
+      await p.setMuted(false);
+      await p.setVolume(1);
+      await p.play();
+    } catch (e) { console.error(e); }
+  };
+
+  const toggle = async () => {
+    try {
+      const p = playerRef.current;
+      if (!p) return;
+      if (playing) { await p.pause(); } else { await p.play(); }
+    } catch {}
+  };
+
+  return (
+    <div className="rounded-xl overflow-hidden border-2 border-accent/40 shadow-lg shadow-accent/10">
+      <div style={{ padding: "76.49% 0 0 0", position: "relative" }}>
+        <iframe
+          ref={iframeRef}
+          src="https://player.vimeo.com/video/1208611953?badge=0&autopause=0&autoplay=1&muted=1&playsinline=1&title=0&byline=0&portrait=0&controls=0&loop=1"
+          allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+          referrerPolicy="strict-origin-when-cross-origin"
+          style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%" }}
+          title="Oferta Especial Militar"
+        />
+        {muted ? (
+          <button
+            type="button"
+            onClick={unmute}
+            className="absolute inset-0 flex flex-col items-center justify-center gap-2 bg-black/60 text-white cursor-pointer"
+            style={{ position: "absolute", inset: 0 }}
+          >
+            <div className="h-14 w-14 rounded-full bg-accent flex items-center justify-center text-2xl">🔊</div>
+            <div className="mil-stencil font-bold text-sm sm:text-base">TOCA PARA ACTIVAR EL SONIDO</div>
+          </button>
+        ) : (
+          <button
+            type="button"
+            onClick={toggle}
+            aria-label={playing ? "Pausar" : "Reproducir"}
+            className="absolute bottom-2 right-2 h-10 w-10 rounded-full bg-black/60 hover:bg-black/80 text-white flex items-center justify-center text-lg"
+          >
+            {playing ? "⏸" : "▶"}
+          </button>
+        )}
+      </div>
+    </div>
+  );
+}
+
 function SalesView({
   answers,
   onFinish,
