@@ -1267,6 +1267,15 @@ function WeightStepView({
           {/* forearms / gloves */}
           <rect x={90 - torsoW / 2 - armW} y="108" width={armW} height="20" rx={armW / 2} fill={skin} />
           <rect x={90 + torsoW / 2} y="108" width={armW} height="20" rx={armW / 2} fill={skin} />
+          {buff && (
+            <>
+              {/* pecs */}
+              <path d={`M ${90 - torsoW / 2 + 6} 66 Q 90 78 ${90 + torsoW / 2 - 6} 66 L 90 88 Z`} fill="#000" opacity="0.25" />
+              {/* biceps highlight */}
+              <ellipse cx={90 - torsoW / 2 - armW / 2} cy="76" rx={armW / 2} ry="12" fill="#000" opacity="0.2" />
+              <ellipse cx={90 + torsoW / 2 + armW / 2} cy="76" rx={armW / 2} ry="12" fill="#000" opacity="0.2" />
+            </>
+          )}
 
           {/* cargo pants legs */}
           <rect x={90 - hipW / 2 + 2} y="148" width={thighW} height="70" rx="4" fill="url(#uniGrad)" />
