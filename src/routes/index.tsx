@@ -2303,12 +2303,11 @@ function SalesView({
         ←
       </button>
       <div className="bg-primary/20 border-b border-primary/40">
-        <div className="max-w-md mx-auto px-4 py-2 text-center">
-          <span className="mil-stencil text-xs text-accent font-bold">
-            ★ Oferta Especial Militar
-          </span>
+        <div className="max-w-md mx-auto px-4 py-2 flex items-center justify-center">
+          <img src={logoMilitary.url} alt="Protocolo Calistenia Militar" className="h-12 object-contain" />
         </div>
       </div>
+
 
       <section className="max-w-md mx-auto px-4 py-6 space-y-6">
 
