@@ -2101,6 +2101,27 @@ function PlanView({
           </div>
         </Reveal>
 
+        {/* Bonus 3 - TMB */}
+        <Reveal delay={80}>
+          <div className="rounded-md border-2 border-accent bg-primary/10 p-3 space-y-2">
+            <div className="mil-stencil text-xs text-accent font-bold">
+              🎁 BONUS #3 — TEST DE TASA METABÓLICA BASAL
+            </div>
+            <div className="mil-stencil text-sm font-bold">
+              Test online gratuito de TMB
+            </div>
+            <img
+              src={bonusTmb.url}
+              alt="Test de Tasa Metabólica Basal"
+              loading="lazy"
+              className="w-full rounded-md border border-border"
+            />
+            <p className="text-xs text-muted-foreground leading-relaxed">
+              Identifica tus <span className="text-accent font-bold">primeros cambios</span>, con cálculos nutricionales específicos para tu cuerpo y tu evolución. Datos precisos para decisiones inteligentes — resultados reales.
+            </p>
+          </div>
+        </Reveal>
+
         {/* Goals */}
         <Reveal delay={80}>
           <div className="space-y-2">
