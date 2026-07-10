@@ -2004,27 +2004,27 @@ function PlanView({
         {/* What you get */}
         <Reveal delay={80}>
           <div className="space-y-3">
-            <h2 className="mil-stencil text-lg font-bold">Qué recibes</h2>
+            <h2 className="mil-stencil text-lg font-bold">¿Qué recibirás?</h2>
+            <div className="rounded-md border-2 border-accent bg-card p-3">
+              <div className="mil-stencil text-sm font-bold text-accent">
+                Acceso a la App "Protocolo Militar"
+              </div>
+              <div className="text-xs text-muted-foreground mt-1">
+                Todo personalizado según tu situación y las respuestas del quiz.
+              </div>
+            </div>
             {[
-              {
-                t: "Plan de entrenamiento militar",
-                d: "Personalizado para tu edad, tipo físico y nivel.",
-              },
-              {
-                t: "Sesiones de 15 a 30 minutos por día",
-                d: "Diseñadas para construir fuerza real.",
-              },
-              {
-                t: "Paso a paso",
-                d: "Un enfoque simple para lograr resultados en semanas.",
-              },
-            ].map((f) => (
+              "Videoclases exclusivas",
+              "Protocolo de entrenamiento completo",
+              "Plataforma estilo Netflix",
+              "3 bonos gratuitos",
+            ].map((t) => (
               <div
-                key={f.t}
-                className="rounded-md border-2 border-border bg-card p-3"
+                key={t}
+                className="flex items-center gap-2 rounded-md border-2 border-border bg-card p-3"
               >
-                <div className="mil-stencil text-sm font-bold">{f.t}</div>
-                <div className="text-xs text-muted-foreground">{f.d}</div>
+                <span className="text-accent text-lg">✅</span>
+                <span className="mil-stencil text-sm font-bold">{t}</span>
               </div>
             ))}
             <img
@@ -2037,6 +2037,7 @@ function PlanView({
             />
           </div>
         </Reveal>
+
 
         {/* Bonus */}
         <Reveal delay={80}>
