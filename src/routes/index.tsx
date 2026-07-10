@@ -1151,11 +1151,12 @@ function WeightStepView({
   const baseline = unit === "kg" ? 75 : 165;
   const shown = valid ? num : baseline;
   const ratio = Math.max(0.7, Math.min(1.5, shown / baseline));
-  const torsoW = 54 * ratio;
-  const bellyW = 60 * Math.pow(ratio, 1.7);
-  const hipW = 56 * Math.pow(ratio, 1.3);
-  const armW = 14 * Math.pow(ratio, 0.9);
-  const thighW = 22 * Math.pow(ratio, 1.1);
+  const buff = mode === "target"; // versão musculosa (ombros largos, cintura seca)
+  const torsoW = (buff ? 70 : 54) * (buff ? Math.pow(ratio, 0.85) : ratio);
+  const bellyW = (buff ? 46 : 60) * Math.pow(ratio, buff ? 1.1 : 1.7);
+  const hipW = (buff ? 58 : 56) * Math.pow(ratio, 1.2);
+  const armW = (buff ? 22 : 14) * Math.pow(ratio, 0.9);
+  const thighW = (buff ? 28 : 22) * Math.pow(ratio, 1.1);
 
   const label = mode === "current" ? "Peso actual" : "Peso objetivo";
   const placeholder = mode === "current"
