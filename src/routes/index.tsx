@@ -2124,14 +2124,6 @@ function PlanView({
                 <span className="mil-stencil text-sm font-bold">{t}</span>
               </div>
             ))}
-            <img
-              src={programPreview}
-              alt="Vista previa del programa"
-              width={1024}
-              height={768}
-              loading="lazy"
-              className="w-full rounded-md border-2 border-border"
-            />
           </div>
         </Reveal>
 
