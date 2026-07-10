@@ -831,6 +831,33 @@ function Quiz() {
                 className="w-full h-56 sm:h-72 rounded-md border-2 border-border object-cover"
               />
             )}
+            {step.key === "motivation" && (
+              <div className="space-y-3">
+                <div className="grid grid-cols-2 gap-2">
+                  <img
+                    src={testimonial1.url}
+                    alt="Transformación real"
+                    loading="lazy"
+                    className="w-full h-40 sm:h-56 rounded-md border-2 border-accent object-cover"
+                  />
+                  <img
+                    src={testimonial2.url}
+                    alt="Transformación real"
+                    loading="lazy"
+                    className="w-full h-40 sm:h-56 rounded-md border-2 border-accent object-cover"
+                  />
+                </div>
+                <div className="rounded-md border-2 border-border bg-card/60 p-3 text-center space-y-1">
+                  <div className="flex items-center justify-center gap-1 text-accent text-lg">
+                    ★★★★★
+                    <span className="text-foreground text-sm font-bold ml-1">4.9/5</span>
+                  </div>
+                  <p className="mil-stencil text-xs sm:text-sm font-bold text-foreground">
+                    +1.000 HOMBRES CAMBIARON DE VIDA EN LOS ÚLTIMOS MESES
+                  </p>
+                </div>
+              </div>
+            )}
             <Button
               className="w-full mil-stencil bg-accent text-accent-foreground hover:bg-accent/90"
               size="lg"
