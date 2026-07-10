@@ -626,7 +626,7 @@ function Quiz() {
   const [started, setStarted] = useState(false);
   const [index, setIndex] = useState(0);
   const [answers, setAnswers] = useState<Answers>({});
-  const [done, setDone] = useState(false);
+  
   
 
   if (!vslDone) {
@@ -647,7 +647,7 @@ function Quiz() {
   const pct = Math.round(Math.pow(rawPct, 0.45) * 100);
 
   const next = () => {
-    if (index + 1 >= STEPS.length) setDone(true);
+    if (index + 1 >= STEPS.length) return;
     else setIndex(index + 1);
   };
 
@@ -668,30 +668,10 @@ function Quiz() {
     });
   };
 
-  if (done) {
-    return (
-      <main className="min-h-screen bg-background flex items-center justify-center p-6">
-        <div className="max-w-md w-full text-center space-y-4">
-          <div className="mil-stencil text-xs text-accent font-bold">
-            ★ Misión Completada
-          </div>
-          <h1 className="text-3xl font-bold mil-stencil text-accent">
-            ¡Bien hecho{answers.name ? `, ${answers.name}` : ", soldado"}!
-          </h1>
-          <p className="text-muted-foreground">
-            Tu plan militar personalizado ya está listo.
-          </p>
-          <pre className="text-left text-xs bg-card border border-border p-4 rounded-md overflow-auto">
-            {JSON.stringify(answers, null, 2)}
-          </pre>
-        </div>
-      </main>
-    );
+  if (step.kind === "plan") {
+    return <PlanView answers={answers} onFinish={() => {}} />;
   }
 
-  if (step.kind === "plan") {
-    return <PlanView answers={answers} onFinish={() => setDone(true)} />;
-  }
 
 
   if (step.kind === "loading") {
