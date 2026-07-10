@@ -689,13 +689,10 @@ function Quiz() {
     );
   }
 
-  if (showSales) {
-    return <SalesView answers={answers} onFinish={() => setDone(true)} onBack={() => setShowSales(false)} />;
+  if (step.kind === "plan") {
+    return <PlanView answers={answers} onFinish={() => setDone(true)} />;
   }
 
-  if (step.kind === "plan") {
-    return <PlanView answers={answers} onFinish={() => setShowSales(true)} />;
-  }
 
   if (step.kind === "loading") {
     return <RecruitmentLoadingView step={step} onDone={next} />;
@@ -2036,14 +2033,11 @@ function PlanView({
         →
       </button>
       <div className="bg-primary/20 border-b border-primary/40">
-        <div className="max-w-md mx-auto px-4 py-2 flex items-center justify-between">
+        <div className="max-w-md mx-auto px-4 py-2 flex items-center justify-center">
           <img src={logoMilitary.url} alt="Protocolo Calistenia Militar" className="h-12 object-contain" />
-          <div className="flex items-center gap-3 text-[10px] mil-stencil text-muted-foreground">
-            <span>Ayuda</span>
-            <span>ES</span>
-          </div>
         </div>
       </div>
+
 
 
       <section className="max-w-md mx-auto px-4 py-6 space-y-6">
