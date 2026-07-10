@@ -1979,7 +1979,7 @@ function PlanView({
             ].map((c) => (
               <div
                 key={c.label}
-                className="rounded-md border-2 border-border bg-card p-3 space-y-1"
+                className="relative rounded-md border-2 border-border bg-card p-3 space-y-1 overflow-hidden"
               >
                 <div className="text-2xl">{c.emoji}</div>
                 <div className="mil-stencil text-[10px] text-accent">
@@ -1988,9 +1988,15 @@ function PlanView({
                 <div className="mil-stencil text-[11px] text-muted-foreground">
                   {c.label}
                 </div>
-                <div className="mil-stencil text-lg font-bold">{c.value}</div>
-                <div className="text-[10px] text-muted-foreground">{c.scale}</div>
+                <div className="mil-stencil text-lg font-bold blur-md select-none">{c.value}</div>
+                <div className="text-[10px] text-muted-foreground blur-sm select-none">{c.scale}</div>
+                <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                  <div className="bg-background/70 border-2 border-accent rounded-full h-10 w-10 flex items-center justify-center text-accent text-lg">
+                    🔒
+                  </div>
+                </div>
               </div>
+
             ))}
           </div>
         </Reveal>
