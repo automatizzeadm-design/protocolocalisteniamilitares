@@ -10,6 +10,8 @@ import attentionPushup from "@/assets/attention-pushup.jpg.asset.json";
 import transformationFeedback from "@/assets/transformation-feedback.jpg.asset.json";
 import militaryTransformation from "@/assets/military-transformation.png.asset.json";
 import logoMilitary from "@/assets/logo-military.png.asset.json";
+import testimonial1 from "@/assets/testimonial-1.png.asset.json";
+import testimonial2 from "@/assets/testimonial-2.png.asset.json";
 
 
 
