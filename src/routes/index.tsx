@@ -1151,11 +1151,12 @@ function WeightStepView({
   const baseline = unit === "kg" ? 75 : 165;
   const shown = valid ? num : baseline;
   const ratio = Math.max(0.7, Math.min(1.5, shown / baseline));
-  const torsoW = 54 * ratio;
-  const bellyW = 60 * Math.pow(ratio, 1.7);
-  const hipW = 56 * Math.pow(ratio, 1.3);
-  const armW = 14 * Math.pow(ratio, 0.9);
-  const thighW = 22 * Math.pow(ratio, 1.1);
+  const buff = mode === "target"; // versão musculosa (ombros largos, cintura seca)
+  const torsoW = (buff ? 70 : 54) * (buff ? Math.pow(ratio, 0.85) : ratio);
+  const bellyW = (buff ? 46 : 60) * Math.pow(ratio, buff ? 1.1 : 1.7);
+  const hipW = (buff ? 58 : 56) * Math.pow(ratio, 1.2);
+  const armW = (buff ? 22 : 14) * Math.pow(ratio, 0.9);
+  const thighW = (buff ? 28 : 22) * Math.pow(ratio, 1.1);
 
   const label = mode === "current" ? "Peso actual" : "Peso objetivo";
   const placeholder = mode === "current"
@@ -1266,6 +1267,15 @@ function WeightStepView({
           {/* forearms / gloves */}
           <rect x={90 - torsoW / 2 - armW} y="108" width={armW} height="20" rx={armW / 2} fill={skin} />
           <rect x={90 + torsoW / 2} y="108" width={armW} height="20" rx={armW / 2} fill={skin} />
+          {buff && (
+            <>
+              {/* pecs */}
+              <path d={`M ${90 - torsoW / 2 + 6} 66 Q 90 78 ${90 + torsoW / 2 - 6} 66 L 90 88 Z`} fill="#000" opacity="0.25" />
+              {/* biceps highlight */}
+              <ellipse cx={90 - torsoW / 2 - armW / 2} cy="76" rx={armW / 2} ry="12" fill="#000" opacity="0.2" />
+              <ellipse cx={90 + torsoW / 2 + armW / 2} cy="76" rx={armW / 2} ry="12" fill="#000" opacity="0.2" />
+            </>
+          )}
 
           {/* cargo pants legs */}
           <rect x={90 - hipW / 2 + 2} y="148" width={thighW} height="70" rx="4" fill="url(#uniGrad)" />
