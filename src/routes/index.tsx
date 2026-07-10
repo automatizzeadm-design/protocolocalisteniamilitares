@@ -18,6 +18,7 @@ import testimonial2 from "@/assets/testimonial-2.png.asset.json";
 import programPreview from "@/assets/program-preview.jpg";
 import calendar2026 from "@/assets/calendar-2026.jpg";
 import bonusAlimentacion from "@/assets/bonus-alimentacion-militar.png.asset.json";
+import mapaMilitar from "@/assets/mapa-militar-2026.png.asset.json";
 
 
 
@@ -2078,23 +2079,24 @@ function PlanView({
           </div>
         </Reveal>
 
-        {/* Bonus imprimible */}
+        {/* Bonus 2 - Mapa Militar */}
         <Reveal delay={80}>
           <div className="rounded-md border-2 border-accent bg-primary/10 p-3 space-y-2">
             <div className="mil-stencil text-xs text-accent font-bold">
-              🎁 BONUS IMPRIMIBLE
+              🎁 BONUS #2 — MAPA MILITAR
             </div>
             <div className="mil-stencil text-sm font-bold">
-              Mapa imprimible para 2026
+              Agenda paso a paso hasta tu objetivo
             </div>
             <img
-              src={calendar2026}
-              alt="Calendario 2026"
-              width={1024}
-              height={768}
+              src={mapaMilitar.url}
+              alt="Mapa Militar 2026"
               loading="lazy"
               className="w-full rounded-md border border-border"
             />
+            <p className="text-xs text-muted-foreground leading-relaxed">
+              Recibirás un plan en <span className="text-accent font-bold">agenda día por día</span> con cada misión de tu evolución, hasta el día en que alcances tu meta. Todo lo que debes ejecutar cada jornada, sin dudas ni improvisación.
+            </p>
           </div>
         </Reveal>
 
