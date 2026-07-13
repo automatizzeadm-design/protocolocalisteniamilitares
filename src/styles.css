@@ -142,6 +142,10 @@
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
+    font-family:
+      "Barlow", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
     background-image:
       radial-gradient(
         circle at 20% 10%,
@@ -152,13 +156,256 @@
         circle at 80% 90%,
         oklch(0.35 0.05 130 / 0.3),
         transparent 50%
+      ),
+      repeating-linear-gradient(
+        135deg,
+        oklch(0.5 0.05 135 / 0.02) 0px,
+        oklch(0.5 0.05 135 / 0.02) 1px,
+        transparent 1px,
+        transparent 9px
       );
     background-attachment: fixed;
+  }
+
+  h1, h2, h3 {
+    font-family: "Oswald", "Barlow", sans-serif;
   }
 }
 
 @utility mil-stencil {
-  font-family: "Impact", "Oswald", "Arial Narrow", sans-serif;
-  letter-spacing: 0.12em;
+  font-family: "Oswald", "Impact", "Arial Narrow", sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
+}
+
+/* ============================================================
+   MILITARY DESIGN SYSTEM — fontes, animações e micro-interações
+   (tudo aditivo; se algo não carregar, o layout base continua ok)
+   ============================================================ */
+
+@utility font-command {
+  font-family: "Black Ops One", "Oswald", sans-serif;
+  letter-spacing: 0.02em;
+}
+
+/* ---- Keyframes ---- */
+@keyframes mil-fade-up {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes mil-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes mil-pop {
+  0% { opacity: 0; transform: scale(0.92) translateY(10px); }
+  60% { opacity: 1; transform: scale(1.02) translateY(0); }
+  100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+@keyframes mil-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+@keyframes mil-glow {
+  0%, 100% { box-shadow: 0 0 0 0 oklch(0.72 0.16 130 / 0.0); }
+  50% { box-shadow: 0 0 22px 2px oklch(0.72 0.16 130 / 0.45); }
+}
+@keyframes mil-shimmer {
+  0% { background-position: -150% 0; }
+  100% { background-position: 250% 0; }
+}
+@keyframes mil-scan {
+  0% { transform: translateY(-100%); opacity: 0; }
+  40% { opacity: 0.7; }
+  100% { transform: translateY(400%); opacity: 0; }
+}
+@keyframes mil-stripes {
+  0% { background-position: 0 0; }
+  100% { background-position: 40px 0; }
+}
+@keyframes mil-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.25; }
+}
+@keyframes mil-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ---- Entrada / reveal ---- */
+@utility mil-in {
+  animation: mil-fade-up 0.55s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+@utility mil-in-pop {
+  animation: mil-pop 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+@utility mil-fadein {
+  animation: mil-fade-in 0.6s ease both;
+}
+/* stagger util: aplica delays crescentes nos filhos diretos */
+@utility mil-stagger {
+  & > * {
+    animation: mil-fade-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+  & > *:nth-child(1) { animation-delay: 0.04s; }
+  & > *:nth-child(2) { animation-delay: 0.1s; }
+  & > *:nth-child(3) { animation-delay: 0.16s; }
+  & > *:nth-child(4) { animation-delay: 0.22s; }
+  & > *:nth-child(5) { animation-delay: 0.28s; }
+  & > *:nth-child(6) { animation-delay: 0.34s; }
+  & > *:nth-child(7) { animation-delay: 0.4s; }
+}
+
+@utility mil-float-anim {
+  animation: mil-float 3.5s ease-in-out infinite;
+}
+@utility mil-glow-anim {
+  animation: mil-glow 2.4s ease-in-out infinite;
+}
+
+/* ---- Chip de emoji dentro das opções do quiz ---- */
+@utility mil-emoji-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 2.6rem;
+  width: 2.6rem;
+  flex-shrink: 0;
+  font-size: 1.35rem;
+  line-height: 1;
+  border-radius: 0.6rem;
+  background:
+    linear-gradient(145deg, oklch(0.3 0.03 145 / 0.9), oklch(0.24 0.02 150 / 0.9));
+  border: 1px solid oklch(0.72 0.16 130 / 0.35);
+  box-shadow:
+    inset 0 1px 0 oklch(1 0 0 / 0.06),
+    0 2px 6px oklch(0 0 0 / 0.35);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s;
+}
+
+/* ---- Cartão de opção premium (aplicado por cima das classes existentes) ---- */
+@utility mil-option {
+  position: relative;
+  overflow: hidden;
+  transition:
+    transform 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.2s,
+    box-shadow 0.2s,
+    background-color 0.2s;
+}
+@utility mil-option-hover {
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 22px oklch(0 0 0 / 0.35), 0 0 0 1px oklch(0.72 0.16 130 / 0.25);
+  }
+  &:active { transform: translateY(0) scale(0.99); }
+  &:hover .mil-emoji-chip {
+    transform: scale(1.08) rotate(-3deg);
+    border-color: oklch(0.72 0.16 130 / 0.7);
+  }
+}
+
+/* ---- Barra de progresso com listras militares animadas ---- */
+@utility mil-progress-track {
+  position: relative;
+  overflow: hidden;
+}
+@utility mil-progress-bar {
+  background-image: repeating-linear-gradient(
+    45deg,
+    oklch(0.72 0.16 130) 0px,
+    oklch(0.72 0.16 130) 10px,
+    oklch(0.62 0.13 132) 10px,
+    oklch(0.62 0.13 132) 20px
+  );
+  background-size: 40px 40px;
+  animation: mil-stripes 0.8s linear infinite;
+}
+
+/* ---- Botão com brilho passando (shimmer) ---- */
+@utility mil-cta {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+@utility mil-cta-shine {
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      110deg,
+      transparent 20%,
+      oklch(1 0 0 / 0.28) 45%,
+      oklch(1 0 0 / 0.28) 55%,
+      transparent 80%
+    );
+    background-size: 220% 100%;
+    animation: mil-shimmer 3.2s ease-in-out infinite;
+    pointer-events: none;
+  }
+}
+
+/* ---- Tag / dog-tag divisor ---- */
+@utility mil-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.2rem 0.7rem;
+  border-radius: 999px;
+  border: 1px solid oklch(0.72 0.16 130 / 0.4);
+  background: oklch(0.72 0.16 130 / 0.12);
+  font-family: "Oswald", sans-serif;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-size: 0.66rem;
+  font-weight: 600;
+  color: oklch(0.85 0.12 125);
+}
+
+/* ---- Overlay de textura/scanline sutil ---- */
+@utility mil-scanline {
+  position: relative;
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      oklch(0.72 0.16 130 / 0),
+      oklch(0.72 0.16 130 / 0.12),
+      oklch(0.72 0.16 130 / 0)
+    );
+    height: 40%;
+    animation: mil-scan 4s linear infinite;
+    pointer-events: none;
+  }
+}
+
+/* ---- Spinner militar ---- */
+@utility mil-spinner {
+  animation: mil-spin 0.9s linear infinite;
+}
+
+/* ---- Scrollbar temática ---- */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: oklch(0.55 0.11 135) oklch(0.19 0.01 150);
+}
+*::-webkit-scrollbar { width: 10px; height: 10px; }
+*::-webkit-scrollbar-track { background: oklch(0.19 0.01 150); }
+*::-webkit-scrollbar-thumb {
+  background: linear-gradient(oklch(0.55 0.11 135), oklch(0.45 0.09 138));
+  border-radius: 999px;
+  border: 2px solid oklch(0.19 0.01 150);
+}
+*::-webkit-scrollbar-thumb:hover { background: oklch(0.62 0.13 132); }
+
+/* Respeita quem prefere menos movimento */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+  }
 }
