@@ -253,17 +253,6 @@ const STEPS: Step[] = [
     ],
   },
   {
-    kind: "single",
-    key: "military",
-    title: "¿Conoces el entrenamiento militar?",
-    progress: 5,
-    options: [
-      { value: "oui", label: "Sí, muy bien" },
-      { value: "peu", label: "He oído hablar" },
-      { value: "non", label: "No, para nada" },
-    ],
-  },
-  {
     kind: "info",
     key: "attention",
     title: "Más de 7.000 hombres ya desbloquearon el físico de sus sueños",
@@ -311,18 +300,6 @@ const STEPS: Step[] = [
       { value: "10-20", label: "10 - 20 💪💪" },
       { value: "21-30", label: "21 - 30 💪💪💪" },
       { value: "30+", label: "Más de 30 😤" },
-    ],
-  },
-  {
-    kind: "single",
-    key: "pullups",
-    title: "¿Cuántas dominadas puedes hacer en una ronda?",
-    progress: 10,
-    options: [
-      { value: "0", label: "No puedo hacer ninguna dominada" },
-      { value: "<5", label: "Menos de 5 🔥" },
-      { value: "5-10", label: "5 - 10 🔥🔥" },
-      { value: "10+", label: "Más de 10 🔥🔥🔥" },
     ],
   },
   {
@@ -492,18 +469,6 @@ const STEPS: Step[] = [
     paddingPct: 152.04,
     cta: "Continuar",
     progress: 22,
-  },
-  {
-    kind: "single",
-    key: "needs-structure",
-    title: "¿En qué medida te reconoces en esta afirmación?",
-    subtitle: "Necesito estructura o guía durante las sesiones de entrenamiento para mantenerme motivado.",
-    progress: 23,
-    options: [
-      { value: "disagree", label: "En desacuerdo" },
-      { value: "neutral", label: "Neutral" },
-      { value: "agree", label: "De acuerdo" },
-    ],
   },
   {
     kind: "single",
@@ -946,7 +911,7 @@ function Quiz() {
           />
         )}
 
-        {step.kind === "graph" && <GraphStepView step={step} onNext={next} />}
+        {step.kind === "graph" && <GraphStepView step={step} answers={answers} onNext={next} />}
 
         {step.kind === "dob" && (
           <DobStepView
