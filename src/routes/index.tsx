@@ -253,17 +253,6 @@ const STEPS: Step[] = [
     ],
   },
   {
-    kind: "single",
-    key: "military",
-    title: "¿Conoces el entrenamiento militar?",
-    progress: 5,
-    options: [
-      { value: "oui", label: "Sí, muy bien" },
-      { value: "peu", label: "He oído hablar" },
-      { value: "non", label: "No, para nada" },
-    ],
-  },
-  {
     kind: "info",
     key: "attention",
     title: "Más de 7.000 hombres ya desbloquearon el físico de sus sueños",
@@ -311,18 +300,6 @@ const STEPS: Step[] = [
       { value: "10-20", label: "10 - 20 💪💪" },
       { value: "21-30", label: "21 - 30 💪💪💪" },
       { value: "30+", label: "Más de 30 😤" },
-    ],
-  },
-  {
-    kind: "single",
-    key: "pullups",
-    title: "¿Cuántas dominadas puedes hacer en una ronda?",
-    progress: 10,
-    options: [
-      { value: "0", label: "No puedo hacer ninguna dominada" },
-      { value: "<5", label: "Menos de 5 🔥" },
-      { value: "5-10", label: "5 - 10 🔥🔥" },
-      { value: "10+", label: "Más de 10 🔥🔥🔥" },
     ],
   },
   {
@@ -492,18 +469,6 @@ const STEPS: Step[] = [
     paddingPct: 152.04,
     cta: "Continuar",
     progress: 22,
-  },
-  {
-    kind: "single",
-    key: "needs-structure",
-    title: "¿En qué medida te reconoces en esta afirmación?",
-    subtitle: "Necesito estructura o guía durante las sesiones de entrenamiento para mantenerme motivado.",
-    progress: 23,
-    options: [
-      { value: "disagree", label: "En desacuerdo" },
-      { value: "neutral", label: "Neutral" },
-      { value: "agree", label: "De acuerdo" },
-    ],
   },
   {
     kind: "single",
@@ -946,7 +911,7 @@ function Quiz() {
           />
         )}
 
-        {step.kind === "graph" && <GraphStepView step={step} onNext={next} />}
+        {step.kind === "graph" && <GraphStepView step={step} answers={answers} onNext={next} />}
 
         {step.kind === "dob" && (
           <DobStepView
@@ -1511,27 +1476,52 @@ function AcctEmailStepView({
 
 function GraphStepView({
   step,
+  answers,
   onNext,
 }: {
   step: GraphStep;
+  answers: Record<string, unknown>;
   onNext: () => void;
 }) {
+  // Diagnóstico dinámico: SIEMPRE muestra lados negativos (valores bajos = mal).
+  const sleepMap: Record<string, number> = { "<5": 12, "5-6": 22, "7-8": 34, "8+": 30 };
+  const energyMap: Record<string, number> = { exhausted: 15, varies: 25, energetic: 38 };
+  const waterMap: Record<string, number> = { coffee: 14, "<2": 20, "2-6": 30, "7-10": 38, "10+": 35 };
+  const dailyMap: Record<string, number> = { sitting: 16, traveling: 26, standing: 34 };
+
+  const sleepVal = sleepMap[(answers["sleep"] as string) ?? ""] ?? 24;
+  const energyVal = energyMap[(answers["energy"] as string) ?? ""] ?? 26;
+  const metaVal = Math.round(
+    ((waterMap[(answers["water"] as string) ?? ""] ?? 24) +
+      (dailyMap[(answers["daily-life"] as string) ?? ""] ?? 24)) / 2,
+  );
+
+  const dynamicBars = [
+    { label: "Sueño", value: sleepVal },
+    { label: "Energía", value: energyVal },
+    { label: "Metabolismo", value: metaVal },
+  ];
+  const worst = dynamicBars.reduce((a, b) => (a.value <= b.value ? a : b));
+  const dynamicScore = Math.min(92, 100 - Math.round((sleepVal + energyVal + metaVal) / 3));
+  const dynamicHighlight = worst.label;
+
   const [score, setScore] = useState(0);
-  const [barValues, setBarValues] = useState<number[]>(step.bars.map(() => 0));
+  const [barValues, setBarValues] = useState<number[]>(dynamicBars.map(() => 0));
   const radius = 70;
   const circ = 2 * Math.PI * radius;
   const targetOffset = circ - (score / 100) * circ;
 
   useEffect(() => {
-    const t1 = setTimeout(() => setScore(step.score), 60);
+    const t1 = setTimeout(() => setScore(dynamicScore), 60);
     const t2 = setTimeout(
-      () => setBarValues(step.bars.map((b) => b.value)),
+      () => setBarValues(dynamicBars.map((b) => b.value)),
       200,
     );
     return () => {
       clearTimeout(t1);
       clearTimeout(t2);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [step]);
 
   const size = 220;
@@ -1540,9 +1530,9 @@ function GraphStepView({
   const rOuter = 100;
   const rInner = 72;
 
-  const total = step.bars.reduce((s, b) => s + b.value, 0) || 1;
+  const total = dynamicBars.reduce((s, b) => s + b.value, 0) || 1;
   const gapDeg = 4;
-  const totalGap = gapDeg * step.bars.length;
+  const totalGap = gapDeg * dynamicBars.length;
   const availDeg = 360 - totalGap;
 
   const polar = (angleDeg: number, r: number) => {
@@ -1559,13 +1549,13 @@ function GraphStepView({
   };
 
   let cursor = 0;
-  const segments = step.bars.map((b, i) => {
+  const segments = dynamicBars.map((b, i) => {
     const share = b.value / total;
     const sweep = availDeg * share;
     const start = cursor;
     const end = cursor + sweep;
     cursor = end + gapDeg;
-    const isHi = b.label === step.highlight;
+    const isHi = b.label === dynamicHighlight;
     const animated = (barValues[i] / (b.value || 1)) * sweep;
     return {
       label: b.label,
@@ -1650,8 +1640,8 @@ function GraphStepView({
           </div>
 
           <div className="w-full grid grid-cols-3 gap-2">
-            {step.bars.map((b, i) => {
-              const isHi = b.label === step.highlight;
+            {dynamicBars.map((b, i) => {
+              const isHi = b.label === dynamicHighlight;
               return (
                 <div
                   key={b.label}
@@ -1697,7 +1687,7 @@ function GraphStepView({
 
         <div className="space-y-1">
           <div className="mil-stencil text-xs font-bold text-destructive">
-            {step.highlight}
+            {dynamicHighlight}
           </div>
           <p className="text-xs text-muted-foreground leading-snug">
             {step.body}
