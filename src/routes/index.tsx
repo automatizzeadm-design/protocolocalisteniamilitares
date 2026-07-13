@@ -41,6 +41,53 @@ type Answers = Record<string, string | string[]>;
 
 const TOTAL = 34;
 
+// Emoji "moderno" para cada resposta do quiz (chave = value da opção).
+// Renderizado num chip dentro do botão que a pessoa clica.
+const OPTION_EMOJI: Record<string, string> = {
+  // Edad
+  "18-29": "🔥", "30-39": "💪", "40-49": "🎯", "50+": "🦅",
+  // Tipo de cuerpo
+  mince: "🏃", moyen: "🧍", gros: "🍔", lourd: "🐻",
+  // Objetivo
+  perdre: "📉", muscle: "💪", forme: "⚡", force: "🏋️",
+  // Cuerpo deseado
+  fit: "🏃", fort: "💪", athletique: "🦾",
+  // Desafíos / zonas
+  ventre: "🎯", poitrine: "🎽", bras: "💪", jambes: "🦵", dos: "🔙", aucun: "✨",
+  // Mejor forma
+  "1y": "📅", "1-3y": "⏳", "3y+": "🕰️", never: "🚫",
+  // Bloqueadores
+  trabajo: "💼", familia: "👨‍👩‍👧", metabolismo: "🐌", dinero: "💸",
+  estres: "😰", lesion: "🤕", ninguno: "✨",
+  // Flexiones
+  "<10": "🥉", "10-20": "🥈", "21-30": "🥇", "30+": "🏆",
+  // Nivel
+  novato: "🌱", intermedio: "📈", confirmado: "🔥",
+  debutant: "🌱", intermediaire: "📈", avance: "🔥",
+  // Lesiones
+  articulaciones: "🦴", rodillas: "🦵", cervical: "🧍", lumbar: "🔙",
+  ninguna: "✨", "prefiero-no-decir": "🤐",
+  // Estilo de vida / energía
+  sitting: "🪑", standing: "🧍", traveling: "✈️",
+  energetic: "💥", exhausted: "😓", varies: "📊",
+  // Sueño
+  "<5": "😵", "5-6": "🥱", "7-8": "🌙", "8+": "😴",
+  // Agua
+  "<2": "💧", "2-6": "💧", "7-10": "💦", "10+": "🐳", coffee: "☕",
+  // Frecuencia
+  "1-2": "📅", "3-4": "🔥", "casi-diario": "🏆",
+  // Tiempo por día
+  "5-10": "⏱️", "15": "⏰", "20+": "⏳",
+  // Plazo
+  "1m": "⚡", "3m": "📅", "6m": "🗓️", flex: "🎯", "no-seguro": "🤔",
+  // Motivación
+  extreme: "🚀", high: "🔥", medium: "👍",
+  // Horario
+  manana: "🌅", tarde: "☀️", noche: "🌙", cualquiera: "🔄",
+  // Otros
+  auto: "🤖",
+};
+
 type SingleStep = {
   kind: "single";
   key: string;
@@ -665,10 +712,11 @@ function Quiz() {
       </button>
 
 
-      <div className="bg-primary/20 border-b border-primary/40">
-        <div className="max-w-md mx-auto px-4 py-2 flex items-center justify-center">
-          <img src={logoMilitary.url} alt="Protocolo Calistenia Militar" className="h-20 object-contain" />
+      <div className="relative bg-gradient-to-b from-primary/30 via-primary/10 to-transparent border-b border-accent/30">
+        <div className="max-w-md mx-auto px-4 py-2.5 flex items-center justify-center">
+          <img src={logoMilitary.url} alt="Protocolo Calistenia Militar" className="h-20 object-contain drop-shadow-[0_2px_12px_oklch(0.72_0.16_130_/_0.45)]" />
         </div>
+        <div className="absolute bottom-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-accent/60 to-transparent" />
       </div>
 
       <header className="sticky top-0 z-10 bg-background/95 backdrop-blur border-b border-border">
@@ -689,12 +737,12 @@ function Quiz() {
       </header>
 
       <section className="max-w-md mx-auto px-4 py-3 sm:py-6 space-y-3 sm:space-y-4">
-        <div className="space-y-1.5">
-          <h1 className="text-lg sm:text-2xl font-bold leading-tight mil-stencil">
+        <div className="space-y-1.5" key={step.key}>
+          <h1 className="text-xl sm:text-3xl font-bold leading-tight mil-stencil mil-in text-balance">
             {step.title}
           </h1>
           {"subtitle" in step && step.subtitle && (
-            <p className="text-xs sm:text-sm text-muted-foreground">{step.subtitle}</p>
+            <p className="text-xs sm:text-sm text-muted-foreground mil-in" style={{ animationDelay: "0.08s" }}>{step.subtitle}</p>
           )}
           {step.kind === "info" && (
             <p className="text-xs sm:text-sm text-muted-foreground">{step.body}</p>
@@ -703,19 +751,24 @@ function Quiz() {
 
 
         {step.kind === "single" && (
-          <div className="space-y-2">
+          <div className="space-y-2.5 mil-stagger" key={step.key}>
             {step.options.map((o) => (
               <button
                 key={o.value}
                 onClick={() => pick(step.key, o.value)}
-                className="group relative w-full text-left rounded-md border-2 border-border bg-card px-3 py-2.5 sm:py-3 flex items-center justify-between hover:border-accent hover:bg-primary/20 transition-colors"
+                className="group mil-option mil-option-hover w-full text-left rounded-xl border-2 border-border bg-card px-3 py-2.5 sm:py-3 flex items-center gap-3 hover:border-accent hover:bg-primary/20"
               >
                 {o.badge && (
-                  <span className="absolute -top-2 right-3 mil-stencil text-[10px] font-bold bg-accent text-accent-foreground px-2 py-0.5 rounded">
+                  <span className="absolute -top-2 right-3 mil-stencil text-[10px] font-bold bg-accent text-accent-foreground px-2 py-0.5 rounded shadow-lg">
                     {o.badge}
                   </span>
                 )}
-                <span className="flex-1">
+                {OPTION_EMOJI[o.value] && (
+                  <span className="mil-emoji-chip" aria-hidden="true">
+                    {OPTION_EMOJI[o.value]}
+                  </span>
+                )}
+                <span className="flex-1 min-w-0">
                   <span className="block font-semibold text-sm sm:text-base">{o.label}</span>
                   {o.hint && (
                     <span className="block text-xs text-muted-foreground mt-0.5">
@@ -723,7 +776,7 @@ function Quiz() {
                     </span>
                   )}
                 </span>
-                <span className="text-accent opacity-60 group-hover:opacity-100 ml-3">
+                <span className="text-accent opacity-50 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all ml-1 text-lg">
                   ▸
                 </span>
               </button>
@@ -735,7 +788,7 @@ function Quiz() {
         {step.kind === "multi" && (
           <>
             <div className={step.key === "injuries" ? "flex gap-3 items-start" : ""}>
-              <div className="space-y-1.5 flex-1 min-w-0">
+              <div className="space-y-2 flex-1 min-w-0 mil-stagger" key={step.key}>
                 {step.options.map((o) => {
                   const selected =
                     ((answers[step.key] as string[]) ?? []).includes(o.value);
@@ -743,17 +796,26 @@ function Quiz() {
                     <button
                       key={o.value}
                       onClick={() => toggle(step.key, o.value)}
-                      className={`w-full text-left rounded-md border-2 px-3 py-1.5 sm:py-2 flex items-center justify-between transition-colors ${
+                      className={`mil-option mil-option-hover w-full text-left rounded-xl border-2 px-3 py-2 flex items-center gap-3 ${
                         selected
-                          ? "border-accent bg-primary/25 text-foreground"
+                          ? "border-accent bg-primary/25 text-foreground shadow-[0_0_18px_-4px_var(--accent)]"
                           : "border-border bg-card hover:border-accent"
                       }`}
                     >
-                      <span className="font-semibold text-xs sm:text-sm">{o.label}</span>
+                      {OPTION_EMOJI[o.value] && (
+                        <span className="mil-emoji-chip" aria-hidden="true">
+                          {OPTION_EMOJI[o.value]}
+                        </span>
+                      )}
+                      <span className="font-semibold text-xs sm:text-sm flex-1 min-w-0">{o.label}</span>
                       <span
-                        className={`text-accent ${selected ? "" : "opacity-40"}`}
+                        className={`shrink-0 h-6 w-6 rounded-md border-2 flex items-center justify-center text-sm transition-colors ${
+                          selected
+                            ? "bg-accent border-accent text-accent-foreground"
+                            : "border-border text-transparent"
+                        }`}
                       >
-                        {selected ? "✓" : "▢"}
+                        ✓
                       </span>
                     </button>
 
@@ -771,7 +833,7 @@ function Quiz() {
             </div>
 
             <Button
-              className="w-full mil-stencil bg-accent text-accent-foreground hover:bg-accent/90"
+              className="w-full mil-stencil mil-cta mil-cta-shine rounded-xl text-base tracking-wider bg-accent text-accent-foreground hover:bg-accent/90 shadow-lg shadow-accent/20 transition-transform active:scale-[0.99]"
               size="lg"
               disabled={!((answers[step.key] as string[]) ?? []).length}
               onClick={next}
@@ -821,7 +883,7 @@ function Quiz() {
               </div>
             )}
             <Button
-              className="w-full mil-stencil bg-accent text-accent-foreground hover:bg-accent/90"
+              className="w-full mil-stencil mil-cta mil-cta-shine rounded-xl text-base tracking-wider bg-accent text-accent-foreground hover:bg-accent/90 shadow-lg shadow-accent/20 transition-transform active:scale-[0.99]"
               size="lg"
               onClick={next}
             >
@@ -875,7 +937,7 @@ function Quiz() {
             </figure>
 
             <Button
-              className="w-full mil-stencil bg-accent text-accent-foreground hover:bg-accent/90"
+              className="w-full mil-stencil mil-cta mil-cta-shine rounded-xl text-base tracking-wider bg-accent text-accent-foreground hover:bg-accent/90 shadow-lg shadow-accent/20 transition-transform active:scale-[0.99]"
               size="lg"
               onClick={next}
             >
@@ -982,7 +1044,7 @@ function InputStepView({
         )}
       </div>
       <Button
-        className="w-full mil-stencil bg-accent text-accent-foreground hover:bg-accent/90"
+        className="w-full mil-stencil mil-cta mil-cta-shine rounded-xl text-base tracking-wider bg-accent text-accent-foreground hover:bg-accent/90 shadow-lg shadow-accent/20 transition-transform active:scale-[0.99]"
         size="lg"
         disabled={!valid}
         onClick={onNext}
@@ -1309,7 +1371,7 @@ function WeightStepView({
       </div>
 
       <Button
-        className="w-full mil-stencil bg-accent text-accent-foreground hover:bg-accent/90"
+        className="w-full mil-stencil mil-cta mil-cta-shine rounded-xl text-base tracking-wider bg-accent text-accent-foreground hover:bg-accent/90 shadow-lg shadow-accent/20 transition-transform active:scale-[0.99]"
         size="lg"
         disabled={!valid}
         onClick={onNext}
@@ -1390,7 +1452,7 @@ function DobStepView({
       </div>
 
       <Button
-        className="w-full mil-stencil bg-accent text-accent-foreground hover:bg-accent/90"
+        className="w-full mil-stencil mil-cta mil-cta-shine rounded-xl text-base tracking-wider bg-accent text-accent-foreground hover:bg-accent/90 shadow-lg shadow-accent/20 transition-transform active:scale-[0.99]"
         size="lg"
         disabled={!valid}
         onClick={onNext}
@@ -1459,7 +1521,7 @@ function AcctEmailStepView({
       </p>
 
       <Button
-        className="w-full mil-stencil bg-accent text-accent-foreground hover:bg-accent/90"
+        className="w-full mil-stencil mil-cta mil-cta-shine rounded-xl text-base tracking-wider bg-accent text-accent-foreground hover:bg-accent/90 shadow-lg shadow-accent/20 transition-transform active:scale-[0.99]"
         size="lg"
         disabled={!valid}
         onClick={onNext}
@@ -1707,7 +1769,7 @@ function GraphStepView({
 
 
       <Button
-        className="w-full mil-stencil bg-accent text-accent-foreground hover:bg-accent/90"
+        className="w-full mil-stencil mil-cta mil-cta-shine rounded-xl text-base tracking-wider bg-accent text-accent-foreground hover:bg-accent/90 shadow-lg shadow-accent/20 transition-transform active:scale-[0.99]"
         size="lg"
         onClick={onNext}
       >
@@ -1782,7 +1844,7 @@ function RecruitmentLoadingView({
         }}
       />
 
-      <div className="relative w-full max-w-md rounded-2xl border border-accent/30 bg-card/70 backdrop-blur-sm p-6 sm:p-8 shadow-[0_0_60px_-15px_rgba(74,222,128,0.25)]">
+      <div className="mil-scanline overflow-hidden relative w-full max-w-md rounded-2xl border border-accent/30 bg-card/70 backdrop-blur-sm p-6 sm:p-8 shadow-[0_0_60px_-15px_rgba(74,222,128,0.25)]">
         {/* Badge */}
         <div className="flex justify-center mb-6">
           <div className="inline-flex items-center gap-2 rounded-full border border-accent/50 bg-accent/10 px-3 py-1">
@@ -2227,7 +2289,7 @@ function PlanView({
 
         <Reveal delay={80}>
           <Button
-            className="w-full mil-stencil bg-accent text-accent-foreground hover:bg-accent/90"
+            className="w-full mil-stencil mil-cta mil-cta-shine rounded-xl text-base tracking-wider bg-accent text-accent-foreground hover:bg-accent/90 shadow-lg shadow-accent/20 transition-transform active:scale-[0.99]"
             size="lg"
             onClick={onFinish}
           >
@@ -2488,7 +2550,7 @@ function SalesView({
 
         <Reveal delay={80}>
           <Button
-            className="w-full mil-stencil bg-accent text-accent-foreground hover:bg-accent/90"
+            className="w-full mil-stencil mil-cta mil-cta-shine rounded-xl text-base tracking-wider bg-accent text-accent-foreground hover:bg-accent/90 shadow-lg shadow-accent/20 transition-transform active:scale-[0.99]"
             size="lg"
             onClick={onFinish}
           >
@@ -2608,7 +2670,7 @@ function VideoStepView({ step, onNext }: { step: VideoStep; onNext: () => void }
 
       <Button
         onClick={onNext}
-        className="w-full mil-stencil bg-accent text-accent-foreground hover:bg-accent/90"
+        className="w-full mil-stencil mil-cta mil-cta-shine rounded-xl text-base tracking-wider bg-accent text-accent-foreground hover:bg-accent/90 shadow-lg shadow-accent/20 transition-transform active:scale-[0.99]"
         size="lg"
       >
         {step.cta}
@@ -2659,10 +2721,11 @@ function VSLView({ onContinue }: { onContinue: (name: string) => void }) {
         →
       </button>
 
-      <div className="bg-primary/20 border-b border-primary/40">
-        <div className="max-w-md mx-auto px-4 py-2 flex items-center justify-center">
-          <img src={logoMilitary.url} alt="Protocolo Calistenia Militar" className="h-20 object-contain" />
+      <div className="relative bg-gradient-to-b from-primary/30 via-primary/10 to-transparent border-b border-accent/30">
+        <div className="max-w-md mx-auto px-4 py-2.5 flex items-center justify-center">
+          <img src={logoMilitary.url} alt="Protocolo Calistenia Militar" className="h-20 object-contain drop-shadow-[0_2px_12px_oklch(0.72_0.16_130_/_0.45)]" />
         </div>
+        <div className="absolute bottom-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-accent/60 to-transparent" />
       </div>
 
       <section className="max-w-3xl mx-auto px-4 pt-6 pb-10 space-y-6">
@@ -2747,10 +2810,11 @@ function IntroView({ onStart, initialName = "" }: { onStart: (age: string, name:
         →
       </button>
 
-      <div className="bg-primary/20 border-b border-primary/40">
-        <div className="max-w-md mx-auto px-4 py-2 flex items-center justify-center">
-          <img src={logoMilitary.url} alt="Protocolo Calistenia Militar" className="h-20 object-contain" />
+      <div className="relative bg-gradient-to-b from-primary/30 via-primary/10 to-transparent border-b border-accent/30">
+        <div className="max-w-md mx-auto px-4 py-2.5 flex items-center justify-center">
+          <img src={logoMilitary.url} alt="Protocolo Calistenia Militar" className="h-20 object-contain drop-shadow-[0_2px_12px_oklch(0.72_0.16_130_/_0.45)]" />
         </div>
+        <div className="absolute bottom-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-accent/60 to-transparent" />
       </div>
 
       <section className="max-w-3xl mx-auto px-4 pt-6 pb-10 space-y-6">
