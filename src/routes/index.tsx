@@ -1530,9 +1530,9 @@ function GraphStepView({
   const rOuter = 100;
   const rInner = 72;
 
-  const total = step.bars.reduce((s, b) => s + b.value, 0) || 1;
+  const total = dynamicBars.reduce((s, b) => s + b.value, 0) || 1;
   const gapDeg = 4;
-  const totalGap = gapDeg * step.bars.length;
+  const totalGap = gapDeg * dynamicBars.length;
   const availDeg = 360 - totalGap;
 
   const polar = (angleDeg: number, r: number) => {
@@ -1549,13 +1549,13 @@ function GraphStepView({
   };
 
   let cursor = 0;
-  const segments = step.bars.map((b, i) => {
+  const segments = dynamicBars.map((b, i) => {
     const share = b.value / total;
     const sweep = availDeg * share;
     const start = cursor;
     const end = cursor + sweep;
     cursor = end + gapDeg;
-    const isHi = b.label === step.highlight;
+    const isHi = b.label === dynamicHighlight;
     const animated = (barValues[i] / (b.value || 1)) * sweep;
     return {
       label: b.label,
@@ -1640,8 +1640,8 @@ function GraphStepView({
           </div>
 
           <div className="w-full grid grid-cols-3 gap-2">
-            {step.bars.map((b, i) => {
-              const isHi = b.label === step.highlight;
+            {dynamicBars.map((b, i) => {
+              const isHi = b.label === dynamicHighlight;
               return (
                 <div
                   key={b.label}
@@ -1687,7 +1687,7 @@ function GraphStepView({
 
         <div className="space-y-1">
           <div className="mil-stencil text-xs font-bold text-destructive">
-            {step.highlight}
+            {dynamicHighlight}
           </div>
           <p className="text-xs text-muted-foreground leading-snug">
             {step.body}
