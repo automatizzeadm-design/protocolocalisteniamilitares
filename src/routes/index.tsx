@@ -1476,27 +1476,52 @@ function AcctEmailStepView({
 
 function GraphStepView({
   step,
+  answers,
   onNext,
 }: {
   step: GraphStep;
+  answers: Record<string, unknown>;
   onNext: () => void;
 }) {
+  // Diagnóstico dinámico: SIEMPRE muestra lados negativos (valores bajos = mal).
+  const sleepMap: Record<string, number> = { "<5": 12, "5-6": 22, "7-8": 34, "8+": 30 };
+  const energyMap: Record<string, number> = { exhausted: 15, varies: 25, energetic: 38 };
+  const waterMap: Record<string, number> = { coffee: 14, "<2": 20, "2-6": 30, "7-10": 38, "10+": 35 };
+  const dailyMap: Record<string, number> = { sitting: 16, traveling: 26, standing: 34 };
+
+  const sleepVal = sleepMap[(answers["sleep"] as string) ?? ""] ?? 24;
+  const energyVal = energyMap[(answers["energy"] as string) ?? ""] ?? 26;
+  const metaVal = Math.round(
+    ((waterMap[(answers["water"] as string) ?? ""] ?? 24) +
+      (dailyMap[(answers["daily-life"] as string) ?? ""] ?? 24)) / 2,
+  );
+
+  const dynamicBars = [
+    { label: "Sueño", value: sleepVal },
+    { label: "Energía", value: energyVal },
+    { label: "Metabolismo", value: metaVal },
+  ];
+  const worst = dynamicBars.reduce((a, b) => (a.value <= b.value ? a : b));
+  const dynamicScore = Math.min(92, 100 - Math.round((sleepVal + energyVal + metaVal) / 3));
+  const dynamicHighlight = worst.label;
+
   const [score, setScore] = useState(0);
-  const [barValues, setBarValues] = useState<number[]>(step.bars.map(() => 0));
+  const [barValues, setBarValues] = useState<number[]>(dynamicBars.map(() => 0));
   const radius = 70;
   const circ = 2 * Math.PI * radius;
   const targetOffset = circ - (score / 100) * circ;
 
   useEffect(() => {
-    const t1 = setTimeout(() => setScore(step.score), 60);
+    const t1 = setTimeout(() => setScore(dynamicScore), 60);
     const t2 = setTimeout(
-      () => setBarValues(step.bars.map((b) => b.value)),
+      () => setBarValues(dynamicBars.map((b) => b.value)),
       200,
     );
     return () => {
       clearTimeout(t1);
       clearTimeout(t2);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [step]);
 
   const size = 220;
