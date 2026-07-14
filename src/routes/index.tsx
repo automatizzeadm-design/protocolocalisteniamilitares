@@ -2414,6 +2414,27 @@ function PlanView({
           </div>
         </Reveal>
 
+        <SectionDivider label="Garantía" />
+        <Reveal delay={80}>
+          <div className="rounded-2xl border border-accent/40 bg-gradient-to-b from-accent/10 to-card p-5 text-center shadow-lg shadow-accent/5">
+            <div className="flex justify-center mb-3">
+              <div className="relative h-20 w-20 flex items-center justify-center mil-float-anim">
+                <svg viewBox="0 0 24 24" className="h-20 w-20 text-accent" fill="none">
+                  <path d="M12 2l7 3v6c0 5-3.5 8.6-7 10-3.5-1.4-7-5-7-10V5l7-3z" fill="currentColor" fillOpacity="0.14" stroke="currentColor" strokeWidth="1.4" strokeLinejoin="round" />
+                </svg>
+                <div className="absolute flex flex-col items-center leading-none">
+                  <span className="mil-stencil text-2xl font-extrabold text-accent">7</span>
+                  <span className="mil-stencil text-[8px] font-bold text-accent tracking-widest">DÍAS</span>
+                </div>
+              </div>
+            </div>
+            <h3 className="mil-stencil text-lg font-bold text-accent">Garantía blindada de 7 días</h3>
+            <p className="text-xs text-muted-foreground leading-relaxed mt-2 max-w-sm mx-auto">
+              Prueba todo el Protocolo Militar sin ningún riesgo. Si en 7 días no sientes la diferencia, te devolvemos el <span className="text-accent font-bold">100% de tu dinero</span> — sin preguntas y sin complicaciones. El riesgo es todo nuestro.
+            </p>
+          </div>
+        </Reveal>
+
         <Reveal delay={80}>
           <Button
             className="w-full mil-stencil mil-cta mil-cta-shine mil-glow-anim rounded-xl text-lg tracking-wider bg-accent text-accent-foreground hover:bg-accent/90 shadow-lg shadow-accent/30 transition-transform active:scale-[0.99] py-6"
