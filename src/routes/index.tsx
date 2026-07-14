@@ -1569,12 +1569,12 @@ function AcctEmailStepView({
       </p>
 
       <Button
-        className="w-full mil-stencil mil-cta mil-cta-shine rounded-xl text-base tracking-wider bg-accent text-accent-foreground hover:bg-accent/90 shadow-lg shadow-accent/20 transition-transform active:scale-[0.99]"
+        className="w-full mil-stencil mil-cta mil-cta-shine mil-glow-anim rounded-xl text-base tracking-wider bg-accent text-accent-foreground hover:bg-accent/90 shadow-lg shadow-accent/20 transition-transform active:scale-[0.99] py-6"
         size="lg"
         disabled={!valid}
         onClick={onNext}
       >
-        Continuar
+        Receber Protocolo Agora ›
       </Button>
     </>
   );
@@ -2020,20 +2020,15 @@ function OfferBlock({ onBuy }: { onBuy: () => void }) {
         </p>
       </Reveal>
 
+      <SectionDivider label="Tu precio de hoy" />
+
       <Reveal delay={160}>
-        <div className="flex items-center justify-center gap-3">
-          <svg width="34" height="34" viewBox="0 0 24 24" fill="none" className="text-destructive shrink-0 mil-float-anim">
-            <circle cx="12" cy="13.5" r="7.5" stroke="currentColor" strokeWidth="1.8" />
-            <path d="M12 9.5v4l2.5 1.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
-            <path d="M9 2.5h6M12 5.5V2.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
-          </svg>
-          <div>
-            <div className="mil-stencil text-[10px] text-muted-foreground uppercase tracking-widest">La oferta termina en</div>
-            <div className="flex items-center gap-1.5 mt-0.5">
-              <span className="mil-stencil text-2xl font-bold text-destructive tabular-nums rounded-lg bg-destructive/10 border border-destructive/30 px-2.5 py-0.5">{mm}</span>
-              <span className="mil-stencil text-2xl font-bold text-destructive animate-pulse">:</span>
-              <span className="mil-stencil text-2xl font-bold text-destructive tabular-nums rounded-lg bg-destructive/10 border border-destructive/30 px-2.5 py-0.5">{ss}</span>
-            </div>
+        <div className="text-center space-y-1.5">
+          <div className="mil-stencil text-[11px] text-muted-foreground uppercase tracking-widest">La oferta termina en</div>
+          <div className="flex items-center justify-center gap-1.5">
+            <span className="mil-stencil text-3xl font-bold text-destructive tabular-nums rounded-lg bg-destructive/10 border border-destructive/30 px-3 py-1">{mm}</span>
+            <span className="mil-stencil text-3xl font-bold text-destructive animate-pulse">:</span>
+            <span className="mil-stencil text-3xl font-bold text-destructive tabular-nums rounded-lg bg-destructive/10 border border-destructive/30 px-3 py-1">{ss}</span>
           </div>
         </div>
       </Reveal>
@@ -2042,16 +2037,27 @@ function OfferBlock({ onBuy }: { onBuy: () => void }) {
         <div className="space-y-2">
           <button
             onClick={onBuy}
-            className="group w-full rounded-xl border-2 border-accent bg-accent text-accent-foreground p-4 hover:scale-[1.02] active:scale-[0.98] transition-transform shadow-lg shadow-accent/30 mil-cta mil-cta-shine mil-glow-anim"
+            className="group w-full rounded-xl p-4 text-center hover:scale-[1.02] active:scale-[0.98] transition-transform mil-cta mil-cta-shine mil-glow-gold-anim"
+            style={{
+              background: "linear-gradient(135deg, #ffe391 0%, #eab93f 45%, #c98a12 100%)",
+              color: "#241900",
+              border: "1px solid #f3d27a",
+              boxShadow: "0 10px 34px -8px rgba(233,183,60,0.7)",
+            }}
           >
-            <div className="mil-stencil text-xs font-bold opacity-80">
+            <div className="mil-stencil text-xs font-bold" style={{ color: "#3d2c00" }}>
               🔒 OFERTA ESPECIAL — SOLO HOY
             </div>
-            <div className="flex items-center justify-center gap-2 my-1">
-              <span className="mil-stencil text-sm font-bold opacity-80">RECLUTARME POR</span>
-              <span className="mil-stencil text-[2.75rem] font-extrabold leading-none" style={{ textShadow: "0 2px 10px rgba(0,0,0,0.28)" }}>$7</span>
+            <div className="mil-stencil text-base font-bold mt-1.5" style={{ color: "#2a1e00" }}>
+              RECLUTARME POR
             </div>
-            <div className="text-xs opacity-80">
+            <div className="mil-stencil text-xl font-bold leading-none line-through decoration-2 mt-0.5" style={{ color: "#b91c1c" }}>
+              $150
+            </div>
+            <div className="mil-stencil font-extrabold leading-none mt-1" style={{ fontSize: "3.5rem", color: "#1c1400", textShadow: "0 2px 6px rgba(0,0,0,0.2)" }}>
+              $7
+            </div>
+            <div className="text-xs mt-2" style={{ color: "#3d2c00" }}>
               Acceso inmediato · Pago único · Sin mensualidades
             </div>
           </button>
@@ -2460,9 +2466,10 @@ function BuyerNotifications() {
 
 // Barra de progresso "falsa": enche rápido no início e desacelera (easeOutExpo),
 // dando a sensação de que o vídeo é curto e já está quase acabando.
-function FakeVideoProgress() {
+function FakeVideoProgress({ run }: { run: boolean }) {
   const [p, setP] = useState(0);
   useEffect(() => {
+    if (!run) return;
     let raf = 0;
     let start = 0;
     const dur = 150000; // 150s
@@ -2475,7 +2482,8 @@ function FakeVideoProgress() {
     };
     raf = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(raf);
-  }, []);
+  }, [run]);
+  if (!run) return null; // só aparece depois que a pessoa clica (ativa o som)
   return (
     <div className="absolute bottom-0 inset-x-0 h-1.5 bg-black/50 pointer-events-none z-20">
       <div
@@ -2574,7 +2582,7 @@ function SalesVSL() {
             {playing ? "⏸" : "▶"}
           </button>
         )}
-        <FakeVideoProgress />
+        <FakeVideoProgress run={!muted} />
       </div>
     </div>
   );
@@ -2733,6 +2741,15 @@ function VideoStepView({ step, onNext }: { step: VideoStep; onNext: () => void }
   const playerRef = useRef<any>(null);
   const iframeRef = useRef<HTMLIFrameElement | null>(null);
 
+  // Libera o botão "Continuar" só após 10s (retenção nos vídeos de feedback).
+  const [showCta, setShowCta] = useState(false);
+  const [secsLeft, setSecsLeft] = useState(10);
+  useEffect(() => {
+    const iv = setInterval(() => setSecsLeft((s) => (s > 1 ? s - 1 : 0)), 1000);
+    const to = setTimeout(() => { setShowCta(true); clearInterval(iv); }, 10000);
+    return () => { clearInterval(iv); clearTimeout(to); };
+  }, []);
+
   useEffect(() => {
     let cancelled = false;
     (async () => {
@@ -2813,13 +2830,20 @@ function VideoStepView({ step, onNext }: { step: VideoStep; onNext: () => void }
         </div>
       </div>
 
-      <Button
-        onClick={onNext}
-        className="w-full mil-stencil mil-cta mil-cta-shine rounded-xl text-base tracking-wider bg-accent text-accent-foreground hover:bg-accent/90 shadow-lg shadow-accent/20 transition-transform active:scale-[0.99]"
-        size="lg"
-      >
-        {step.cta}
-      </Button>
+      {showCta ? (
+        <Button
+          onClick={onNext}
+          className="w-full mil-stencil mil-cta mil-cta-shine mil-glow-anim mil-in rounded-xl text-base tracking-wider bg-accent text-accent-foreground hover:bg-accent/90 shadow-lg shadow-accent/20 transition-transform active:scale-[0.99] py-6"
+          size="lg"
+        >
+          {step.cta}
+        </Button>
+      ) : (
+        <div className="w-full rounded-xl border border-border/60 bg-card/60 py-4 text-center mil-stencil text-sm text-muted-foreground flex items-center justify-center gap-2">
+          <span className="mil-spinner inline-block h-4 w-4 rounded-full border-2 border-accent border-t-transparent" />
+          Aguarda {secsLeft}s...
+        </div>
+      )}
     </div>
   );
 }
@@ -2913,7 +2937,7 @@ function VSLView({ onContinue }: { onContinue: (name: string) => void }) {
                 </div>
               </button>
             )}
-            <FakeVideoProgress />
+            <FakeVideoProgress run={!muted} />
           </div>
         </div>
 
