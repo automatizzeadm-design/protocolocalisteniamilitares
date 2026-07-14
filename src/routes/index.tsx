@@ -2054,7 +2054,7 @@ function OfferBlock({ onBuy }: { onBuy: () => void }) {
             <div className="mil-stencil text-xl font-bold leading-none line-through decoration-2 mt-0.5" style={{ color: "#b91c1c" }}>
               $150
             </div>
-            <div className="mil-stencil font-extrabold leading-none mt-1" style={{ fontSize: "3.5rem", color: "#1c1400", textShadow: "0 2px 6px rgba(0,0,0,0.2)" }}>
+            <div className="mil-stencil font-extrabold leading-none mt-1" style={{ fontSize: "4.75rem", color: "#ffffff", textShadow: "0 3px 10px rgba(0,0,0,0.4), 0 1px 2px rgba(0,0,0,0.55)" }}>
               $7
             </div>
             <div className="text-xs mt-2" style={{ color: "#3d2c00" }}>
