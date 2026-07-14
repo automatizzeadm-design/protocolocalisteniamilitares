@@ -10,7 +10,6 @@ import attentionPushup from "@/assets/attention-pushup.jpg.asset.json";
 import transformationFeedback from "@/assets/transformation-feedback.jpg.asset.json";
 import militaryTransformation from "@/assets/military-transformation.png.asset.json";
 import logoMilitary from "@/assets/logo-military.png.asset.json";
-import logoApp from "@/assets/logo-app.png.asset.json";
 import testimonial1 from "@/assets/testimonial-1.png.asset.json";
 import testimonial2 from "@/assets/testimonial-2.png.asset.json";
 
@@ -2126,7 +2125,7 @@ function PlanView({
       </button>
       <div className="relative bg-gradient-to-b from-primary/30 via-primary/10 to-transparent border-b border-accent/30">
         <div className="max-w-md mx-auto px-4 py-2.5 flex items-center justify-center">
-          <img src={logoMilitary.url} alt="Protocolo Calistenia Militar" className="h-12 object-contain" />
+          <img src={logoMilitary.url} alt="Protocolo Calistenia Militar" className="h-10 object-contain drop-shadow-[0_1px_10px_rgba(255,255,255,0.4)]" />
         </div>
         <div className="absolute bottom-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-accent/60 to-transparent" />
       </div>
@@ -2201,21 +2200,7 @@ function PlanView({
         {/* What you get */}
         <Reveal delay={80}>
           <div className="space-y-3">
-            <h2 className="mil-stencil text-lg font-bold">¿Qué recibirás?</h2>
-            <div className="flex flex-col items-center gap-2 py-2">
-              <div className="relative flex justify-center">
-                <div aria-hidden className="absolute inset-x-6 bottom-1 h-6 rounded-[50%] bg-accent/25 blur-2xl" />
-                <img
-                  src={logoApp.url}
-                  alt="Protocolo Calistenia Militar App"
-                  loading="lazy"
-                  className="relative w-full max-w-[220px] object-contain mil-float-anim drop-shadow-[0_18px_32px_rgba(0,0,0,0.55)]"
-                />
-              </div>
-              <p className="text-[11px] text-muted-foreground leading-snug text-center max-w-[320px]">
-                Accede desde cualquier celular, tablet o computadora. Tu acceso personal y descarga directa del Protocolo Calistenia Militar están disponibles únicamente aquí.
-              </p>
-            </div>
+            <h2 className="mil-stencil text-lg font-bold text-center">¿Qué recibirás?</h2>
             <div className="rounded-xl border border-accent/40 bg-gradient-to-b from-primary/15 to-card p-4 shadow-lg shadow-accent/5">
               <div className="mil-stencil text-sm font-bold text-accent">
                 Acceso a la App "Protocolo Militar"
@@ -2267,7 +2252,7 @@ function PlanView({
                 src={bonusAlimentacion}
                 alt="Guía de Alimentación Militar"
                 loading="lazy"
-                className="relative w-full max-w-[320px] object-contain mil-float-anim drop-shadow-[0_22px_40px_rgba(0,0,0,0.55)]"
+                className="relative w-full max-w-[320px] object-contain mil-float-anim drop-shadow-[0_8px_28px_rgba(255,255,255,0.22)]"
               />
             </div>
             <div className="flex justify-center">
@@ -2297,7 +2282,7 @@ function PlanView({
                 src={mapaMilitar}
                 alt="Mapa Militar 2026"
                 loading="lazy"
-                className="relative w-full max-w-[320px] object-contain mil-float-anim drop-shadow-[0_22px_40px_rgba(0,0,0,0.55)]"
+                className="relative w-full max-w-[320px] object-contain mil-float-anim drop-shadow-[0_8px_28px_rgba(255,255,255,0.22)]"
                 style={{ animationDelay: "0.7s" }}
               />
             </div>
@@ -2328,7 +2313,7 @@ function PlanView({
                 src={bonusTmb}
                 alt="Test de Tasa Metabólica Basal"
                 loading="lazy"
-                className="relative w-full max-w-[320px] object-contain mil-float-anim drop-shadow-[0_22px_40px_rgba(0,0,0,0.55)]"
+                className="relative w-full max-w-[320px] object-contain mil-float-anim drop-shadow-[0_8px_28px_rgba(255,255,255,0.22)]"
                 style={{ animationDelay: "1.4s" }}
               />
             </div>
