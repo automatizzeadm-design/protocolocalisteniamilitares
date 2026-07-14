@@ -1987,8 +1987,8 @@ function OfferBlock({ onBuy }: { onBuy: () => void }) {
   return (
     <div className="space-y-4">
       <Reveal>
-        <div className="rounded-md border-2 border-accent bg-primary/10 p-4 space-y-3">
-          <h3 className="mil-stencil text-sm font-bold text-accent text-center">
+        <div className="rounded-xl border border-accent/50 bg-gradient-to-b from-primary/15 to-card p-4 space-y-3 shadow-lg shadow-accent/5">
+          <h3 className="mil-stencil text-sm font-bold text-accent text-center tracking-wider">
             VALOR REAL DEL ARSENAL
           </h3>
           <ul className="space-y-2">
@@ -2021,11 +2021,12 @@ function OfferBlock({ onBuy }: { onBuy: () => void }) {
       </Reveal>
 
       <Reveal delay={160}>
-        <div className="rounded-md border-2 border-destructive bg-destructive/10 p-3 text-center space-y-1">
-          <div className="mil-stencil text-xs text-destructive font-bold uppercase">
-            ⏱ Oferta expira en
+        <div className="rounded-xl border border-destructive/50 bg-destructive/10 p-3 text-center space-y-1">
+          <div className="mil-stencil text-xs text-destructive font-bold uppercase flex items-center justify-center gap-1.5">
+            <span className="inline-flex h-2 w-2 rounded-full bg-destructive animate-pulse" />
+            Oferta expira en
           </div>
-          <div className="mil-stencil text-4xl font-bold text-destructive tracking-wider">
+          <div className="mil-stencil text-4xl font-bold text-destructive tracking-wider tabular-nums" style={{ textShadow: "0 0 22px rgba(239,68,68,0.5)" }}>
             {mm}:{ss}
           </div>
         </div>
@@ -2034,12 +2035,12 @@ function OfferBlock({ onBuy }: { onBuy: () => void }) {
       <Reveal delay={200}>
         <button
           onClick={onBuy}
-          className="w-full rounded-md border-2 border-accent bg-accent text-accent-foreground p-4 space-y-1 hover:scale-[1.02] active:scale-[0.98] transition-transform shadow-lg"
+          className="group w-full rounded-xl border-2 border-accent bg-accent text-accent-foreground p-4 space-y-1 hover:scale-[1.02] active:scale-[0.98] transition-transform shadow-lg shadow-accent/30 mil-cta mil-cta-shine mil-glow-anim"
         >
           <div className="mil-stencil text-xs font-bold opacity-80">
             🔒 OFERTA ESPECIAL — SOLO HOY
           </div>
-          <div className="mil-stencil text-2xl font-bold">
+          <div className="mil-stencil text-2xl font-bold tracking-wide">
             RECLUTARME POR $7
           </div>
           <div className="text-xs opacity-80">
@@ -2092,10 +2093,11 @@ function PlanView({
       >
         →
       </button>
-      <div className="bg-primary/20 border-b border-primary/40">
-        <div className="max-w-md mx-auto px-4 py-2 flex items-center justify-center">
+      <div className="relative bg-gradient-to-b from-primary/30 via-primary/10 to-transparent border-b border-accent/30">
+        <div className="max-w-md mx-auto px-4 py-2.5 flex items-center justify-center">
           <img src={logoMilitary.url} alt="Protocolo Calistenia Militar" className="h-12 object-contain" />
         </div>
+        <div className="absolute bottom-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-accent/60 to-transparent" />
       </div>
 
 
@@ -2104,12 +2106,17 @@ function PlanView({
         {/* Headline + VSL */}
         <Reveal>
           <div className="space-y-3">
-            <div className="text-center space-y-1">
-              <h1 className="mil-stencil text-xl font-bold text-accent leading-tight mil-in-pop">
-                Seu protocolo personalizado está pronto
+            <div className="text-center space-y-2">
+              <div className="flex justify-center">
+                <span className="mil-in-pop inline-flex items-center gap-2 rounded-full border border-accent/50 bg-accent/15 px-4 py-1.5 mil-stencil text-[11px] font-bold text-accent tracking-widest shadow-lg shadow-accent/10">
+                  🔓 PROTOCOLO DESBLOQUEADO
+                </span>
+              </div>
+              <h1 className="mil-stencil text-2xl font-bold text-accent leading-tight">
+                {name}, tu protocolo está listo
               </h1>
               <p className="text-xs text-muted-foreground">
-                Assista ao vídeo antes de utilizá-lo
+                Mira el vídeo antes de reclamar tu acceso 👇
               </p>
             </div>
             <SalesVSL />
@@ -2190,23 +2197,29 @@ function PlanView({
 
         {/* Bonus 1 */}
         <Reveal delay={80}>
-          <div className="space-y-3 py-1">
-            <div className="mil-stencil text-xs text-accent font-bold">
-              🎁 BONUS #1 — GUÍA DE ALIMENTACIÓN MILITAR
+          <div className="space-y-3 py-1 text-center">
+            <div className="mil-stencil text-[11px] text-accent font-bold tracking-widest">
+              🎁 BONUS #1 · GUÍA DE ALIMENTACIÓN MILITAR
             </div>
-            <div className="mil-stencil text-base sm:text-lg font-bold leading-tight">
-              Video-clases + Ebook: Nutrición Militar Desclasificada
+            <div className="mil-stencil text-xl sm:text-2xl font-bold leading-tight">
+              Come como un soldado de élite
             </div>
-            <div className="relative flex justify-center py-3">
+            <div className="relative flex justify-center py-2">
               <div aria-hidden className="absolute inset-x-8 bottom-2 h-9 rounded-[50%] bg-accent/25 blur-2xl" />
               <img
                 src={bonusAlimentacion.url}
                 alt="Guía de Alimentación Militar"
                 loading="lazy"
-                className="relative w-full max-w-[330px] object-contain mil-float-anim drop-shadow-[0_22px_40px_rgba(0,0,0,0.55)]"
+                className="relative w-full max-w-[320px] object-contain mil-float-anim drop-shadow-[0_22px_40px_rgba(0,0,0,0.55)]"
               />
             </div>
-            <p className="text-xs text-muted-foreground leading-relaxed">
+            <div className="flex justify-center">
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-accent/40 bg-accent/10 px-3 py-1 mil-stencil text-[11px] font-bold">
+                <span className="text-muted-foreground line-through">$27</span>
+                <span className="text-accent">GRATIS HOY</span>
+              </span>
+            </div>
+            <p className="text-xs text-muted-foreground leading-relaxed max-w-sm mx-auto">
               Guía completa de alimentación para <span className="text-accent font-bold">ganancia de masa muscular</span>. Descubre las comidas que el ejército usa y que esconden un valor nutricional brutal — video-clases + ebook con protocolos exactos para maximizar tu rendimiento y recuperación.
             </p>
           </div>
@@ -2214,24 +2227,30 @@ function PlanView({
 
         {/* Bonus 2 - Mapa Militar */}
         <Reveal delay={80}>
-          <div className="space-y-3 py-1">
-            <div className="mil-stencil text-xs text-accent font-bold">
-              🎁 BONUS #2 — MAPA MILITAR
+          <div className="space-y-3 py-1 text-center">
+            <div className="mil-stencil text-[11px] text-accent font-bold tracking-widest">
+              🎁 BONUS #2 · MAPA MILITAR
             </div>
-            <div className="mil-stencil text-base sm:text-lg font-bold leading-tight">
-              Agenda paso a paso hasta tu objetivo
+            <div className="mil-stencil text-xl sm:text-2xl font-bold leading-tight">
+              Tu misión, día por día
             </div>
-            <div className="relative flex justify-center py-3">
+            <div className="relative flex justify-center py-2">
               <div aria-hidden className="absolute inset-x-8 bottom-2 h-9 rounded-[50%] bg-accent/25 blur-2xl" />
               <img
                 src={mapaMilitar.url}
                 alt="Mapa Militar 2026"
                 loading="lazy"
-                className="relative w-full max-w-[330px] object-contain mil-float-anim drop-shadow-[0_22px_40px_rgba(0,0,0,0.55)]"
+                className="relative w-full max-w-[320px] object-contain mil-float-anim drop-shadow-[0_22px_40px_rgba(0,0,0,0.55)]"
                 style={{ animationDelay: "0.7s" }}
               />
             </div>
-            <p className="text-xs text-muted-foreground leading-relaxed">
+            <div className="flex justify-center">
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-accent/40 bg-accent/10 px-3 py-1 mil-stencil text-[11px] font-bold">
+                <span className="text-muted-foreground line-through">$14</span>
+                <span className="text-accent">GRATIS HOY</span>
+              </span>
+            </div>
+            <p className="text-xs text-muted-foreground leading-relaxed max-w-sm mx-auto">
               Recibirás un plan en <span className="text-accent font-bold">agenda día por día</span> con cada misión de tu evolución, hasta el día en que alcances tu meta. Todo lo que debes ejecutar cada jornada, sin dudas ni improvisación.
             </p>
           </div>
@@ -2239,24 +2258,30 @@ function PlanView({
 
         {/* Bonus 3 - TMB */}
         <Reveal delay={80}>
-          <div className="space-y-3 py-1">
-            <div className="mil-stencil text-xs text-accent font-bold">
-              🎁 BONUS #3 — TEST DE TASA METABÓLICA BASAL
+          <div className="space-y-3 py-1 text-center">
+            <div className="mil-stencil text-[11px] text-accent font-bold tracking-widest">
+              🎁 BONUS #3 · TEST DE TASA METABÓLICA BASAL
             </div>
-            <div className="mil-stencil text-base sm:text-lg font-bold leading-tight">
-              Test online gratuito de TMB
+            <div className="mil-stencil text-xl sm:text-2xl font-bold leading-tight">
+              Descubre tu metabolismo real
             </div>
-            <div className="relative flex justify-center py-3">
+            <div className="relative flex justify-center py-2">
               <div aria-hidden className="absolute inset-x-8 bottom-2 h-9 rounded-[50%] bg-accent/25 blur-2xl" />
               <img
                 src={bonusTmb.url}
                 alt="Test de Tasa Metabólica Basal"
                 loading="lazy"
-                className="relative w-full max-w-[330px] object-contain mil-float-anim drop-shadow-[0_22px_40px_rgba(0,0,0,0.55)]"
+                className="relative w-full max-w-[320px] object-contain mil-float-anim drop-shadow-[0_22px_40px_rgba(0,0,0,0.55)]"
                 style={{ animationDelay: "1.4s" }}
               />
             </div>
-            <p className="text-xs text-muted-foreground leading-relaxed">
+            <div className="flex justify-center">
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-accent/40 bg-accent/10 px-3 py-1 mil-stencil text-[11px] font-bold">
+                <span className="text-muted-foreground line-through">$12</span>
+                <span className="text-accent">GRATIS HOY</span>
+              </span>
+            </div>
+            <p className="text-xs text-muted-foreground leading-relaxed max-w-sm mx-auto">
               Identifica tus <span className="text-accent font-bold">primeros cambios</span>, con cálculos nutricionales específicos para tu cuerpo y tu evolución. Datos precisos para decisiones inteligentes — resultados reales.
             </p>
           </div>
@@ -2276,8 +2301,8 @@ function PlanView({
             <div className="grid grid-cols-1 gap-2">
               {goals.map((g, i) => (
                 <Reveal key={g} delay={i * 60}>
-                  <div className="flex items-center gap-2 rounded-md border border-border bg-card px-3 py-2 text-sm">
-                    <span className="text-accent">▸</span> {g}
+                  <div className="flex items-center gap-2 rounded-xl border border-border/50 bg-card px-3 py-2.5 text-sm">
+                    <span className="text-accent">✓</span> {g}
                   </div>
                 </Reveal>
               ))}
@@ -2328,11 +2353,11 @@ function PlanView({
 
         <Reveal delay={80}>
           <Button
-            className="w-full mil-stencil mil-cta mil-cta-shine rounded-xl text-base tracking-wider bg-accent text-accent-foreground hover:bg-accent/90 shadow-lg shadow-accent/20 transition-transform active:scale-[0.99]"
+            className="w-full mil-stencil mil-cta mil-cta-shine mil-glow-anim rounded-xl text-lg tracking-wider bg-accent text-accent-foreground hover:bg-accent/90 shadow-lg shadow-accent/30 transition-transform active:scale-[0.99] py-6"
             size="lg"
             onClick={onFinish}
           >
-            Obtener mi plan
+            QUIERO MI PLAN AHORA ›
           </Button>
         </Reveal>
       </section>
@@ -2460,11 +2485,18 @@ function SalesVSL() {
           <button
             type="button"
             onClick={unmute}
-            className="absolute inset-0 flex flex-col items-center justify-center gap-2 bg-black/60 text-white cursor-pointer"
+            className="group absolute inset-0 flex flex-col items-center justify-center gap-3 bg-gradient-to-b from-black/45 via-black/65 to-black/85 text-white cursor-pointer"
             style={{ position: "absolute", inset: 0 }}
           >
-            <div className="h-14 w-14 rounded-full bg-accent flex items-center justify-center text-2xl">🔊</div>
-            <div className="mil-stencil font-bold text-sm sm:text-base">TOCA PARA ACTIVAR EL SONIDO</div>
+            <span className="relative flex h-20 w-20 items-center justify-center">
+              <span className="absolute inline-flex h-full w-full rounded-full bg-accent/50 animate-ping" />
+              <span className="relative h-16 w-16 rounded-full bg-accent flex items-center justify-center text-3xl shadow-xl shadow-accent/40 transition-transform group-hover:scale-110">🔊</span>
+            </span>
+            <div className="mil-stencil font-bold text-base sm:text-lg tracking-wide text-center px-4">TOCA PARA ACTIVAR EL SONIDO</div>
+            <div className="flex items-center gap-1.5 text-xs sm:text-sm opacity-90">
+              <span className="inline-flex h-2 w-2 rounded-full bg-red-500 animate-pulse" />
+              <span>No te pierdas tu oferta exclusiva</span>
+            </div>
           </button>
         ) : (
           <button
@@ -2511,10 +2543,11 @@ function SalesView({
       >
         ←
       </button>
-      <div className="bg-primary/20 border-b border-primary/40">
-        <div className="max-w-md mx-auto px-4 py-2 flex items-center justify-center">
+      <div className="relative bg-gradient-to-b from-primary/30 via-primary/10 to-transparent border-b border-accent/30">
+        <div className="max-w-md mx-auto px-4 py-2.5 flex items-center justify-center">
           <img src={logoMilitary.url} alt="Protocolo Calistenia Militar" className="h-12 object-contain" />
         </div>
+        <div className="absolute bottom-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-accent/60 to-transparent" />
       </div>
 
 
@@ -2687,12 +2720,18 @@ function VideoStepView({ step, onNext }: { step: VideoStep; onNext: () => void }
             <button
               type="button"
               onClick={unmute}
-              className="absolute inset-0 flex flex-col items-center justify-center gap-2 bg-black/60 text-white cursor-pointer"
+              className="group absolute inset-0 flex flex-col items-center justify-center gap-3 bg-gradient-to-b from-black/45 via-black/65 to-black/85 text-white cursor-pointer"
               style={{ position: "absolute", inset: 0 }}
             >
-              <div className="h-14 w-14 rounded-full bg-accent flex items-center justify-center text-2xl">🔊</div>
-              <div className="mil-stencil font-bold text-sm sm:text-base">TU VÍDEO YA COMENZÓ</div>
-              <div className="text-xs sm:text-sm opacity-90">Toca para activar el sonido</div>
+              <span className="relative flex h-20 w-20 items-center justify-center">
+                <span className="absolute inline-flex h-full w-full rounded-full bg-accent/50 animate-ping" />
+                <span className="relative h-16 w-16 rounded-full bg-accent flex items-center justify-center text-3xl shadow-xl shadow-accent/40 transition-transform group-hover:scale-110">🔊</span>
+              </span>
+              <div className="mil-stencil font-bold text-base sm:text-lg tracking-wide text-center px-4">TOCA PARA ACTIVAR EL SONIDO</div>
+              <div className="flex items-center gap-1.5 text-xs sm:text-sm opacity-90">
+                <span className="inline-flex h-2 w-2 rounded-full bg-red-500 animate-pulse" />
+                <span>Escucha este testimonio real</span>
+              </div>
             </button>
           ) : (
             <button
@@ -2769,11 +2808,11 @@ function VSLView({ onContinue }: { onContinue: (name: string) => void }) {
 
       <section className="max-w-3xl mx-auto px-4 pt-6 pb-10 space-y-6">
         <div className="text-center space-y-2">
-          <h1 className="text-2xl font-bold mil-stencil text-accent leading-tight">
-            ASSISTA ANTES DE COMEÇAR
+          <h1 className="text-2xl sm:text-3xl font-bold mil-stencil text-accent leading-tight">
+            MIRA ESTO ANTES DE EMPEZAR
           </h1>
-          <p className="text-sm text-muted-foreground">
-            Veja este vídeo rápido e depois responda para liberar seu protocolo.
+          <p className="text-sm text-muted-foreground max-w-md mx-auto">
+            60 segundos que pueden cambiar tu cuerpo para siempre. Míralo hasta el final y desbloquea tu protocolo militar.
           </p>
         </div>
 
@@ -2793,12 +2832,18 @@ function VSLView({ onContinue }: { onContinue: (name: string) => void }) {
               <button
                 type="button"
                 onClick={unmute}
-                className="absolute inset-0 flex flex-col items-center justify-center gap-2 bg-black/60 text-white cursor-pointer"
+                className="group absolute inset-0 flex flex-col items-center justify-center gap-3 bg-gradient-to-b from-black/45 via-black/65 to-black/85 text-white cursor-pointer"
                 style={{ position: "absolute", inset: 0 }}
               >
-                <div className="h-14 w-14 rounded-full bg-accent flex items-center justify-center text-2xl">🔊</div>
-                <div className="mil-stencil font-bold text-sm sm:text-base">SEU VÍDEO JÁ COMEÇOU</div>
-                <div className="text-xs sm:text-sm opacity-90">Clique para ativar o som</div>
+                <span className="relative flex h-20 w-20 items-center justify-center">
+                  <span className="absolute inline-flex h-full w-full rounded-full bg-accent/50 animate-ping" />
+                  <span className="relative h-16 w-16 rounded-full bg-accent flex items-center justify-center text-3xl shadow-xl shadow-accent/40 transition-transform group-hover:scale-110">🔊</span>
+                </span>
+                <div className="mil-stencil font-bold text-base sm:text-lg tracking-wide text-center px-4">TOCA PARA ACTIVAR EL SONIDO</div>
+                <div className="flex items-center gap-1.5 text-xs sm:text-sm opacity-90">
+                  <span className="inline-flex h-2 w-2 rounded-full bg-red-500 animate-pulse" />
+                  <span>Tu vídeo ya está en marcha</span>
+                </div>
               </button>
             )}
           </div>
@@ -3158,6 +3203,27 @@ function WeightProjectionChart({
               transition: "opacity 500ms ease-out 1500ms",
             }}
           />
+          <circle
+            cx={xAt(weeks)}
+            cy={yAt(targetKg)}
+            r="7"
+            fill="none"
+            stroke={GREEN}
+            strokeWidth="2"
+            style={{
+              transformOrigin: `${xAt(weeks)}px ${yAt(targetKg)}px`,
+              opacity: drawn ? 1 : 0,
+              animation: drawn ? "mil-ping-ring 1.9s ease-out infinite 1.7s" : "none",
+            }}
+          />
+          <text
+            x={xAt(weeks)}
+            y={yAt(targetKg) - 12}
+            textAnchor="middle"
+            style={{ font: "13px sans-serif", opacity: drawn ? 1 : 0, transition: "opacity 400ms ease 1700ms" }}
+          >
+            🎯
+          </text>
 
           {/* x labels */}
           {[0, 4, 8, 12].map((w) => (
