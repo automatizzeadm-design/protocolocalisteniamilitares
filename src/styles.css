@@ -385,6 +385,53 @@
   animation: mil-spin 0.9s linear infinite;
 }
 
+/* ---- Slide de transição entre etapas ---- */
+@keyframes mil-slide-in {
+  from { opacity: 0; transform: translate3d(20px, 0, 0); }
+  to { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+@utility mil-slide-in {
+  animation: mil-slide-in 0.34s cubic-bezier(0.16, 1, 0.3, 1) both;
+  will-change: transform, opacity;
+}
+
+/* ---- Pop do check ao selecionar ---- */
+@keyframes mil-check-pop {
+  0% { transform: scale(0); opacity: 0; }
+  60% { transform: scale(1.25); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+@utility mil-check-pop {
+  animation: mil-check-pop 0.26s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* ---- Barras/linhas de gráfico crescendo (GPU: scaleX) ---- */
+@keyframes mil-grow-x {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+@utility mil-grow-x {
+  transform-origin: left center;
+  animation: mil-grow-x 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+@keyframes mil-grow-y {
+  from { transform: scaleY(0); }
+  to { transform: scaleY(1); }
+}
+@utility mil-grow-y {
+  transform-origin: bottom center;
+  animation: mil-grow-y 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* ---- Radar (loading) — sweep girando ---- */
+@keyframes mil-radar {
+  to { transform: rotate(360deg); }
+}
+@utility mil-radar {
+  animation: mil-radar 2.6s linear infinite;
+  will-change: transform;
+}
+
 /* ---- Scrollbar temática ---- */
 * {
   scrollbar-width: thin;
