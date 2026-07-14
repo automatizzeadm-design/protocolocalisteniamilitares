@@ -432,6 +432,15 @@
   transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+/* ---- Glow dourado pulsante (CTA de compra) ---- */
+@keyframes mil-glow-gold {
+  0%, 100% { box-shadow: 0 10px 30px -8px rgba(233,183,60,0.45); }
+  50% { box-shadow: 0 10px 40px 2px rgba(255,213,110,0.75); }
+}
+@utility mil-glow-gold-anim {
+  animation: mil-glow-gold 2.2s ease-in-out infinite;
+}
+
 /* ---- Anel pulsante (alvo do gráfico) ---- */
 @keyframes mil-ping-ring {
   0% { transform: scale(1); opacity: 0.85; }
