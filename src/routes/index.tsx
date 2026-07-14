@@ -12,6 +12,8 @@ import militaryTransformation from "@/assets/military-transformation.png.asset.j
 import logoMilitary from "@/assets/logo-military.png.asset.json";
 import testimonial1 from "@/assets/testimonial-1.png.asset.json";
 import testimonial2 from "@/assets/testimonial-2.png.asset.json";
+import logoApp from "@/assets/logo-app.png.asset.json";
+
 
 
 
