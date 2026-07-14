@@ -2877,10 +2877,17 @@ function IntroView({ onStart, initialName = "" }: { onStart: (age: string, name:
               key={a}
               variant="outline"
               onClick={() => onStart(a, initialName)}
-              className="w-full mil-stencil justify-between border-2 border-border hover:border-accent hover:bg-accent/10 px-4 py-6"
+              className="w-full mil-stencil mil-option-hover justify-between rounded-xl border-2 border-border hover:border-accent hover:bg-accent/10 px-4 py-6"
             >
-              <span className="font-bold">{a}</span>
-              <span className="text-accent">›</span>
+              <span className="flex items-center gap-3">
+                {OPTION_EMOJI[a] && (
+                  <span className="mil-emoji-chip" aria-hidden="true">
+                    {OPTION_EMOJI[a]}
+                  </span>
+                )}
+                <span className="font-bold text-base">{a}</span>
+              </span>
+              <span className="text-accent text-lg">›</span>
             </Button>
           ))}
         </div>
