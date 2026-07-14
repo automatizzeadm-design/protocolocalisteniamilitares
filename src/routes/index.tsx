@@ -1237,13 +1237,14 @@ function WeightStepView({
   // Body silhouette scaling based on weight vs "average" 75kg / 165lb
   const baseline = unit === "kg" ? 75 : 165;
   const shown = valid ? num : baseline;
-  const ratio = Math.max(0.7, Math.min(1.5, shown / baseline));
+  const ratio = Math.max(0.62, Math.min(1.62, shown / baseline));
   const buff = mode === "target"; // versão musculosa (ombros largos, cintura seca)
-  const torsoW = (buff ? 70 : 54) * (buff ? Math.pow(ratio, 0.85) : ratio);
-  const bellyW = (buff ? 46 : 60) * Math.pow(ratio, buff ? 1.1 : 1.7);
-  const hipW = (buff ? 58 : 56) * Math.pow(ratio, 1.2);
-  const armW = (buff ? 22 : 14) * Math.pow(ratio, 0.9);
-  const thighW = (buff ? 28 : 22) * Math.pow(ratio, 1.1);
+  const torsoW = (buff ? 74 : 52) * (buff ? Math.pow(ratio, 0.8) : ratio);
+  const bellyW = (buff ? 43 : 58) * Math.pow(ratio, buff ? 0.95 : 2.05);
+  const hipW = (buff ? 58 : 56) * Math.pow(ratio, buff ? 1.0 : 1.35);
+  const armW = (buff ? 25 : 13) * Math.pow(ratio, buff ? 0.85 : 0.95);
+  const thighW = (buff ? 31 : 21) * Math.pow(ratio, buff ? 0.95 : 1.25);
+  const heavy = !buff && ratio > 1.06; // sobrepeso visível
 
   const label = mode === "current" ? "Peso actual" : "Peso objetivo";
   const placeholder = mode === "current"
@@ -1278,7 +1279,19 @@ function WeightStepView({
       </div>
 
       <div className="flex justify-center py-2">
-        <svg viewBox="0 0 180 260" width="150" height="220" className="drop-shadow-lg">
+        <div className="relative mil-float-anim">
+          <div
+            aria-hidden
+            className="absolute inset-0 -z-10 blur-2xl rounded-full transition-all duration-500"
+            style={{
+              background: buff
+                ? "radial-gradient(circle, rgba(74,222,128,0.30), transparent 70%)"
+                : heavy
+                  ? "radial-gradient(circle, rgba(239,68,68,0.26), transparent 70%)"
+                  : "radial-gradient(circle, rgba(74,222,128,0.20), transparent 70%)",
+            }}
+          />
+          <svg viewBox="0 0 180 260" width="160" height="232" className="mil-body drop-shadow-xl">
           <defs>
             <linearGradient id="uniGrad" x1="0" x2="0" y1="0" y2="1">
               <stop offset="0%" stopColor={uniform} />
@@ -1377,6 +1390,7 @@ function WeightStepView({
           <rect x={90 - hipW / 2} y="226" width={thighW + 4} height="4" fill="#000" />
           <rect x={90 + hipW / 2 - thighW - 4} y="226" width={thighW + 4} height="4" fill="#000" />
         </svg>
+        </div>
       </div>
 
 
@@ -1598,7 +1612,8 @@ function GraphStepView({
     { label: "Metabolismo", value: metaVal },
   ];
   const worst = dynamicBars.reduce((a, b) => (a.value <= b.value ? a : b));
-  const dynamicScore = Math.min(92, 100 - Math.round((sleepVal + energyVal + metaVal) / 3));
+  // Risco SEMPRE alto (persuasão): mesmo com boas respostas, mantém em zona crítica.
+  const dynamicScore = Math.max(72, Math.min(94, 100 - Math.round((sleepVal + energyVal + metaVal) / 3)));
   const dynamicHighlight = worst.label;
 
   const [score, setScore] = useState(0);
@@ -1664,116 +1679,82 @@ function GraphStepView({
 
   return (
     <>
-      <div className="rounded-xl border border-border/60 bg-card p-3 space-y-3">
+      <div className="rounded-2xl border border-destructive/30 bg-gradient-to-b from-destructive/[0.07] to-card p-4 space-y-4 mil-scanline overflow-hidden">
+        <div className="flex items-center gap-2 rounded-lg border border-destructive/40 bg-destructive/10 px-3 py-2">
+          <span className="relative flex h-2.5 w-2.5">
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-destructive opacity-70" />
+            <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-destructive" />
+          </span>
+          <span className="mil-stencil text-[11px] font-bold text-destructive tracking-wider">⚠ EVALUACIÓN CRÍTICA</span>
+        </div>
         <div className="flex flex-col items-center gap-3">
-          <div className="relative shrink-0">
-            <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
-              <defs>
-                <radialGradient id="dg-center" cx="50%" cy="50%" r="50%">
-                  <stop offset="0%" stopColor="#ef4444" stopOpacity="0.35" />
-                  <stop offset="70%" stopColor="#ef4444" stopOpacity="0" />
-                </radialGradient>
-                <linearGradient id="dg-hi" x1="0" y1="0" x2="1" y2="1">
-                  <stop offset="0%" stopColor="#f87171" />
-                  <stop offset="100%" stopColor="#dc2626" />
-                </linearGradient>
-                <linearGradient id="dg-lo" x1="0" y1="0" x2="1" y2="1">
-                  <stop offset="0%" stopColor="#a3e635" />
-                  <stop offset="100%" stopColor="#22c55e" />
-                </linearGradient>
-                <filter id="dg-glow" x="-20%" y="-20%" width="140%" height="140%">
-                  <feGaussianBlur stdDeviation="3" result="b" />
-                  <feMerge>
-                    <feMergeNode in="b" />
-                    <feMergeNode in="SourceGraphic" />
-                  </feMerge>
-                </filter>
-              </defs>
-
-              <circle cx={cx} cy={cy} r={rInner - 4} fill="url(#dg-center)" />
-
-              {segments.map((s, i) => (
-                <g key={i}>
-                  <path d={s.full} fill="hsl(var(--border))" opacity="0.25" />
-                  <path
-                    d={s.anim}
-                    fill={s.isHi ? "url(#dg-hi)" : "url(#dg-lo)"}
-                    filter={s.isHi ? "url(#dg-glow)" : undefined}
-                    style={{ transition: "d 900ms ease-out" }}
-                  />
-                </g>
-              ))}
-
-              {[...Array(60)].map((_, i) => {
-                const a = (i * 6 - 90) * (Math.PI / 180);
-                const r1 = rInner - 10;
-                const r2 = rInner - (i % 5 === 0 ? 16 : 13);
-                return (
-                  <line
-                    key={i}
-                    x1={cx + r1 * Math.cos(a)}
-                    y1={cy + r1 * Math.sin(a)}
-                    x2={cx + r2 * Math.cos(a)}
-                    y2={cy + r2 * Math.sin(a)}
-                    stroke="hsl(var(--muted-foreground))"
-                    strokeOpacity={i % 5 === 0 ? 0.5 : 0.2}
-                    strokeWidth="1"
-                  />
-                );
-              })}
-            </svg>
-            <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-              <div
-                className="mil-stencil text-4xl font-bold text-destructive"
-                style={{ textShadow: "0 0 24px rgba(239,68,68,0.55)" }}
-              >
-                {score}%
+          <div className="relative w-full flex flex-col items-center">
+            {(() => {
+              const gcx = 120, gcy = 118, gR = 92;
+              const pt = (v: number): [number, number] => {
+                const a = Math.PI * (1 - v / 100);
+                return [gcx + gR * Math.cos(a), gcy - gR * Math.sin(a)];
+              };
+              const arc = (v1: number, v2: number) => {
+                const [x1, y1] = pt(v1);
+                const [x2, y2] = pt(v2);
+                return `M ${x1.toFixed(1)} ${y1.toFixed(1)} A ${gR} ${gR} 0 0 1 ${x2.toFixed(1)} ${y2.toFixed(1)}`;
+              };
+              const rot = (score / 100) * 180 - 90;
+              return (
+                <svg viewBox="0 0 240 132" className="w-full max-w-[300px]">
+                  <path d={arc(0, 100)} fill="none" stroke="hsl(var(--border))" strokeWidth="20" strokeOpacity="0.3" strokeLinecap="round" />
+                  <path d={arc(0, 45)} fill="none" stroke="#22c55e" strokeWidth="15" strokeLinecap="round" />
+                  <path d={arc(45, 70)} fill="none" stroke="#f59e0b" strokeWidth="15" />
+                  <path d={arc(70, 100)} fill="none" stroke="#ef4444" strokeWidth="15" strokeLinecap="round" />
+                  <g style={{ transform: `rotate(${rot}deg)`, transformOrigin: `${gcx}px ${gcy}px`, transition: "transform 1100ms cubic-bezier(0.16,1,0.3,1)" }}>
+                    <line x1={gcx} y1={gcy} x2={gcx} y2={gcy - (gR - 12)} stroke="#ef4444" strokeWidth="4.5" strokeLinecap="round" style={{ filter: "drop-shadow(0 0 6px rgba(239,68,68,0.7))" }} />
+                  </g>
+                  <circle cx={gcx} cy={gcy} r="8" fill="#ef4444" />
+                  <circle cx={gcx} cy={gcy} r="3.5" fill="#fff" fillOpacity="0.85" />
+                </svg>
+              );
+            })()}
+            <div className="-mt-3 text-center">
+              <div className="mil-stencil text-5xl font-bold text-destructive leading-none" style={{ textShadow: "0 0 30px rgba(239,68,68,0.6)" }}>
+                <CountUp to={dynamicScore} suffix="%" duration={1100} />
               </div>
-              <div className="mil-stencil text-[10px] tracking-[0.3em] text-muted-foreground mt-1">
-                RIESGO
+              <div className="mil-stencil text-[10px] tracking-[0.35em] text-destructive/80 mt-1.5">
+                NIVEL DE RIESGO ALTO
               </div>
             </div>
           </div>
 
-          <div className="w-full grid grid-cols-3 gap-2">
+          <div className="w-full space-y-2">
             {dynamicBars.map((b, i) => {
-              const isHi = b.label === dynamicHighlight;
+              const v = barValues[i];
+              const crit = b.value < 28;
               return (
-                <div
-                  key={b.label}
-                  className={
-                    "rounded-md border p-2 text-center " +
-                    (isHi
-                      ? "border-destructive/60 bg-destructive/10"
-                      : "border-border bg-background/40")
-                  }
-                >
-                  <div className="flex items-center justify-center gap-1.5">
-                    <span
-                      className="inline-block w-2 h-2 rounded-full"
-                      style={{
-                        background: isHi ? "#ef4444" : "#22c55e",
-                        boxShadow: isHi
-                          ? "0 0 8px rgba(239,68,68,0.8)"
-                          : "0 0 8px rgba(34,197,94,0.6)",
-                      }}
-                    />
+                <div key={b.label} className="rounded-lg border border-border/50 bg-background/40 p-2.5">
+                  <div className="flex items-center justify-between mb-1.5">
+                    <span className="mil-stencil text-[11px] text-foreground/90">{b.label}</span>
                     <span
                       className={
-                        "mil-stencil text-[10px] " +
-                        (isHi ? "text-destructive font-bold" : "text-muted-foreground")
+                        "mil-stencil text-[9px] font-bold px-1.5 py-0.5 rounded " +
+                        (crit ? "bg-destructive/20 text-destructive" : "bg-amber-500/20 text-amber-500")
                       }
                     >
-                      {b.label}
+                      ▼ {crit ? "CRÍTICO" : "BAJO"}
                     </span>
                   </div>
-                  <div
-                    className={
-                      "mil-stencil text-lg font-bold mt-1 " +
-                      (isHi ? "text-destructive" : "text-foreground")
-                    }
-                  >
-                    {barValues[i]}%
+                  <div className="h-2 rounded-full bg-secondary overflow-hidden">
+                    <div
+                      className="h-full rounded-full transition-[width] duration-700 ease-out"
+                      style={{
+                        width: `${v}%`,
+                        background: crit
+                          ? "linear-gradient(90deg,#f87171,#dc2626)"
+                          : "linear-gradient(90deg,#fbbf24,#f59e0b)",
+                      }}
+                    />
+                  </div>
+                  <div className="mt-1 text-right mil-stencil text-sm font-bold" style={{ color: crit ? "#ef4444" : "#f59e0b" }}>
+                    {v}%
                   </div>
                 </div>
               );
