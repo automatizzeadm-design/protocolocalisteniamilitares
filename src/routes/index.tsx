@@ -17,7 +17,7 @@ import testimonial2 from "@/assets/testimonial-2.png.asset.json";
 
 import programPreview from "@/assets/program-preview.jpg";
 import calendar2026 from "@/assets/calendar-2026.jpg";
-import { bonus1 as bonusAlimentacion, bonus2 as mapaMilitar, bonus3 as bonusTmb } from "@/assets/bonusImages";
+import { bonus1 as bonusAlimentacion, bonus2 as mapaMilitar, bonus3 as bonusTmb, logoQue } from "@/assets/bonusImages";
 
 
 
@@ -2149,16 +2149,6 @@ function PlanView({
                 Mira el vídeo antes de reclamar tu acceso 👇
               </p>
             </div>
-            <div className="flex justify-center">
-              <video
-                src="/gifvsl.mp4"
-                autoPlay
-                loop
-                muted
-                playsInline
-                className="w-[190px] rounded-xl drop-shadow-[0_0_24px_rgba(255,255,255,0.4)]"
-              />
-            </div>
             <SalesVSL />
           </div>
         </Reveal>
@@ -2211,6 +2201,24 @@ function PlanView({
         <Reveal delay={80}>
           <div className="space-y-3">
             <h2 className="mil-stencil text-lg font-bold text-center">¿Qué recibirás?</h2>
+            <div className="flex flex-col items-center gap-3 pt-1">
+              <img
+                src={logoQue}
+                alt="Protocolo Militar"
+                className="w-[128px] object-contain mil-float-anim drop-shadow-[0_0_28px_rgba(255,255,255,0.5)]"
+              />
+              <p className="text-xs text-muted-foreground text-center max-w-sm leading-relaxed">
+                Tu Protocolo Militar completo dentro de una app simple y organizada: entrena donde quieras, sigue tu evolución día a día y accede a todo tu contenido en un solo lugar.
+              </p>
+              <video
+                src="/gifvsl.mp4"
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="w-[130px] rounded-xl drop-shadow-[0_0_22px_rgba(255,255,255,0.4)]"
+              />
+            </div>
             <div className="rounded-xl border border-accent/40 bg-gradient-to-b from-primary/15 to-card p-4 shadow-lg shadow-accent/5">
               <div className="mil-stencil text-sm font-bold text-accent">
                 Acceso a la App "Protocolo Militar"
