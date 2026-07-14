@@ -2202,14 +2202,14 @@ function PlanView({
           <div className="space-y-3">
             <h2 className="mil-stencil text-lg font-bold text-center">¿Qué recibirás?</h2>
             <div className="flex flex-col items-center gap-3 pt-1">
+              <p className="text-xs text-muted-foreground text-center max-w-sm leading-relaxed">
+                Tu Protocolo Militar completo dentro de una app simple y organizada: entrena donde quieras, sigue tu evolución día a día y accede a todo tu contenido en un solo lugar.
+              </p>
               <img
                 src={logoQue}
                 alt="Protocolo Militar"
                 className="w-[128px] object-contain mil-float-anim drop-shadow-[0_0_28px_rgba(255,255,255,0.5)]"
               />
-              <p className="text-xs text-muted-foreground text-center max-w-sm leading-relaxed">
-                Tu Protocolo Militar completo dentro de una app simple y organizada: entrena donde quieras, sigue tu evolución día a día y accede a todo tu contenido en un solo lugar.
-              </p>
               <video
                 src="/gifvsl.mp4"
                 autoPlay
