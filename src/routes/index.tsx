@@ -2202,6 +2202,20 @@ function PlanView({
         <Reveal delay={80}>
           <div className="space-y-3">
             <h2 className="mil-stencil text-lg font-bold">¿Qué recibirás?</h2>
+            <div className="flex flex-col items-center gap-2 py-2">
+              <div className="relative flex justify-center">
+                <div aria-hidden className="absolute inset-x-6 bottom-1 h-6 rounded-[50%] bg-accent/25 blur-2xl" />
+                <img
+                  src={logoApp.url}
+                  alt="Protocolo Calistenia Militar App"
+                  loading="lazy"
+                  className="relative w-full max-w-[220px] object-contain mil-float-anim drop-shadow-[0_18px_32px_rgba(0,0,0,0.55)]"
+                />
+              </div>
+              <p className="text-[11px] text-muted-foreground leading-snug text-center max-w-[320px]">
+                Accede desde cualquier celular, tablet o computadora. Tu acceso personal y descarga directa del Protocolo Calistenia Militar están disponibles únicamente aquí.
+              </p>
+            </div>
             <div className="rounded-xl border border-accent/40 bg-gradient-to-b from-primary/15 to-card p-4 shadow-lg shadow-accent/5">
               <div className="mil-stencil text-sm font-bold text-accent">
                 Acceso a la App "Protocolo Militar"
