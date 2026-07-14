@@ -608,6 +608,50 @@ const STEPS: Step[] = [
 ];
 
 
+// Números que sobem (count-up) — leve, para ao concluir.
+function CountUp({
+  to,
+  decimals = 0,
+  prefix = "",
+  suffix = "",
+  duration = 1200,
+  locale = "es-ES",
+}: {
+  to: number;
+  decimals?: number;
+  prefix?: string;
+  suffix?: string;
+  duration?: number;
+  locale?: string;
+}) {
+  const [val, setVal] = useState(0);
+  useEffect(() => {
+    let raf = 0;
+    let startTs = 0;
+    const tick = (ts: number) => {
+      if (!startTs) startTs = ts;
+      const p = Math.min(1, (ts - startTs) / duration);
+      const eased = 1 - Math.pow(1 - p, 3);
+      setVal(to * eased);
+      if (p < 1) raf = requestAnimationFrame(tick);
+      else setVal(to);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [to, duration]);
+  const formatted = val.toLocaleString(locale, {
+    minimumFractionDigits: decimals,
+    maximumFractionDigits: decimals,
+  });
+  return (
+    <>
+      {prefix}
+      {formatted}
+      {suffix}
+    </>
+  );
+}
+
 function Quiz() {
   const [vslDone, setVslDone] = useState(false);
   const [leadName, setLeadName] = useState("");
@@ -713,13 +757,13 @@ function Quiz() {
         </div>
       </header>
 
-      <section key={step.key} className="max-w-md mx-auto px-4 py-3 sm:py-6 space-y-3 sm:space-y-4">
+      <section key={step.key} className="mil-slide-in max-w-md mx-auto px-4 py-3 sm:py-6 space-y-3 sm:space-y-4">
         <div className="space-y-1.5">
-          <h1 className="text-xl sm:text-3xl font-bold leading-tight mil-stencil mil-in text-balance">
+          <h1 className="text-xl sm:text-3xl font-bold leading-tight mil-stencil text-balance">
             {step.title}
           </h1>
           {"subtitle" in step && step.subtitle && (
-            <p className="text-xs sm:text-sm text-muted-foreground mil-in" style={{ animationDelay: "0.08s" }}>{step.subtitle}</p>
+            <p className="text-xs sm:text-sm text-muted-foreground">{step.subtitle}</p>
           )}
           {step.kind === "info" && (
             <p className="text-xs sm:text-sm text-muted-foreground">{step.body}</p>
@@ -729,11 +773,17 @@ function Quiz() {
 
         {step.kind === "single" && (
           <div className="space-y-2.5 mil-stagger">
-            {step.options.map((o) => (
+            {step.options.map((o) => {
+              const selected = answers[step.key] === o.value;
+              return (
               <button
                 key={o.value}
                 onClick={() => pick(step.key, o.value)}
-                className="group mil-option mil-option-hover w-full text-left rounded-xl border-2 border-border bg-card px-3 py-2.5 sm:py-3 flex items-center gap-3 hover:border-accent hover:bg-primary/20"
+                className={`group mil-option mil-option-hover w-full text-left rounded-xl border-2 px-3 py-2.5 sm:py-3 flex items-center gap-3 ${
+                  selected
+                    ? "border-accent bg-primary/25 shadow-[0_0_22px_-4px_var(--accent)]"
+                    : "border-border bg-card hover:border-accent hover:bg-primary/20"
+                }`}
               >
                 {o.badge && (
                   <span className="absolute -top-2 right-3 mil-stencil text-[10px] font-bold bg-accent text-accent-foreground px-2 py-0.5 rounded shadow-lg">
@@ -741,7 +791,7 @@ function Quiz() {
                   </span>
                 )}
                 {OPTION_EMOJI[o.value] && (
-                  <span className="mil-emoji-chip" aria-hidden="true">
+                  <span className={`mil-emoji-chip ${selected ? "scale-110" : ""}`} aria-hidden="true">
                     {OPTION_EMOJI[o.value]}
                   </span>
                 )}
@@ -753,11 +803,18 @@ function Quiz() {
                     </span>
                   )}
                 </span>
-                <span className="text-accent opacity-50 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all ml-1 text-lg">
-                  ▸
-                </span>
+                {selected ? (
+                  <span className="ml-1 h-6 w-6 shrink-0 rounded-full bg-accent text-accent-foreground flex items-center justify-center text-sm font-bold mil-check-pop">
+                    ✓
+                  </span>
+                ) : (
+                  <span className="text-accent opacity-50 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all ml-1 text-lg">
+                    ▸
+                  </span>
+                )}
               </button>
-            ))}
+              );
+            })}
           </div>
         )}
 
@@ -851,7 +908,7 @@ function Quiz() {
                 <div className="rounded-xl border border-border/60 bg-card/60 p-3 text-center space-y-1">
                   <div className="flex items-center justify-center gap-1 text-accent text-lg">
                     ★★★★★
-                    <span className="text-foreground text-sm font-bold ml-1">4.9/5</span>
+                    <span className="text-foreground text-sm font-bold ml-1"><CountUp to={4.9} decimals={1} suffix="/5" locale="en-US" /></span>
                   </div>
                   <p className="mil-stencil text-xs sm:text-sm font-bold text-foreground">
                     +1.000 HOMBRES CAMBIARON DE VIDA EN LOS ÚLTIMOS MESES
@@ -1835,6 +1892,21 @@ function RecruitmentLoadingView({
           </div>
         </div>
 
+        {/* Radar */}
+        <div aria-hidden className="flex justify-center mb-5">
+          <div className="relative h-24 w-24 rounded-full border border-accent/40 bg-accent/5">
+            <div className="absolute inset-3 rounded-full border border-accent/25" />
+            <div className="absolute inset-6 rounded-full border border-accent/20" />
+            <div className="absolute inset-x-0 top-1/2 h-px bg-accent/20" />
+            <div className="absolute inset-y-0 left-1/2 w-px bg-accent/20" />
+            <div
+              className="absolute inset-0 rounded-full mil-radar"
+              style={{ background: "conic-gradient(from 0deg, oklch(0.72 0.16 130 / 0.55), transparent 90deg)" }}
+            />
+            <div className="absolute left-1/2 top-1/2 h-1.5 w-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent" />
+          </div>
+        </div>
+
         {/* Título */}
         <h1 className="mil-stencil text-2xl sm:text-3xl font-bold text-center tracking-wide">
           PROCESANDO RECLUTAMIENTO
@@ -2054,7 +2126,7 @@ function PlanView({
         <Reveal>
           <div className="space-y-3">
             <div className="text-center space-y-1">
-              <h1 className="mil-stencil text-xl font-bold text-accent leading-tight">
+              <h1 className="mil-stencil text-xl font-bold text-accent leading-tight mil-in-pop">
                 Seu protocolo personalizado está pronto
               </h1>
               <p className="text-xs text-muted-foreground">
@@ -2239,7 +2311,7 @@ function PlanView({
           <div className="grid grid-cols-2 gap-3">
             <div className="rounded-xl border border-border/60 bg-card p-3 text-center">
               <div className="mil-stencil text-xl font-bold text-accent">
-                4M+
+                <CountUp to={4} suffix="M+" />
               </div>
               <div className="text-[10px] text-muted-foreground leading-tight">
                 comenzaron su journey fitness con nosotros
@@ -2247,7 +2319,7 @@ function PlanView({
             </div>
             <div className="rounded-xl border border-border/60 bg-card p-3 text-center">
               <div className="mil-stencil text-xl font-bold text-accent">
-                4,4 / 5
+                <CountUp to={4.4} decimals={1} suffix=" / 5" />
               </div>
               <div className="text-[10px] text-muted-foreground leading-tight">
                 +200 000 reseñas 5★ (App Store & Play, jun 2026)
