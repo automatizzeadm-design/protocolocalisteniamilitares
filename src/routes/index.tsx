@@ -12,16 +12,14 @@ import militaryTransformation from "@/assets/military-transformation.png.asset.j
 import logoMilitary from "@/assets/logo-military.png.asset.json";
 import testimonial1 from "@/assets/testimonial-1.png.asset.json";
 import testimonial2 from "@/assets/testimonial-2.png.asset.json";
-import logoApp from "@/assets/logo-app.png.asset.json";
-
 
 
 
 import programPreview from "@/assets/program-preview.jpg";
 import calendar2026 from "@/assets/calendar-2026.jpg";
-import bonusAlimentacion from "@/assets/bonus-1.png";
-import mapaMilitar from "@/assets/bonus-2.png";
-import bonusTmb from "@/assets/bonus-3.png";
+import bonusAlimentacion from "@/assets/bonus-1.webp";
+import mapaMilitar from "@/assets/bonus-2.webp";
+import bonusTmb from "@/assets/bonus-3.webp";
 
 
 
@@ -2214,17 +2212,25 @@ function PlanView({
               </div>
             </div>
             {[
-              "Videoclases exclusivas",
-              "Protocolo de entrenamiento completo",
-              "Plataforma estilo Netflix",
-              "3 bonos gratuitos",
-            ].map((t) => (
+              { icon: "🎥", title: "Videoclases exclusivas", sub: "Entrenamientos guiados paso a paso, directo a tu celular." },
+              { icon: "🎖️", title: "Protocolo de entrenamiento completo", sub: "El método militar de 21 días — sin gimnasio ni equipo." },
+              { icon: "📺", title: "Plataforma estilo Netflix", sub: "Todo tu contenido en un solo lugar, míralo cuando quieras." },
+              { icon: "🎁", title: "3 bonos gratuitos", sub: "Alimentación militar, mapa de misión y test de metabolismo." },
+            ].map((it) => (
               <div
-                key={t}
-                className="flex items-center gap-2 rounded-xl border border-border/60 bg-card p-3"
+                key={it.title}
+                className="flex items-start gap-3 rounded-xl border border-accent/20 bg-gradient-to-br from-card to-secondary/20 p-3 shadow-sm transition-colors hover:border-accent/50"
               >
-                <span className="text-accent text-lg">✅</span>
-                <span className="mil-stencil text-sm font-bold">{t}</span>
+                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-accent/15 border border-accent/30 text-xl">
+                  {it.icon}
+                </span>
+                <div className="min-w-0 flex-1">
+                  <div className="flex items-center gap-1.5">
+                    <span className="text-accent text-sm">✓</span>
+                    <span className="mil-stencil text-sm font-bold text-foreground">{it.title}</span>
+                  </div>
+                  <p className="text-[11px] text-muted-foreground leading-snug mt-0.5">{it.sub}</p>
+                </div>
               </div>
             ))}
           </div>
@@ -2328,30 +2334,7 @@ function PlanView({
         </div>
 
         <SectionDivider label="Oferta de hoy" />
-
-        {/* App Logo - floating */}
-        <Reveal delay={60}>
-          <div className="flex flex-col items-center text-center space-y-3 -mt-1">
-            <div className="relative">
-              <div
-                aria-hidden
-                className="absolute inset-0 rounded-full bg-accent/20 blur-2xl scale-110"
-              />
-              <img
-                src={logoApp.url}
-                alt="Aplicación Protocolo Calistenia Militar"
-                loading="lazy"
-                className="relative h-28 sm:h-32 w-auto object-contain mil-float-anim drop-shadow-[0_12px_30px_rgba(0,0,0,0.5)]"
-              />
-            </div>
-            <p className="text-[10px] sm:text-xs text-muted-foreground leading-relaxed max-w-[260px] sm:max-w-xs">
-              Accede desde cualquier celular, tablet o computadora. Tu acceso personal y descarga directa del Protocolo Calistenia Militar están disponibles únicamente aquí.
-            </p>
-          </div>
-        </Reveal>
-
         {/* Offer + Countdown */}
-
         <OfferBlock onBuy={onFinish} />
 
 
