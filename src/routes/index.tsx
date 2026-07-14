@@ -2149,6 +2149,16 @@ function PlanView({
                 Mira el vídeo antes de reclamar tu acceso 👇
               </p>
             </div>
+            <div className="flex justify-center">
+              <video
+                src="/gifvsl.mp4"
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="w-[190px] rounded-xl drop-shadow-[0_0_24px_rgba(255,255,255,0.4)]"
+              />
+            </div>
             <SalesVSL />
           </div>
         </Reveal>
