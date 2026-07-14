@@ -2021,33 +2021,59 @@ function OfferBlock({ onBuy }: { onBuy: () => void }) {
       </Reveal>
 
       <Reveal delay={160}>
-        <div className="rounded-xl border border-destructive/50 bg-destructive/10 p-3 text-center space-y-1">
-          <div className="mil-stencil text-xs text-destructive font-bold uppercase flex items-center justify-center gap-1.5">
-            <span className="inline-flex h-2 w-2 rounded-full bg-destructive animate-pulse" />
-            Oferta expira en
-          </div>
-          <div className="mil-stencil text-4xl font-bold text-destructive tracking-wider tabular-nums" style={{ textShadow: "0 0 22px rgba(239,68,68,0.5)" }}>
-            {mm}:{ss}
+        <div className="flex items-center justify-center gap-3">
+          <svg width="34" height="34" viewBox="0 0 24 24" fill="none" className="text-destructive shrink-0 mil-float-anim">
+            <circle cx="12" cy="13.5" r="7.5" stroke="currentColor" strokeWidth="1.8" />
+            <path d="M12 9.5v4l2.5 1.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+            <path d="M9 2.5h6M12 5.5V2.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+          </svg>
+          <div>
+            <div className="mil-stencil text-[10px] text-muted-foreground uppercase tracking-widest">La oferta termina en</div>
+            <div className="flex items-center gap-1.5 mt-0.5">
+              <span className="mil-stencil text-2xl font-bold text-destructive tabular-nums rounded-lg bg-destructive/10 border border-destructive/30 px-2.5 py-0.5">{mm}</span>
+              <span className="mil-stencil text-2xl font-bold text-destructive animate-pulse">:</span>
+              <span className="mil-stencil text-2xl font-bold text-destructive tabular-nums rounded-lg bg-destructive/10 border border-destructive/30 px-2.5 py-0.5">{ss}</span>
+            </div>
           </div>
         </div>
       </Reveal>
 
       <Reveal delay={200}>
-        <button
-          onClick={onBuy}
-          className="group w-full rounded-xl border-2 border-accent bg-accent text-accent-foreground p-4 space-y-1 hover:scale-[1.02] active:scale-[0.98] transition-transform shadow-lg shadow-accent/30 mil-cta mil-cta-shine mil-glow-anim"
-        >
-          <div className="mil-stencil text-xs font-bold opacity-80">
-            🔒 OFERTA ESPECIAL — SOLO HOY
+        <div className="space-y-2">
+          <button
+            onClick={onBuy}
+            className="group w-full rounded-xl border-2 border-accent bg-accent text-accent-foreground p-4 hover:scale-[1.02] active:scale-[0.98] transition-transform shadow-lg shadow-accent/30 mil-cta mil-cta-shine mil-glow-anim"
+          >
+            <div className="mil-stencil text-xs font-bold opacity-80">
+              🔒 OFERTA ESPECIAL — SOLO HOY
+            </div>
+            <div className="flex items-center justify-center gap-2 my-1">
+              <span className="mil-stencil text-sm font-bold opacity-80">RECLUTARME POR</span>
+              <span className="mil-stencil text-[2.75rem] font-extrabold leading-none" style={{ textShadow: "0 2px 10px rgba(0,0,0,0.28)" }}>$7</span>
+            </div>
+            <div className="text-xs opacity-80">
+              Acceso inmediato · Pago único · Sin mensualidades
+            </div>
+          </button>
+          <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-[10px] text-muted-foreground">
+            <span>🇦🇷 ≈ $8.400 ARS</span>
+            <span>🇨🇴 ≈ $29.000 COP</span>
+            <span>🇨🇱 ≈ $6.600 CLP</span>
+            <span>🇲🇽 ≈ $130 MXN</span>
           </div>
-          <div className="mil-stencil text-2xl font-bold tracking-wide">
-            RECLUTARME POR $7
-          </div>
-          <div className="text-xs opacity-80">
-            Acceso inmediato · Pago único · Sin mensualidades
-          </div>
-        </button>
+        </div>
       </Reveal>
+    </div>
+  );
+}
+
+// Divisor de seção com rótulo — separa visualmente cada "dobra" da página.
+function SectionDivider({ label }: { label: string }) {
+  return (
+    <div className="flex items-center gap-3 pt-3">
+      <div className="flex-1 h-px bg-gradient-to-r from-transparent to-accent/40" />
+      <span className="mil-tag whitespace-nowrap">{label}</span>
+      <div className="flex-1 h-px bg-gradient-to-l from-transparent to-accent/40" />
     </div>
   );
 }
@@ -2102,7 +2128,7 @@ function PlanView({
 
 
 
-      <section className="max-w-md mx-auto px-4 py-6 space-y-6">
+      <section className="max-w-md mx-auto px-4 py-6 space-y-8">
         {/* Headline + VSL */}
         <Reveal>
           <div className="space-y-3">
@@ -2123,6 +2149,7 @@ function PlanView({
           </div>
         </Reveal>
 
+        <SectionDivider label="Tu proyección" />
         {/* Weight projection chart */}
         <Reveal delay={60}>
           <div>
@@ -2165,6 +2192,7 @@ function PlanView({
           </div>
         </Reveal>
 
+        <SectionDivider label="Lo que recibes" />
         {/* What you get */}
         <Reveal delay={80}>
           <div className="space-y-3">
@@ -2195,6 +2223,8 @@ function PlanView({
         </Reveal>
 
 
+        <SectionDivider label="Bonos incluidos" />
+        <div className="rounded-2xl border border-accent/20 bg-secondary/25 p-4 space-y-7 shadow-inner">
         {/* Bonus 1 */}
         <Reveal delay={80}>
           <div className="space-y-3 py-1 text-center">
@@ -2287,6 +2317,9 @@ function PlanView({
           </div>
         </Reveal>
 
+        </div>
+
+        <SectionDivider label="Oferta de hoy" />
         {/* Offer + Countdown */}
         <OfferBlock onBuy={onFinish} />
 
@@ -2425,6 +2458,38 @@ function BuyerNotifications() {
   );
 }
 
+// Barra de progresso "falsa": enche rápido no início e desacelera (easeOutExpo),
+// dando a sensação de que o vídeo é curto e já está quase acabando.
+function FakeVideoProgress() {
+  const [p, setP] = useState(0);
+  useEffect(() => {
+    let raf = 0;
+    let start = 0;
+    const dur = 150000; // 150s
+    const tick = (ts: number) => {
+      if (!start) start = ts;
+      const t = Math.min(1, (ts - start) / dur);
+      const eased = 1 - Math.pow(2, -10 * t); // easeOutExpo: sobe rápido e freia
+      setP(Math.min(97, eased * 100));
+      if (t < 1) raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, []);
+  return (
+    <div className="absolute bottom-0 inset-x-0 h-1.5 bg-black/50 pointer-events-none z-20">
+      <div
+        className="h-full"
+        style={{
+          width: `${p}%`,
+          background: "linear-gradient(90deg, oklch(0.55 0.11 135), oklch(0.72 0.16 130))",
+          boxShadow: "0 0 8px rgba(74,222,128,0.7)",
+        }}
+      />
+    </div>
+  );
+}
+
 function SalesVSL() {
   const [muted, setMuted] = useState(true);
   const [playing, setPlaying] = useState(true);
@@ -2458,6 +2523,7 @@ function SalesVSL() {
       if (!p) return;
       await p.setMuted(false);
       await p.setVolume(1);
+      await p.setCurrentTime(0);
       await p.play();
     } catch (e) { console.error(e); }
   };
@@ -2508,6 +2574,7 @@ function SalesVSL() {
             {playing ? "⏸" : "▶"}
           </button>
         )}
+        <FakeVideoProgress />
       </div>
     </div>
   );
@@ -2846,6 +2913,7 @@ function VSLView({ onContinue }: { onContinue: (name: string) => void }) {
                 </div>
               </button>
             )}
+            <FakeVideoProgress />
           </div>
         </div>
 
@@ -3253,7 +3321,7 @@ function WeightProjectionChart({
 
         <p className="mt-2 text-[11px] text-muted-foreground leading-relaxed">
           Proyección estimada con el Protocolo Militar en{" "}
-          <span className="text-accent font-bold">12 semanas</span>, calculada a
+          <span className="text-accent font-bold">2 a 6 semanas</span>, calculada a
           partir de tus respuestas.
         </p>
       </div>
