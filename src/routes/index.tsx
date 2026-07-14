@@ -17,9 +17,9 @@ import testimonial2 from "@/assets/testimonial-2.png.asset.json";
 
 import programPreview from "@/assets/program-preview.jpg";
 import calendar2026 from "@/assets/calendar-2026.jpg";
-import bonusAlimentacion from "@/assets/bonus-alimentacion-militar.png.asset.json";
-import mapaMilitar from "@/assets/mapa-militar-2026.png.asset.json";
-import bonusTmb from "@/assets/bonus-tmb.png.asset.json";
+import bonusAlimentacion from "@/assets/bonus-1.png";
+import mapaMilitar from "@/assets/bonus-2.png";
+import bonusTmb from "@/assets/bonus-3.png";
 
 
 
@@ -2243,7 +2243,7 @@ function PlanView({
             <div className="relative flex justify-center py-2">
               <div aria-hidden className="absolute inset-x-8 bottom-2 h-9 rounded-[50%] bg-accent/25 blur-2xl" />
               <img
-                src={bonusAlimentacion.url}
+                src={bonusAlimentacion}
                 alt="Guía de Alimentación Militar"
                 loading="lazy"
                 className="relative w-full max-w-[320px] object-contain mil-float-anim drop-shadow-[0_22px_40px_rgba(0,0,0,0.55)]"
@@ -2273,7 +2273,7 @@ function PlanView({
             <div className="relative flex justify-center py-2">
               <div aria-hidden className="absolute inset-x-8 bottom-2 h-9 rounded-[50%] bg-accent/25 blur-2xl" />
               <img
-                src={mapaMilitar.url}
+                src={mapaMilitar}
                 alt="Mapa Militar 2026"
                 loading="lazy"
                 className="relative w-full max-w-[320px] object-contain mil-float-anim drop-shadow-[0_22px_40px_rgba(0,0,0,0.55)]"
@@ -2304,7 +2304,7 @@ function PlanView({
             <div className="relative flex justify-center py-2">
               <div aria-hidden className="absolute inset-x-8 bottom-2 h-9 rounded-[50%] bg-accent/25 blur-2xl" />
               <img
-                src={bonusTmb.url}
+                src={bonusTmb}
                 alt="Test de Tasa Metabólica Basal"
                 loading="lazy"
                 className="relative w-full max-w-[320px] object-contain mil-float-anim drop-shadow-[0_22px_40px_rgba(0,0,0,0.55)]"
