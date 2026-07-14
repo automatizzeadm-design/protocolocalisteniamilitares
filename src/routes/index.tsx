@@ -852,7 +852,7 @@ function Quiz() {
                 width={1024}
                 height={1024}
                 loading="lazy"
-                className="w-full h-56 sm:h-72 rounded-md border-2 border-border object-cover"
+                className="w-full h-56 sm:h-72 rounded-xl border border-border/60 object-cover"
               />
             )}
             {step.key === "motivation" && (
@@ -871,7 +871,7 @@ function Quiz() {
                     className="w-full h-40 sm:h-56 rounded-md border-2 border-accent object-cover"
                   />
                 </div>
-                <div className="rounded-md border-2 border-border bg-card/60 p-3 text-center space-y-1">
+                <div className="rounded-xl border border-border/60 bg-card/60 p-3 text-center space-y-1">
                   <div className="flex items-center justify-center gap-1 text-accent text-lg">
                     ★★★★★
                     <span className="text-foreground text-sm font-bold ml-1">4.9/5</span>
@@ -1630,7 +1630,7 @@ function GraphStepView({
 
   return (
     <>
-      <div className="rounded-md border-2 border-border bg-card p-3 space-y-3">
+      <div className="rounded-xl border border-border/60 bg-card p-3 space-y-3">
         <div className="flex flex-col items-center gap-3">
           <div className="relative shrink-0">
             <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
@@ -2108,7 +2108,7 @@ function PlanView({
             ].map((c) => (
               <div
                 key={c.label}
-                className="relative rounded-md border-2 border-border bg-card p-3 space-y-1 overflow-hidden"
+                className="relative rounded-xl border border-border/60 bg-card p-3 space-y-1 overflow-hidden"
               >
                 <div className="text-2xl">{c.emoji}</div>
                 <div className="mil-stencil text-[10px] text-accent">
@@ -2134,7 +2134,7 @@ function PlanView({
         <Reveal delay={80}>
           <div className="space-y-3">
             <h2 className="mil-stencil text-lg font-bold">¿Qué recibirás?</h2>
-            <div className="rounded-md border-2 border-accent bg-card p-3">
+            <div className="rounded-xl border border-accent/40 bg-gradient-to-b from-primary/15 to-card p-4 shadow-lg shadow-accent/5">
               <div className="mil-stencil text-sm font-bold text-accent">
                 Acceso a la App "Protocolo Militar"
               </div>
@@ -2150,7 +2150,7 @@ function PlanView({
             ].map((t) => (
               <div
                 key={t}
-                className="flex items-center gap-2 rounded-md border-2 border-border bg-card p-3"
+                className="flex items-center gap-2 rounded-xl border border-border/60 bg-card p-3"
               >
                 <span className="text-accent text-lg">✅</span>
                 <span className="mil-stencil text-sm font-bold">{t}</span>
@@ -2162,19 +2162,22 @@ function PlanView({
 
         {/* Bonus 1 */}
         <Reveal delay={80}>
-          <div className="rounded-md border-2 border-accent bg-primary/10 p-3 space-y-2">
+          <div className="space-y-3 py-1">
             <div className="mil-stencil text-xs text-accent font-bold">
               🎁 BONUS #1 — GUÍA DE ALIMENTACIÓN MILITAR
             </div>
-            <div className="mil-stencil text-sm font-bold">
+            <div className="mil-stencil text-base sm:text-lg font-bold leading-tight">
               Video-clases + Ebook: Nutrición Militar Desclasificada
             </div>
-            <img
-              src={bonusAlimentacion.url}
-              alt="Guía de Alimentación Militar"
-              loading="lazy"
-              className="w-full rounded-md border border-border"
-            />
+            <div className="relative flex justify-center py-3">
+              <div aria-hidden className="absolute inset-x-8 bottom-2 h-9 rounded-[50%] bg-accent/25 blur-2xl" />
+              <img
+                src={bonusAlimentacion.url}
+                alt="Guía de Alimentación Militar"
+                loading="lazy"
+                className="relative w-full max-w-[330px] object-contain mil-float-anim drop-shadow-[0_22px_40px_rgba(0,0,0,0.55)]"
+              />
+            </div>
             <p className="text-xs text-muted-foreground leading-relaxed">
               Guía completa de alimentación para <span className="text-accent font-bold">ganancia de masa muscular</span>. Descubre las comidas que el ejército usa y que esconden un valor nutricional brutal — video-clases + ebook con protocolos exactos para maximizar tu rendimiento y recuperación.
             </p>
@@ -2183,19 +2186,23 @@ function PlanView({
 
         {/* Bonus 2 - Mapa Militar */}
         <Reveal delay={80}>
-          <div className="rounded-md border-2 border-accent bg-primary/10 p-3 space-y-2">
+          <div className="space-y-3 py-1">
             <div className="mil-stencil text-xs text-accent font-bold">
               🎁 BONUS #2 — MAPA MILITAR
             </div>
-            <div className="mil-stencil text-sm font-bold">
+            <div className="mil-stencil text-base sm:text-lg font-bold leading-tight">
               Agenda paso a paso hasta tu objetivo
             </div>
-            <img
-              src={mapaMilitar.url}
-              alt="Mapa Militar 2026"
-              loading="lazy"
-              className="w-full rounded-md border border-border"
-            />
+            <div className="relative flex justify-center py-3">
+              <div aria-hidden className="absolute inset-x-8 bottom-2 h-9 rounded-[50%] bg-accent/25 blur-2xl" />
+              <img
+                src={mapaMilitar.url}
+                alt="Mapa Militar 2026"
+                loading="lazy"
+                className="relative w-full max-w-[330px] object-contain mil-float-anim drop-shadow-[0_22px_40px_rgba(0,0,0,0.55)]"
+                style={{ animationDelay: "0.7s" }}
+              />
+            </div>
             <p className="text-xs text-muted-foreground leading-relaxed">
               Recibirás un plan en <span className="text-accent font-bold">agenda día por día</span> con cada misión de tu evolución, hasta el día en que alcances tu meta. Todo lo que debes ejecutar cada jornada, sin dudas ni improvisación.
             </p>
@@ -2204,19 +2211,23 @@ function PlanView({
 
         {/* Bonus 3 - TMB */}
         <Reveal delay={80}>
-          <div className="rounded-md border-2 border-accent bg-primary/10 p-3 space-y-2">
+          <div className="space-y-3 py-1">
             <div className="mil-stencil text-xs text-accent font-bold">
               🎁 BONUS #3 — TEST DE TASA METABÓLICA BASAL
             </div>
-            <div className="mil-stencil text-sm font-bold">
+            <div className="mil-stencil text-base sm:text-lg font-bold leading-tight">
               Test online gratuito de TMB
             </div>
-            <img
-              src={bonusTmb.url}
-              alt="Test de Tasa Metabólica Basal"
-              loading="lazy"
-              className="w-full rounded-md border border-border"
-            />
+            <div className="relative flex justify-center py-3">
+              <div aria-hidden className="absolute inset-x-8 bottom-2 h-9 rounded-[50%] bg-accent/25 blur-2xl" />
+              <img
+                src={bonusTmb.url}
+                alt="Test de Tasa Metabólica Basal"
+                loading="lazy"
+                className="relative w-full max-w-[330px] object-contain mil-float-anim drop-shadow-[0_22px_40px_rgba(0,0,0,0.55)]"
+                style={{ animationDelay: "1.4s" }}
+              />
+            </div>
             <p className="text-xs text-muted-foreground leading-relaxed">
               Identifica tus <span className="text-accent font-bold">primeros cambios</span>, con cálculos nutricionales específicos para tu cuerpo y tu evolución. Datos precisos para decisiones inteligentes — resultados reales.
             </p>
@@ -2249,7 +2260,7 @@ function PlanView({
         {/* Social proof */}
         <Reveal delay={80}>
           <div className="grid grid-cols-2 gap-3">
-            <div className="rounded-md border-2 border-border bg-card p-3 text-center">
+            <div className="rounded-xl border border-border/60 bg-card p-3 text-center">
               <div className="mil-stencil text-xl font-bold text-accent">
                 4M+
               </div>
@@ -2257,7 +2268,7 @@ function PlanView({
                 comenzaron su journey fitness con nosotros
               </div>
             </div>
-            <div className="rounded-md border-2 border-border bg-card p-3 text-center">
+            <div className="rounded-xl border border-border/60 bg-card p-3 text-center">
               <div className="mil-stencil text-xl font-bold text-accent">
                 4,4 / 5
               </div>
@@ -2270,7 +2281,7 @@ function PlanView({
 
         {/* Complete plan */}
         <Reveal delay={80}>
-          <div className="rounded-md border-2 border-border bg-card p-4 space-y-2">
+          <div className="rounded-xl border border-border/60 bg-card p-4 space-y-2">
             <h3 className="mil-stencil text-sm font-bold">
               Plan de entrenamiento completo
             </h3>
