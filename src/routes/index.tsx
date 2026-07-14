@@ -2328,7 +2328,30 @@ function PlanView({
         </div>
 
         <SectionDivider label="Oferta de hoy" />
+
+        {/* App Logo - floating */}
+        <Reveal delay={60}>
+          <div className="flex flex-col items-center text-center space-y-3 -mt-1">
+            <div className="relative">
+              <div
+                aria-hidden
+                className="absolute inset-0 rounded-full bg-accent/20 blur-2xl scale-110"
+              />
+              <img
+                src={logoApp.url}
+                alt="Aplicación Protocolo Calistenia Militar"
+                loading="lazy"
+                className="relative h-28 sm:h-32 w-auto object-contain mil-float-anim drop-shadow-[0_12px_30px_rgba(0,0,0,0.5)]"
+              />
+            </div>
+            <p className="text-[10px] sm:text-xs text-muted-foreground leading-relaxed max-w-[260px] sm:max-w-xs">
+              Accede desde cualquier celular, tablet o computadora. Tu acceso personal y descarga directa del Protocolo Calistenia Militar están disponibles únicamente aquí.
+            </p>
+          </div>
+        </Reveal>
+
         {/* Offer + Countdown */}
+
         <OfferBlock onBuy={onFinish} />
 
 
