@@ -44,8 +44,8 @@ const TOTAL = 34;
 // Emoji "moderno" para cada resposta do quiz (chave = value da opção).
 // Renderizado num chip dentro do botão que a pessoa clica.
 const OPTION_EMOJI: Record<string, string> = {
-  // Edad
-  "18-29": "🔥", "30-39": "💪", "40-49": "🎯", "50+": "🦅",
+  // Edad — rostinhos por faixa etária (do mais jovem ao mais velho)
+  "18-29": "🧑", "30-39": "🧔", "40-49": "👨‍🦳", "50+": "👴",
   // Tipo de cuerpo
   mince: "🏃", moyen: "🧍", gros: "🍔", lourd: "🐻",
   // Objetivo
