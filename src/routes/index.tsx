@@ -17,9 +17,7 @@ import testimonial2 from "@/assets/testimonial-2.png.asset.json";
 
 import programPreview from "@/assets/program-preview.jpg";
 import calendar2026 from "@/assets/calendar-2026.jpg";
-import bonusAlimentacion from "@/assets/bonus-1.webp";
-import mapaMilitar from "@/assets/bonus-2.webp";
-import bonusTmb from "@/assets/bonus-3.webp";
+import { bonus1 as bonusAlimentacion, bonus2 as mapaMilitar, bonus3 as bonusTmb } from "@/assets/bonusImages";
 
 
 
