@@ -39,8 +39,6 @@ export const Route = createFileRoute("/")({
 
 type Answers = Record<string, string | string[]>;
 
-const TOTAL = 34;
-
 // Emoji "moderno" para cada resposta do quiz (chave = value da opção).
 // Renderizado num chip dentro do botão que a pessoa clica.
 const OPTION_EMOJI: Record<string, string> = {
@@ -459,17 +457,6 @@ const STEPS: Step[] = [
   },
   {
     kind: "single",
-    key: "daily-life",
-    title: "¿Cómo describirías un día típico tuyo?",
-    progress: 18,
-    options: [
-      { value: "sitting", label: "Paso la mayor parte del día sentado" },
-      { value: "traveling", label: "Viajo de vez en cuando" },
-      { value: "standing", label: "Paso todo el día de pie" },
-    ],
-  },
-  {
-    kind: "single",
     key: "energy",
     title: "¿Cuál es tu nivel medio de energía a lo largo del día?",
     progress: 19,
@@ -516,17 +503,6 @@ const STEPS: Step[] = [
     paddingPct: 152.04,
     cta: "Continuar",
     progress: 22,
-  },
-  {
-    kind: "single",
-    key: "experience",
-    title: "¿Cuál es tu nivel de experiencia?",
-    progress: 24,
-    options: [
-      { value: "debutant", label: "Principiante" },
-      { value: "intermediaire", label: "Intermedio" },
-      { value: "avance", label: "Avanzado" },
-    ],
   },
   {
     kind: "height",
@@ -654,7 +630,8 @@ function Quiz() {
 
 
   const step = STEPS[index];
-  const rawPct = (step?.progress ?? TOTAL) / TOTAL;
+  // Progresso baseado na POSIÇÃO da etapa — auto-ajusta ao adicionar/remover steps.
+  const rawPct = index / Math.max(1, STEPS.length - 1);
   // Ease-out: avança rápido no início e desacelera no fim
   const pct = Math.round(Math.pow(rawPct, 0.45) * 100);
 
