@@ -1679,15 +1679,15 @@ function GraphStepView({
 
   return (
     <>
-      <div className="rounded-2xl border border-destructive/30 bg-gradient-to-b from-destructive/[0.07] to-card p-4 space-y-4 mil-scanline overflow-hidden">
-        <div className="flex items-center gap-2 rounded-lg border border-destructive/40 bg-destructive/10 px-3 py-2">
-          <span className="relative flex h-2.5 w-2.5">
+      <div className="rounded-2xl border border-destructive/30 bg-gradient-to-b from-destructive/[0.07] to-card p-3 space-y-2 mil-scanline overflow-hidden">
+        <div className="flex items-center gap-2 rounded-lg border border-destructive/40 bg-destructive/10 px-3 py-1.5">
+          <span className="relative flex h-2 w-2">
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-destructive opacity-70" />
-            <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-destructive" />
+            <span className="relative inline-flex h-2 w-2 rounded-full bg-destructive" />
           </span>
           <span className="mil-stencil text-[11px] font-bold text-destructive tracking-wider">⚠ EVALUACIÓN CRÍTICA</span>
         </div>
-        <div className="flex flex-col items-center gap-3">
+        <div className="flex flex-col items-center gap-1.5">
           <div className="relative w-full flex flex-col items-center">
             {(() => {
               const gcx = 120, gcy = 118, gR = 92;
@@ -1702,7 +1702,7 @@ function GraphStepView({
               };
               const rot = (score / 100) * 180 - 90;
               return (
-                <svg viewBox="0 0 240 132" className="w-full max-w-[300px]">
+                <svg viewBox="0 0 240 132" className="w-full max-w-[220px]">
                   <path d={arc(0, 100)} fill="none" stroke="hsl(var(--border))" strokeWidth="20" strokeOpacity="0.3" strokeLinecap="round" />
                   <path d={arc(0, 45)} fill="none" stroke="#22c55e" strokeWidth="15" strokeLinecap="round" />
                   <path d={arc(45, 70)} fill="none" stroke="#f59e0b" strokeWidth="15" />
@@ -1715,34 +1715,24 @@ function GraphStepView({
                 </svg>
               );
             })()}
-            <div className="-mt-3 text-center">
-              <div className="mil-stencil text-5xl font-bold text-destructive leading-none" style={{ textShadow: "0 0 30px rgba(239,68,68,0.6)" }}>
+            <div className="-mt-6 text-center">
+              <div className="mil-stencil text-4xl font-bold text-destructive leading-none" style={{ textShadow: "0 0 30px rgba(239,68,68,0.6)" }}>
                 <CountUp to={dynamicScore} suffix="%" duration={1100} />
               </div>
-              <div className="mil-stencil text-[10px] tracking-[0.35em] text-destructive/80 mt-1.5">
+              <div className="mil-stencil text-[9px] tracking-[0.35em] text-destructive/80 mt-1">
                 NIVEL DE RIESGO ALTO
               </div>
             </div>
           </div>
 
-          <div className="w-full space-y-2">
+          <div className="w-full space-y-1.5">
             {dynamicBars.map((b, i) => {
               const v = barValues[i];
               const crit = b.value < 28;
               return (
-                <div key={b.label} className="rounded-lg border border-border/50 bg-background/40 p-2.5">
-                  <div className="flex items-center justify-between mb-1.5">
-                    <span className="mil-stencil text-[11px] text-foreground/90">{b.label}</span>
-                    <span
-                      className={
-                        "mil-stencil text-[9px] font-bold px-1.5 py-0.5 rounded " +
-                        (crit ? "bg-destructive/20 text-destructive" : "bg-amber-500/20 text-amber-500")
-                      }
-                    >
-                      ▼ {crit ? "CRÍTICO" : "BAJO"}
-                    </span>
-                  </div>
-                  <div className="h-2 rounded-full bg-secondary overflow-hidden">
+                <div key={b.label} className="flex items-center gap-2">
+                  <span className="mil-stencil text-[10px] text-foreground/90 w-24 shrink-0 truncate">{b.label}</span>
+                  <div className="flex-1 h-2 rounded-full bg-secondary overflow-hidden">
                     <div
                       className="h-full rounded-full transition-[width] duration-700 ease-out"
                       style={{
@@ -1753,29 +1743,37 @@ function GraphStepView({
                       }}
                     />
                   </div>
-                  <div className="mt-1 text-right mil-stencil text-sm font-bold" style={{ color: crit ? "#ef4444" : "#f59e0b" }}>
+                  <span className="mil-stencil text-xs font-bold w-9 text-right shrink-0" style={{ color: crit ? "#ef4444" : "#f59e0b" }}>
                     {v}%
-                  </div>
+                  </span>
+                  <span
+                    className={
+                      "mil-stencil text-[8px] font-bold px-1 py-0.5 rounded w-14 text-center shrink-0 " +
+                      (crit ? "bg-destructive/20 text-destructive" : "bg-amber-500/20 text-amber-500")
+                    }
+                  >
+                    ▼{crit ? "CRÍT." : "BAJO"}
+                  </span>
                 </div>
               );
             })}
           </div>
         </div>
 
-        <div className="space-y-1">
-          <div className="mil-stencil text-xs font-bold text-destructive">
+        <div className="space-y-0.5">
+          <div className="mil-stencil text-[11px] font-bold text-destructive">
             {dynamicHighlight}
           </div>
-          <p className="text-xs text-muted-foreground leading-snug">
+          <p className="text-[11px] text-muted-foreground leading-tight">
             {step.body}
           </p>
         </div>
 
-        <div className="rounded-md border-l-4 border-accent bg-primary/10 p-2">
-          <div className="mil-stencil text-[11px] font-bold text-accent mb-0.5">
+        <div className="rounded-md border-l-4 border-accent bg-primary/10 px-2 py-1.5">
+          <div className="mil-stencil text-[10px] font-bold text-accent mb-0.5">
             ¡Mejora la calidad de tu sueño!
           </div>
-          <p className="text-[11px] text-muted-foreground leading-snug">
+          <p className="text-[10px] text-muted-foreground leading-tight">
             {step.callout}
           </p>
         </div>
@@ -2813,16 +2811,27 @@ function VSLView({ onContinue }: { onContinue: (name: string) => void }) {
           <label className="mil-stencil text-[11px] font-bold text-accent tracking-widest block text-center">
             COMO PODEMOS TE CHAMAR?
           </label>
+          {!trimmed && (
+            <div className="flex justify-center" aria-hidden="true">
+              <span className="text-accent text-3xl leading-none mil-float-anim">👇</span>
+            </div>
+          )}
           <Input
             value={name}
             onChange={(e) => setName(e.target.value)}
             placeholder="Seu nome"
-            className="text-center"
+            className={`text-center text-base transition-all ${
+              !trimmed ? "border-accent/70 ring-2 ring-accent/20" : "border-accent"
+            }`}
           />
           <Button
             disabled={!trimmed}
             onClick={() => onContinue(trimmed)}
-            className="w-full mil-stencil font-bold py-6 disabled:opacity-50"
+            className={`w-full mil-stencil font-bold py-6 rounded-xl tracking-wider transition-all ${
+              trimmed
+                ? "mil-cta mil-cta-shine mil-glow-anim bg-accent text-accent-foreground hover:bg-accent/90 shadow-lg shadow-accent/30"
+                : "bg-secondary text-muted-foreground/70 opacity-60"
+            }`}
           >
             CONTINUAR ›
           </Button>
