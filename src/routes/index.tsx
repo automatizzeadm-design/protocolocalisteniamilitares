@@ -714,7 +714,7 @@ function Quiz() {
 
       <div className="relative bg-gradient-to-b from-primary/30 via-primary/10 to-transparent border-b border-accent/30">
         <div className="max-w-md mx-auto px-4 py-2.5 flex items-center justify-center">
-          <img src={logoMilitary.url} alt="Protocolo Calistenia Militar" className="h-20 object-contain drop-shadow-[0_2px_12px_oklch(0.72_0.16_130_/_0.45)]" />
+          <img src={logoMilitary.url} alt="Protocolo Calistenia Militar" className="h-20 object-contain" />
         </div>
         <div className="absolute bottom-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-accent/60 to-transparent" />
       </div>
@@ -736,8 +736,8 @@ function Quiz() {
         </div>
       </header>
 
-      <section className="max-w-md mx-auto px-4 py-3 sm:py-6 space-y-3 sm:space-y-4">
-        <div className="space-y-1.5" key={step.key}>
+      <section key={step.key} className="max-w-md mx-auto px-4 py-3 sm:py-6 space-y-3 sm:space-y-4">
+        <div className="space-y-1.5">
           <h1 className="text-xl sm:text-3xl font-bold leading-tight mil-stencil mil-in text-balance">
             {step.title}
           </h1>
@@ -751,7 +751,7 @@ function Quiz() {
 
 
         {step.kind === "single" && (
-          <div className="space-y-2.5 mil-stagger" key={step.key}>
+          <div className="space-y-2.5 mil-stagger">
             {step.options.map((o) => (
               <button
                 key={o.value}
@@ -788,7 +788,7 @@ function Quiz() {
         {step.kind === "multi" && (
           <>
             <div className={step.key === "injuries" ? "flex gap-3 items-start" : ""}>
-              <div className="space-y-2 flex-1 min-w-0 mil-stagger" key={step.key}>
+              <div className="space-y-2 flex-1 min-w-0 mil-stagger">
                 {step.options.map((o) => {
                   const selected =
                     ((answers[step.key] as string[]) ?? []).includes(o.value);
@@ -2723,7 +2723,7 @@ function VSLView({ onContinue }: { onContinue: (name: string) => void }) {
 
       <div className="relative bg-gradient-to-b from-primary/30 via-primary/10 to-transparent border-b border-accent/30">
         <div className="max-w-md mx-auto px-4 py-2.5 flex items-center justify-center">
-          <img src={logoMilitary.url} alt="Protocolo Calistenia Militar" className="h-20 object-contain drop-shadow-[0_2px_12px_oklch(0.72_0.16_130_/_0.45)]" />
+          <img src={logoMilitary.url} alt="Protocolo Calistenia Militar" className="h-20 object-contain" />
         </div>
         <div className="absolute bottom-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-accent/60 to-transparent" />
       </div>
@@ -2812,7 +2812,7 @@ function IntroView({ onStart, initialName = "" }: { onStart: (age: string, name:
 
       <div className="relative bg-gradient-to-b from-primary/30 via-primary/10 to-transparent border-b border-accent/30">
         <div className="max-w-md mx-auto px-4 py-2.5 flex items-center justify-center">
-          <img src={logoMilitary.url} alt="Protocolo Calistenia Militar" className="h-20 object-contain drop-shadow-[0_2px_12px_oklch(0.72_0.16_130_/_0.45)]" />
+          <img src={logoMilitary.url} alt="Protocolo Calistenia Militar" className="h-20 object-contain" />
         </div>
         <div className="absolute bottom-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-accent/60 to-transparent" />
       </div>
