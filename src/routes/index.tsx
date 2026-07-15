@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, createContext, useContext } from "react";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Input } from "@/components/ui/input";
@@ -650,6 +650,9 @@ function CountUp({
   );
 }
 
+// true na rota /teste (mostra as setas de skip); false na produção "/".
+export const TestModeContext = createContext(false);
+
 const CHECKOUT_URL = "https://pay.hotmart.com/X106733968U?off=9ja011jc&checkoutMode=10";
 
 // Parâmetros de rastreamento repassados ao checkout da Hotmart.
@@ -733,7 +736,8 @@ function GoldCta({ onClick, showConversions }: { onClick: () => void; showConver
   );
 }
 
-function Quiz() {
+export function Quiz() {
+  const testMode = useContext(TestModeContext);
   const [vslDone, setVslDone] = useState(false);
   const [leadName, setLeadName] = useState("");
   const [started, setStarted] = useState(false);
@@ -797,7 +801,7 @@ function Quiz() {
 
   return (
     <main className="min-h-screen bg-background text-foreground">
-      {index > 0 && (
+      {testMode && index > 0 && (
         <button
           onClick={back}
           aria-label="Volver"
@@ -806,13 +810,15 @@ function Quiz() {
           ←
         </button>
       )}
-      <button
-        onClick={next}
-        aria-label="Siguiente"
-        className="fixed top-1/2 right-2 -translate-y-1/2 z-50 h-10 w-10 rounded-full bg-accent hover:bg-accent/90 text-accent-foreground border-2 border-primary flex items-center justify-center shadow-lg"
-      >
-        →
-      </button>
+      {testMode && (
+        <button
+          onClick={next}
+          aria-label="Siguiente"
+          className="fixed top-1/2 right-2 -translate-y-1/2 z-50 h-10 w-10 rounded-full bg-accent hover:bg-accent/90 text-accent-foreground border-2 border-primary flex items-center justify-center shadow-lg"
+        >
+          →
+        </button>
+      )}
 
 
       <div className="relative bg-gradient-to-b from-primary/30 via-primary/10 to-transparent border-b border-accent/30">
@@ -2140,6 +2146,7 @@ function PlanView({
   answers: Answers;
   onFinish: () => void;
 }) {
+  const testMode = useContext(TestModeContext);
   // Esconde a oferta até o vídeo chegar no ponto do preço (2min40s).
   const [revealed, setRevealed] = useState(false);
   useEffect(() => {
@@ -2174,13 +2181,15 @@ function PlanView({
 
   return (
     <main className="min-h-screen bg-background text-foreground relative">
-      <button
-        onClick={onFinish}
-        aria-label="Continuar a la oferta"
-        className="fixed top-3 right-3 z-50 h-10 w-10 rounded-full bg-accent hover:bg-accent/90 text-accent-foreground border-2 border-primary flex items-center justify-center shadow-lg animate-pulse"
-      >
-        →
-      </button>
+      {testMode && (
+        <button
+          onClick={onFinish}
+          aria-label="Continuar a la oferta"
+          className="fixed top-3 right-3 z-50 h-10 w-10 rounded-full bg-accent hover:bg-accent/90 text-accent-foreground border-2 border-primary flex items-center justify-center shadow-lg animate-pulse"
+        >
+          →
+        </button>
+      )}
       <div className="relative bg-gradient-to-b from-primary/30 via-primary/10 to-transparent border-b border-accent/30">
         <div className="max-w-md mx-auto px-4 py-2.5 flex items-center justify-center">
           <img src={logoMilitary.url} alt="Protocolo Calistenia Militar" className="h-10 object-contain drop-shadow-[0_1px_10px_rgba(255,255,255,0.4)]" />
@@ -2971,6 +2980,7 @@ function VideoStepView({ step, onNext }: { step: VideoStep; onNext: () => void }
 import soldierIntro from "@/assets/soldier-intro.png.asset.json";
 
 function VSLView({ onContinue }: { onContinue: (name: string) => void }) {
+  const testMode = useContext(TestModeContext);
   const [name, setName] = useState("");
   const [muted, setMuted] = useState(true);
   const trimmed = name.trim();
@@ -3002,13 +3012,15 @@ function VSLView({ onContinue }: { onContinue: (name: string) => void }) {
 
   return (
     <main className="min-h-screen bg-background text-foreground">
-      <button
-        onClick={() => onContinue(trimmed || "soldado")}
-        aria-label="Siguiente"
-        className="fixed top-1/2 right-2 -translate-y-1/2 z-50 h-10 w-10 rounded-full bg-accent hover:bg-accent/90 text-accent-foreground border-2 border-primary flex items-center justify-center shadow-lg"
-      >
-        →
-      </button>
+      {testMode && (
+        <button
+          onClick={() => onContinue(trimmed || "soldado")}
+          aria-label="Siguiente"
+          className="fixed top-1/2 right-2 -translate-y-1/2 z-50 h-10 w-10 rounded-full bg-accent hover:bg-accent/90 text-accent-foreground border-2 border-primary flex items-center justify-center shadow-lg"
+        >
+          →
+        </button>
+      )}
 
       <div className="relative bg-gradient-to-b from-primary/30 via-primary/10 to-transparent border-b border-accent/30">
         <div className="max-w-md mx-auto px-4 py-2.5 flex items-center justify-center">
@@ -3104,18 +3116,21 @@ function VSLView({ onContinue }: { onContinue: (name: string) => void }) {
 }
 
 function IntroView({ onStart, initialName = "" }: { onStart: (age: string, name: string) => void; initialName?: string }) {
+  const testMode = useContext(TestModeContext);
   const ages = ["18-29", "30-39", "40-49", "50+"];
 
 
   return (
     <main className="min-h-screen bg-background text-foreground">
-      <button
-        onClick={() => onStart(ages[0], (initialName || "").trim() || "soldado")}
-        aria-label="Siguiente"
-        className="fixed top-1/2 right-2 -translate-y-1/2 z-50 h-10 w-10 rounded-full bg-accent hover:bg-accent/90 text-accent-foreground border-2 border-primary flex items-center justify-center shadow-lg"
-      >
-        →
-      </button>
+      {testMode && (
+        <button
+          onClick={() => onStart(ages[0], (initialName || "").trim() || "soldado")}
+          aria-label="Siguiente"
+          className="fixed top-1/2 right-2 -translate-y-1/2 z-50 h-10 w-10 rounded-full bg-accent hover:bg-accent/90 text-accent-foreground border-2 border-primary flex items-center justify-center shadow-lg"
+        >
+          →
+        </button>
+      )}
 
       <div className="relative bg-gradient-to-b from-primary/30 via-primary/10 to-transparent border-b border-accent/30">
         <div className="max-w-md mx-auto px-4 py-2.5 flex items-center justify-center">
