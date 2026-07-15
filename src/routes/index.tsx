@@ -652,12 +652,41 @@ function CountUp({
 
 const CHECKOUT_URL = "https://pay.hotmart.com/X106733968U?off=9ja011jc&checkoutMode=10";
 
+// Parâmetros de rastreamento repassados ao checkout da Hotmart.
+// 'src' e 'sck' são os campos que a Hotmart mostra no relatório (de qual criativo veio a venda).
+const TRACK_KEYS = ["src", "sck", "utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term"];
+
+// Guarda os parâmetros que chegaram na URL do anúncio (persistem na sessão).
+function captureTracking() {
+  if (typeof window === "undefined") return;
+  try {
+    const qs = window.location.search;
+    if (qs && qs.length > 1) sessionStorage.setItem("track_qs", qs);
+  } catch {
+    /* sessionStorage opcional */
+  }
+}
+
 function goToCheckout() {
   if (typeof window === "undefined") return;
   try {
     (window as unknown as { fbq?: (...a: unknown[]) => void }).fbq?.("track", "InitiateCheckout");
   } catch {
     /* pixel opcional */
+  }
+  try {
+    let stored = "";
+    try { stored = sessionStorage.getItem("track_qs") || ""; } catch { /* ignore */ }
+    const incoming = new URLSearchParams(stored || window.location.search);
+    const url = new URL(CHECKOUT_URL);
+    for (const k of TRACK_KEYS) {
+      const v = incoming.get(k);
+      if (v) url.searchParams.set(k, v);
+    }
+    window.location.href = url.toString();
+    return;
+  } catch {
+    /* fallback abaixo */
   }
   window.location.href = CHECKOUT_URL;
 }
@@ -710,8 +739,9 @@ function Quiz() {
   const [started, setStarted] = useState(false);
   const [index, setIndex] = useState(0);
   const [answers, setAnswers] = useState<Answers>({});
-  
-  
+
+  // Captura src/UTMs do anúncio assim que a pessoa entra (pra repassar à Hotmart).
+  useEffect(() => { captureTracking(); }, []);
 
   if (!vslDone) {
     return <VSLView onContinue={(name) => { setLeadName(name); setVslDone(true); }} />;
