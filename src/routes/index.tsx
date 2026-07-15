@@ -662,6 +662,48 @@ function goToCheckout() {
   window.location.href = CHECKOUT_URL;
 }
 
+// Botão de CTA dourado reutilizável.
+function GoldCta({ onClick, showConversions }: { onClick: () => void; showConversions?: boolean }) {
+  return (
+    <div className="space-y-2">
+      <button
+        onClick={onClick}
+        className="group w-full rounded-xl p-4 text-center hover:scale-[1.02] active:scale-[0.98] transition-transform mil-cta mil-cta-shine mil-glow-gold-anim"
+        style={{
+          background: "linear-gradient(135deg, #ffe391 0%, #eab93f 45%, #c98a12 100%)",
+          color: "#241900",
+          border: "1px solid #f3d27a",
+          boxShadow: "0 10px 34px -8px rgba(233,183,60,0.7)",
+        }}
+      >
+        <div className="mil-stencil text-xs font-bold" style={{ color: "#3d2c00" }}>
+          🔒 OFERTA ESPECIAL — SOLO HOY
+        </div>
+        <div className="mil-stencil text-base font-bold mt-1.5" style={{ color: "#2a1e00" }}>
+          RECLUTARME POR
+        </div>
+        <div className="mil-stencil text-xl font-bold leading-none line-through decoration-2 mt-0.5" style={{ color: "#b91c1c" }}>
+          $150
+        </div>
+        <div className="mil-stencil font-extrabold leading-none mt-1" style={{ fontSize: "4.75rem", color: "#ffffff", textShadow: "0 3px 10px rgba(0,0,0,0.4), 0 1px 2px rgba(0,0,0,0.55)" }}>
+          $7
+        </div>
+        <div className="text-xs mt-2" style={{ color: "#3d2c00" }}>
+          Acceso inmediato · Pago único · Sin mensualidades
+        </div>
+      </button>
+      {showConversions && (
+        <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-[10px] text-muted-foreground">
+          <span>🇦🇷 ≈ $8.400 ARS</span>
+          <span>🇨🇴 ≈ $29.000 COP</span>
+          <span>🇨🇱 ≈ $6.600 CLP</span>
+          <span>🇲🇽 ≈ $130 MXN</span>
+        </div>
+      )}
+    </div>
+  );
+}
+
 function Quiz() {
   const [vslDone, setVslDone] = useState(false);
   const [leadName, setLeadName] = useState("");
@@ -2044,40 +2086,7 @@ function OfferBlock({ onBuy }: { onBuy: () => void }) {
       </Reveal>
 
       <Reveal delay={200}>
-        <div className="space-y-2">
-          <button
-            onClick={onBuy}
-            className="group w-full rounded-xl p-4 text-center hover:scale-[1.02] active:scale-[0.98] transition-transform mil-cta mil-cta-shine mil-glow-gold-anim"
-            style={{
-              background: "linear-gradient(135deg, #ffe391 0%, #eab93f 45%, #c98a12 100%)",
-              color: "#241900",
-              border: "1px solid #f3d27a",
-              boxShadow: "0 10px 34px -8px rgba(233,183,60,0.7)",
-            }}
-          >
-            <div className="mil-stencil text-xs font-bold" style={{ color: "#3d2c00" }}>
-              🔒 OFERTA ESPECIAL — SOLO HOY
-            </div>
-            <div className="mil-stencil text-base font-bold mt-1.5" style={{ color: "#2a1e00" }}>
-              RECLUTARME POR
-            </div>
-            <div className="mil-stencil text-xl font-bold leading-none line-through decoration-2 mt-0.5" style={{ color: "#b91c1c" }}>
-              $150
-            </div>
-            <div className="mil-stencil font-extrabold leading-none mt-1" style={{ fontSize: "4.75rem", color: "#ffffff", textShadow: "0 3px 10px rgba(0,0,0,0.4), 0 1px 2px rgba(0,0,0,0.55)" }}>
-              $7
-            </div>
-            <div className="text-xs mt-2" style={{ color: "#3d2c00" }}>
-              Acceso inmediato · Pago único · Sin mensualidades
-            </div>
-          </button>
-          <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-[10px] text-muted-foreground">
-            <span>🇦🇷 ≈ $8.400 ARS</span>
-            <span>🇨🇴 ≈ $29.000 COP</span>
-            <span>🇨🇱 ≈ $6.600 CLP</span>
-            <span>🇲🇽 ≈ $130 MXN</span>
-          </div>
-        </div>
+        <GoldCta onClick={onBuy} showConversions />
       </Reveal>
     </div>
   );
@@ -2101,6 +2110,13 @@ function PlanView({
   answers: Answers;
   onFinish: () => void;
 }) {
+  // Esconde a oferta até o vídeo chegar no ponto do preço (2min40s).
+  const [revealed, setRevealed] = useState(false);
+  useEffect(() => {
+    const t = setTimeout(() => setRevealed(true), 160000);
+    return () => clearTimeout(t);
+  }, []);
+
   const name = (answers["name"] as string) || "Soldado";
   const currentKg = Number(answers["weight"]) || 82;
   const targetKg = Number(answers["target-weight"]) || 72;
@@ -2165,7 +2181,22 @@ function PlanView({
           </div>
         </Reveal>
 
-        <SectionDivider label="Tu proyección" />
+        {!revealed && (
+          <div className="text-center py-8">
+            <div className="mil-spinner inline-block h-5 w-5 rounded-full border-2 border-accent border-t-transparent" />
+            <p className="mil-stencil text-xs text-muted-foreground tracking-wide mt-3">
+              Mira el vídeo para desbloquear tu protocolo y tu oferta...
+            </p>
+          </div>
+        )}
+
+        {revealed && (
+          <>
+            <div className="mil-fadein">
+              <GoldCta onClick={goToCheckout} />
+            </div>
+
+            <SectionDivider label="Tu proyección" />
         {/* Weight projection chart */}
         <Reveal delay={60}>
           <div>
@@ -2456,6 +2487,8 @@ function PlanView({
             QUIERO MI PLAN AHORA ›
           </Button>
         </Reveal>
+          </>
+        )}
       </section>
     </main>
   );
