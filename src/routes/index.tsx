@@ -650,6 +650,18 @@ function CountUp({
   );
 }
 
+const CHECKOUT_URL = "https://pay.hotmart.com/X106733968U?off=9ja011jc&checkoutMode=10";
+
+function goToCheckout() {
+  if (typeof window === "undefined") return;
+  try {
+    (window as unknown as { fbq?: (...a: unknown[]) => void }).fbq?.("track", "InitiateCheckout");
+  } catch {
+    /* pixel opcional */
+  }
+  window.location.href = CHECKOUT_URL;
+}
+
 function Quiz() {
   const [vslDone, setVslDone] = useState(false);
   const [leadName, setLeadName] = useState("");
@@ -700,7 +712,7 @@ function Quiz() {
   };
 
   if (step.kind === "plan") {
-    return <PlanView answers={answers} onFinish={() => {}} />;
+    return <PlanView answers={answers} onFinish={goToCheckout} />;
   }
 
 
