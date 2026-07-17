@@ -591,7 +591,7 @@ const STEPS: Step[] = [
   {
     kind: "acct-email",
     key: "acct-email",
-    section: "Vamos criar sua conta Protocolo Calistenia Militar",
+    section: "Vamos a crear tu cuenta Protocolo Calistenia Militar",
     banner: "¡Tu plan de entrenamiento militar está listo!",
     stepLabel: "1/1",
     title: "Email",
@@ -1662,7 +1662,7 @@ function AcctEmailStepView({
         disabled={!valid}
         onClick={onNext}
       >
-        Receber Protocolo Agora ›
+        Recibir Protocolo Ahora ›
       </Button>
     </>
   );
@@ -3078,7 +3078,7 @@ function VSLView({ onContinue }: { onContinue: (name: string) => void }) {
 
         <div className="space-y-3 max-w-sm mx-auto">
           <label className="mil-stencil text-[11px] font-bold text-accent tracking-widest block text-center">
-            COMO PODEMOS TE CHAMAR?
+            ¿CÓMO PODEMOS LLAMARTE?
           </label>
           {!trimmed && (
             <div className="flex justify-center" aria-hidden="true">
@@ -3088,7 +3088,7 @@ function VSLView({ onContinue }: { onContinue: (name: string) => void }) {
           <Input
             value={name}
             onChange={(e) => setName(e.target.value)}
-            placeholder="Seu nome"
+            placeholder="Tu nombre"
             className={`text-center text-base transition-all ${
               !trimmed ? "border-accent/70 ring-2 ring-accent/20" : "border-accent"
             }`}
@@ -3106,7 +3106,7 @@ function VSLView({ onContinue }: { onContinue: (name: string) => void }) {
           </Button>
           {!trimmed && (
             <p className="text-[11px] text-muted-foreground text-center">
-              Digite seu nome para continuar
+              Escribe tu nombre para continuar
             </p>
           )}
         </div>
@@ -3142,16 +3142,16 @@ function IntroView({ onStart, initialName = "" }: { onStart: (age: string, name:
       <section className="max-w-3xl mx-auto px-4 pt-6 pb-10 space-y-6">
         <div className="text-center space-y-2">
           <h1 className="text-2xl font-bold mil-stencil text-accent leading-tight">
-            Défi d'entraînement militaire avancé
+            Desafío de entrenamiento militar avanzado
           </h1>
           <p className="text-sm text-muted-foreground">
-            Séances d'entraînement de 15 minutes. Sans salle de sport. Sans équipement.
+            Sesiones de entrenamiento de 15 minutos. Sin gimnasio. Sin equipo.
           </p>
         </div>
 
         <div className="space-y-2 max-w-sm mx-auto">
           <div className="text-center mil-stencil text-[10px] font-bold text-accent tracking-widest">
-            SÉLECTIONNEZ VOTRE ÂGE
+            SELECCIONA TU EDAD
           </div>
           {ages.map((a) => (
             <Button
