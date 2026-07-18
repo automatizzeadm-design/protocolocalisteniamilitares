@@ -18,6 +18,7 @@ import testimonial2 from "@/assets/testimonial-2.png.asset.json";
 import programPreview from "@/assets/program-preview.jpg";
 import calendar2026 from "@/assets/calendar-2026.jpg";
 import { bonus1 as bonusAlimentacion, bonus2 as mapaMilitar, bonus3 as bonusTmb, logoQue } from "@/assets/bonusImages";
+import { supabase } from "@/lib/supabase";
 
 
 
@@ -670,6 +671,33 @@ function captureTracking() {
   }
 }
 
+function trackingSrc(): string {
+  if (typeof window === "undefined") return "";
+  try {
+    const qs = sessionStorage.getItem("track_qs") || window.location.search;
+    return new URLSearchParams(qs).get("src") || "";
+  } catch {
+    return "";
+  }
+}
+
+// Salva o lead (email + todas as respostas do quiz) no Supabase.
+async function saveLead(answers: Answers) {
+  if (typeof window === "undefined") return;
+  try {
+    const email = (answers["acct-email"] as string) || (answers["email"] as string) || "";
+    const name = (answers["name"] as string) || "";
+    await supabase.from("leads").insert({ email, name, src: trackingSrc(), answers });
+    try {
+      (window as unknown as { fbq?: (...a: unknown[]) => void }).fbq?.("track", "Lead");
+    } catch {
+      /* pixel opcional */
+    }
+  } catch (e) {
+    console.error("[leads] erro ao salvar:", e);
+  }
+}
+
 function goToCheckout() {
   if (typeof window === "undefined") return;
   try {
@@ -743,6 +771,7 @@ export function Quiz() {
   const [started, setStarted] = useState(false);
   const [index, setIndex] = useState(0);
   const [answers, setAnswers] = useState<Answers>({});
+  const leadSavedRef = useRef(false);
 
   // Captura src/UTMs do anúncio assim que a pessoa entra (pra repassar à Hotmart).
   useEffect(() => { captureTracking(); }, []);
@@ -1111,7 +1140,13 @@ export function Quiz() {
             step={step}
             value={(answers[step.key] as string) ?? ""}
             onChange={(v) => setAnswers((a) => ({ ...a, [step.key]: v }))}
-            onNext={next}
+            onNext={() => {
+              if (!leadSavedRef.current) {
+                leadSavedRef.current = true;
+                saveLead(answers);
+              }
+              next();
+            }}
           />
         )}
 
