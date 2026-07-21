@@ -2174,6 +2174,54 @@ function SectionDivider({ label }: { label: string }) {
   );
 }
 
+// FAQ persuasivo (quebra de objeções na intenção de compra).
+const FAQ_ITEMS: { q: string; a: string }[] = [
+  {
+    q: "¿Necesito ir al gimnasio o comprar equipo?",
+    a: "No. Todo el Protocolo Militar se hace en casa, con tu propio peso corporal. Cero máquinas, cero excusas.",
+  },
+  {
+    q: "Estoy fuera de forma / soy principiante. ¿Funciona igual?",
+    a: "Sí. El protocolo se adapta a tu nivel actual (el mismo que calculamos en tu diagnóstico). Empiezas donde estás y subes de forma progresiva, sin lesionarte.",
+  },
+  {
+    q: "¿Cuánto tiempo necesito por día?",
+    a: "Solo 15 minutos al día. Está diseñado para hombres con rutina ocupada — trabajo, familia, poco tiempo. Sin excusas.",
+  },
+  {
+    q: "¿En cuánto tiempo empiezo a ver resultados?",
+    a: "La mayoría siente más energía y fuerza en las primeras 2 semanas, y nota cambios visibles a lo largo del protocolo. Cuanto antes empiezas, antes lo ves.",
+  },
+  {
+    q: "¿Cómo recibo el acceso?",
+    a: "Acceso inmediato después del pago. Recibes tu área de miembros con todo el contenido y tus 3 bonos gratis, listo para empezar hoy mismo.",
+  },
+  {
+    q: "¿Y si no funciona para mí?",
+    a: "Tienes 30 días de garantía blindada. Si no sientes la diferencia, te devolvemos el 100% de tu dinero. Sin preguntas. El riesgo es todo nuestro.",
+  },
+  {
+    q: "¿El pago es seguro? ¿Es un cobro único?",
+    a: "Sí. Es un pago único, sin mensualidades ni cargos ocultos, procesado en una plataforma 100% segura. Pagas una vez y es tuyo para siempre.",
+  },
+];
+
+function Faq() {
+  return (
+    <div className="space-y-2">
+      {FAQ_ITEMS.map((it) => (
+        <details key={it.q} className="group rounded-xl border border-border/60 bg-card overflow-hidden">
+          <summary className="flex items-center justify-between gap-3 p-4 cursor-pointer list-none mil-stencil text-sm font-bold text-foreground hover:text-accent transition-colors">
+            <span>{it.q}</span>
+            <span className="text-accent shrink-0 transition-transform group-open:rotate-45 text-xl leading-none">+</span>
+          </summary>
+          <p className="px-4 pb-4 -mt-1 text-xs text-muted-foreground leading-relaxed">{it.a}</p>
+        </details>
+      ))}
+    </div>
+  );
+}
+
 function PlanView({
   answers,
   onFinish,
@@ -2531,6 +2579,11 @@ function PlanView({
           </div>
         </Reveal>
 
+        <SectionDivider label="Preguntas frecuentes" />
+        <Reveal delay={80}>
+          <Faq />
+        </Reveal>
+
         <SectionDivider label="Garantía" />
         <Reveal delay={80}>
           <div className="rounded-2xl border border-accent/40 bg-gradient-to-b from-accent/10 to-card p-5 text-center shadow-lg shadow-accent/5">
@@ -2540,14 +2593,14 @@ function PlanView({
                   <path d="M12 2l7 3v6c0 5-3.5 8.6-7 10-3.5-1.4-7-5-7-10V5l7-3z" fill="currentColor" fillOpacity="0.14" stroke="currentColor" strokeWidth="1.4" strokeLinejoin="round" />
                 </svg>
                 <div className="absolute flex flex-col items-center leading-none">
-                  <span className="mil-stencil text-2xl font-extrabold text-accent">7</span>
+                  <span className="mil-stencil text-2xl font-extrabold text-accent">30</span>
                   <span className="mil-stencil text-[8px] font-bold text-accent tracking-widest">DÍAS</span>
                 </div>
               </div>
             </div>
-            <h3 className="mil-stencil text-lg font-bold text-accent">Garantía blindada de 7 días</h3>
+            <h3 className="mil-stencil text-lg font-bold text-accent">Garantía blindada de 30 días</h3>
             <p className="text-xs text-muted-foreground leading-relaxed mt-2 max-w-sm mx-auto">
-              Prueba todo el Protocolo Militar sin ningún riesgo. Si en 7 días no sientes la diferencia, te devolvemos el <span className="text-accent font-bold">100% de tu dinero</span> — sin preguntas y sin complicaciones. El riesgo es todo nuestro.
+              Prueba todo el Protocolo Militar sin ningún riesgo. Si en 30 días no sientes la diferencia, te devolvemos el <span className="text-accent font-bold">100% de tu dinero</span> — sin preguntas y sin complicaciones. El riesgo es todo nuestro.
             </p>
           </div>
         </Reveal>
@@ -2874,11 +2927,11 @@ function SalesView({
             <div className="flex items-center gap-2">
               <div className="text-3xl">🛡️</div>
               <div className="mil-stencil font-bold text-sm text-accent">
-                GARANTÍA DE 7 DÍAS
+                GARANTÍA DE 30 DÍAS
               </div>
             </div>
             <p className="text-xs text-muted-foreground leading-relaxed">
-              Si en 7 días no estás 100% satisfecho con tu Protocolo Calistenia
+              Si en 30 días no estás 100% satisfecho con tu Protocolo Calistenia
               Militar, te devolvemos cada centavo. Sin preguntas, sin trámites.
               Todo el riesgo es nuestro.
             </p>
