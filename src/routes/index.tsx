@@ -2231,11 +2231,13 @@ function PlanView({
 }) {
   const testMode = useContext(TestModeContext);
   // Esconde a oferta até o vídeo chegar no ponto do preço (2min40s).
-  const [revealed, setRevealed] = useState(false);
+  // Em /teste (testMode) libera na hora, pra testar rápido.
+  const [revealed, setRevealed] = useState(testMode);
   useEffect(() => {
+    if (testMode) return;
     const t = setTimeout(() => setRevealed(true), 160000);
     return () => clearTimeout(t);
-  }, []);
+  }, [testMode]);
 
   const name = (answers["name"] as string) || "Soldado";
   const currentKg = Number(answers["weight"]) || 82;
