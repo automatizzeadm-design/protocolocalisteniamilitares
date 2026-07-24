@@ -1,8 +1,4 @@
 import { createFileRoute } from "@tanstack/react-router";
-import notaAsset from "@/assets/NOTA_7.810.png.asset.json";
-import homeWorkoutDemoAsset from "@/assets/home-workout-demo.png.asset.json";
-import bonusRanking from "@/assets/bonus-ranking-militar.png.asset.json";
-import bonusSorteos from "@/assets/bonus-sorteos-equipamiento.png.asset.json";
 
 export const Route = createFileRoute("/oferta1")({
   component: Oferta1,
@@ -39,7 +35,7 @@ function goUpsell() {
 
 function decline() {
   if (typeof window === "undefined") return;
-  window.location.href = "/gracias";
+  window.location.href = "/descuento1";
 }
 
 function GoldButton({ children }: { children: React.ReactNode }) {
@@ -92,7 +88,7 @@ function Oferta1() {
             Ya aseguraste tu Protocolo. Pero déjame contarte lo que separa a los soldados que{" "}
             <span className="text-accent font-bold">logran resultados reales</span> de los que entrenan meses… haciéndolo todo mal:
           </p>
-          <div className="mil-stencil text-lg font-bold text-green-500 underline underline-offset-4 decoration-green-500">
+          <div className="mil-stencil text-lg font-bold text-accent">
             👁️ El Militar Garcia corrige tu técnica, en persona.
           </div>
         </div>
@@ -102,53 +98,49 @@ function Oferta1() {
           <div className="mil-stencil text-[11px] text-accent font-bold tracking-widest text-center">
             ASÍ FUNCIONA TU ACOMPAÑAMIENTO MILITAR POR WHATSAPP
           </div>
-          <div className="grid sm:grid-cols-2 gap-3 items-start">
-            {/* video grabado */}
-            <div className="relative rounded-xl overflow-hidden border border-border/60 bg-black">
-              <img
-                src={homeWorkoutDemoAsset.url}
-                alt="Demo de entrenamiento militar enviado por WhatsApp"
-                className="w-full aspect-[3/4] object-cover"
-                loading="lazy"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
-              <span className="absolute top-2 left-2 flex items-center gap-1 text-[9px] text-red-400 mil-stencil bg-black/40 px-1.5 py-0.5 rounded">
-                <span className="inline-block h-2 w-2 rounded-full bg-red-500 animate-pulse" /> REC
-              </span>
-              <span className="absolute bottom-3 left-0 right-0 text-center mil-stencil text-[10px] text-white/90 tracking-widest px-2">
-                VIDEOS · FOTOS · DUDAS<br />POR WHATSAPP
-              </span>
+          <div className="grid sm:grid-cols-2 gap-3 items-center">
+            {/* "video" grabado */}
+            <div className="relative rounded-xl overflow-hidden border border-border/60" style={{ background: "linear-gradient(135deg, oklch(0.34 0.05 140), oklch(0.2 0.03 150))" }}>
+              <div className="aspect-[3/4] flex flex-col items-center justify-center gap-2">
+                <span className="text-4xl">🎥</span>
+                <span className="mil-stencil text-[10px] text-white/80 tracking-widest text-center px-2">VIDEOS · FOTOS · DUDAS<br />POR WHATSAPP</span>
+                <span className="absolute top-2 left-2 flex items-center gap-1 text-[9px] text-red-400 mil-stencil">
+                  <span className="inline-block h-2 w-2 rounded-full bg-red-500 animate-pulse" /> REC
+                </span>
+              </div>
             </div>
-            {/* evaluación + respuesta del profesor */}
-            <div className="space-y-3">
-              <img
-                src={notaAsset.url}
-                alt="Militar Garcia evaluando tu técnica: NOTA 7.8/10 — Tenemos que mejorar algunos aspectos"
-                className="w-full rounded-xl border border-accent/30 bg-card/50 object-contain shadow-lg shadow-accent/5"
-                loading="lazy"
-              />
-              <div className="rounded-xl border border-accent/40 bg-background/50 p-3 space-y-2">
-                <div className="flex items-center gap-2 mil-stencil text-[11px] font-bold text-accent">
-                  🎖️ MILITAR GARCIA · WHATSAPP
-                </div>
-                <ul className="space-y-1.5 text-xs">
-                  <li className="flex items-center gap-2 text-destructive"><span>✗</span> Brazos muy abiertos</li>
-                  <li className="flex items-center gap-2 text-destructive"><span>✗</span> Cadera baja</li>
-                  <li className="flex items-center gap-2 text-destructive"><span>✗</span> Ritmo lento</li>
-                  <li className="flex items-center gap-2 text-destructive"><span>✗</span> Amplitud pobre</li>
-                </ul>
-                <div className="rounded-lg bg-accent/10 border border-accent/30 p-2 text-[11px] text-foreground/90">
-                  → Corrige esto y cada flexión valdrá <span className="text-accent font-bold">el doble</span>.
-                </div>
+            {/* respuesta del profesor */}
+            <div className="rounded-xl border border-accent/40 bg-background/50 p-3 space-y-2">
+              <div className="flex items-center gap-2 mil-stencil text-[11px] font-bold text-accent">
+                🎖️ MILITAR GARCIA · WHATSAPP
+              </div>
+              <ul className="space-y-1.5 text-xs">
+                <li className="flex items-center gap-2 text-destructive"><span>✗</span> Brazos muy abiertos</li>
+                <li className="flex items-center gap-2 text-destructive"><span>✗</span> Cadera baja</li>
+                <li className="flex items-center gap-2 text-destructive"><span>✗</span> Ritmo lento</li>
+                <li className="flex items-center gap-2 text-destructive"><span>✗</span> Amplitud pobre</li>
+              </ul>
+              <div className="rounded-lg bg-accent/10 border border-accent/30 p-2 text-[11px] text-foreground/90">
+                → Corrige esto y cada flexión valdrá <span className="text-accent font-bold">el doble</span>.
               </div>
             </div>
           </div>
-
           <p className="text-xs text-muted-foreground text-center leading-relaxed">
             Envías <span className="text-foreground font-bold">videos, fotos, dudas o mensajes</span> por WhatsApp — <span className="text-accent font-bold">a cualquier hora, las 24 horas</span> — y el propio <span className="text-accent font-bold">Militar Garcia, profesor de educación física, te acompaña 1 a 1</span>: corrige tu técnica, resuelve tus dudas y te dice exactamente qué mejorar para evolucionar más rápido y sin lesionarte.
           </p>
           <div className="flex justify-center">
             <span className="mil-tag">📲 24 horas al día · cualquier hora</span>
+          </div>
+        </div>
+
+        {/* ===== AUTORIDADE: MILITAR GARCIA ===== */}
+        <div className="flex items-center gap-3 rounded-2xl border border-accent/30 bg-card/60 p-4">
+          <div className="h-14 w-14 shrink-0 rounded-xl bg-gradient-to-br from-accent/30 to-primary/20 border border-accent/40 flex items-center justify-center text-2xl">🎖️</div>
+          <div className="min-w-0">
+            <div className="mil-stencil text-sm font-bold text-foreground">Militar Garcia</div>
+            <div className="text-[11px] text-muted-foreground leading-snug">
+              Profesor de educación física y tu instructor personal. Él revisa, corrige y rankea a cada soldado — uno por uno.
+            </div>
           </div>
         </div>
 
@@ -212,15 +204,6 @@ function Oferta1() {
               <span className="text-2xl">🏅</span>
               <div className="mil-stencil text-sm font-bold text-accent">BONO 1 · GRUPO DE RANKING MILITAR</div>
             </div>
-            <div className="relative flex justify-center py-1">
-              <div aria-hidden className="absolute inset-x-8 bottom-1 h-8 rounded-[50%] bg-accent/25 blur-2xl" />
-              <img
-                src={bonusRanking.url}
-                alt="Grupo de Ranking Militar"
-                loading="lazy"
-                className="relative w-full max-w-[320px] object-contain mil-sway-anim drop-shadow-[0_8px_28px_rgba(255,255,255,0.22)]"
-              />
-            </div>
             <p className="text-xs text-muted-foreground leading-relaxed">
               Entras a un grupo exclusivo donde compites con otros soldados. Cumples tus misiones, sumas puntos y <span className="text-accent font-bold">subes de patente</span>:
             </p>
@@ -241,15 +224,6 @@ function Oferta1() {
             <div className="flex items-center gap-2">
               <span className="text-2xl">🎁</span>
               <div className="mil-stencil text-sm font-bold text-accent">BONO 2 · SORTEOS DE EQUIPAMIENTO</div>
-            </div>
-            <div className="relative flex justify-center py-1">
-              <div aria-hidden className="absolute inset-x-8 bottom-1 h-8 rounded-[50%] bg-accent/25 blur-2xl" />
-              <img
-                src={bonusSorteos.url}
-                alt="Sorteos de equipamiento"
-                loading="lazy"
-                className="relative w-full max-w-[320px] object-contain mil-sway-anim drop-shadow-[0_8px_28px_rgba(255,255,255,0.22)]"
-              />
             </div>
             <p className="text-xs text-muted-foreground leading-relaxed">
               <span className="text-accent font-bold">Todos los meses sorteamos equipos de entrenamiento</span> entre los miembros del acompañamiento. ¿No tienes equipo todavía? Aquí lo puedes ganar — gratis.
