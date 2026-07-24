@@ -1,5 +1,4 @@
 import { createFileRoute } from "@tanstack/react-router";
-import logoMilitary from "@/assets/logo-military.png.asset.json";
 
 export const Route = createFileRoute("/oferta1")({
   component: Oferta1,
@@ -64,14 +63,6 @@ function Oferta1() {
       <div className="bg-destructive text-destructive-foreground text-center px-4 py-2.5 mil-stencil text-[11px] sm:text-xs font-bold tracking-wide leading-snug">
         ⚠️ TU COMPRA AÚN NO ESTÁ COMPLETA — LEE ESTE AVISO ANTES DE CONTINUAR
       </div>
-      {/* logo */}
-      <div className="relative bg-gradient-to-b from-primary/30 via-primary/10 to-transparent border-b border-accent/30">
-        <div className="max-w-md mx-auto px-4 py-2.5 flex items-center justify-center">
-          <img src={logoMilitary.url} alt="Protocolo Calistenia Militar" className="h-11 object-contain" />
-        </div>
-        <div className="absolute bottom-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-accent/60 to-transparent" />
-      </div>
-
       <section className="max-w-lg mx-auto px-4 py-6 space-y-10">
         {/* ===== OFERTA PRINCIPAL ===== */}
         <div className="text-center space-y-4">
@@ -89,7 +80,7 @@ function Oferta1() {
             <span className="text-accent font-bold">logran resultados reales</span> de los que entrenan meses… haciéndolo todo mal:
           </p>
           <div className="mil-stencil text-lg font-bold text-accent">
-            👁️ Un instructor que corrige tu técnica.
+            👁️ El Militar Garcia corrige tu técnica, en persona.
           </div>
         </div>
 
@@ -112,7 +103,7 @@ function Oferta1() {
             {/* respuesta del profesor */}
             <div className="rounded-xl border border-accent/40 bg-background/50 p-3 space-y-2">
               <div className="flex items-center gap-2 mil-stencil text-[11px] font-bold text-accent">
-                🎖️ TU INSTRUCTOR · WHATSAPP
+                🎖️ MILITAR GARCIA · WHATSAPP
               </div>
               <ul className="space-y-1.5 text-xs">
                 <li className="flex items-center gap-2 text-destructive"><span>✗</span> Brazos muy abiertos</li>
@@ -126,7 +117,7 @@ function Oferta1() {
             </div>
           </div>
           <p className="text-xs text-muted-foreground text-center leading-relaxed">
-            Envías tu video por WhatsApp y un <span className="text-accent font-bold">profesor de educación física te acompaña 1 a 1</span> — corrige tu técnica, analiza tus avances y te dice exactamente qué mejorar para evolucionar más rápido y sin lesionarte.
+            Envías tu video por WhatsApp y el propio <span className="text-accent font-bold">Militar Garcia, profesor de educación física, te acompaña 1 a 1</span> — corrige tu técnica, analiza tus avances y te dice exactamente qué mejorar para evolucionar más rápido y sin lesionarte.
           </p>
         </div>
 
@@ -302,7 +293,8 @@ function Oferta1() {
         <div className="space-y-2">
           <h2 className="mil-stencil text-lg font-bold text-center mb-1">Preguntas frecuentes</h2>
           {[
-            { q: "¿Cómo envío mi video?", a: "Grabas tus flexiones con el celular (10-15 seg) y lo envías por WhatsApp. Recibes tu corrección personalizada, directo en tu chat." },
+            { q: "¿Quién corrige mis videos?", a: "El propio Militar Garcia, profesor de educación física. Él analiza tu técnica, te corrige y te rankea — en persona, no es un robot." },
+            { q: "¿Cómo envío mi video?", a: "Grabas tus flexiones con el celular (10-15 seg) y lo envías por WhatsApp. El Militar Garcia te responde con tu corrección personalizada, directo en tu chat." },
             { q: "¿Sirve para otros ejercicios además de flexiones?", a: "Sí. Puedes enviar cualquier ejercicio del Protocolo por WhatsApp y recibir la corrección de tu técnica." },
             { q: "¿Necesito conocimientos técnicos?", a: "Cero. Solo grabas, envías por WhatsApp y recibes un análisis claro, en lenguaje simple, con lo que debes corregir." },
             { q: "¿Cuántos videos puedo enviar?", a: "Los que necesites durante tu protocolo. Tu acompañamiento por WhatsApp está disponible para ti, 1 a 1." },
