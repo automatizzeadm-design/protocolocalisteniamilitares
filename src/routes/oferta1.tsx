@@ -152,17 +152,6 @@ function Oferta1() {
           </div>
         </div>
 
-        {/* ===== AUTORIDADE: MILITAR GARCIA ===== */}
-        <div className="flex items-center gap-3 rounded-2xl border border-accent/30 bg-card/60 p-4">
-          <div className="h-14 w-14 shrink-0 rounded-xl bg-gradient-to-br from-accent/30 to-primary/20 border border-accent/40 flex items-center justify-center text-2xl">🎖️</div>
-          <div className="min-w-0">
-            <div className="mil-stencil text-sm font-bold text-foreground">Militar Garcia</div>
-            <div className="text-[11px] text-muted-foreground leading-snug">
-              Profesor de educación física y tu instructor personal. Él revisa, corrige y rankea a cada soldado — uno por uno.
-            </div>
-          </div>
-        </div>
-
         <Sep label="El problema" />
         {/* ===== MALEFÍCIOS DE NÃO ADQUIRIR ===== */}
         <div className="space-y-3">
@@ -259,7 +248,7 @@ function Oferta1() {
                 src={bonusSorteos.url}
                 alt="Sorteos de equipamiento"
                 loading="lazy"
-                className="relative w-full max-w-[340px] object-contain mil-float-anim mil-glow-anim rounded-xl drop-shadow-[0_8px_28px_rgba(255,255,255,0.22)]"
+                className="relative w-full max-w-[320px] object-contain mil-sway-anim drop-shadow-[0_8px_28px_rgba(255,255,255,0.22)]"
               />
             </div>
             <p className="text-xs text-muted-foreground leading-relaxed">
