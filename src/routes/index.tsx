@@ -2458,18 +2458,18 @@ function PlanView({
         <Reveal delay={80}>
           <div className="space-y-3 py-1 text-center">
             <div className="mil-stencil text-[11px] text-accent font-bold tracking-widest">
-              🎁 BONUS #2 · MAPA MILITAR
+              🎁 BONUS #2 · SORTEOS DE EQUIPAMIENTO
             </div>
             <div className="mil-stencil text-xl sm:text-2xl font-bold leading-tight">
-              Tu misión, día por día
+              Puedes ser el próximo ganador
             </div>
             <div className="relative flex justify-center py-2">
               <div aria-hidden className="absolute inset-x-8 bottom-2 h-9 rounded-[50%] bg-accent/25 blur-2xl" />
               <img
-                src={mapaMilitar}
-                alt="Mapa Militar 2026"
+                src={bonusSorteos.url}
+                alt="Sorteos de equipamiento Calistenia Militar"
                 loading="lazy"
-                className="relative w-full max-w-[320px] object-contain mil-float-anim drop-shadow-[0_8px_28px_rgba(255,255,255,0.22)]"
+                className="relative w-full max-w-[340px] object-contain mil-float-anim mil-glow-anim rounded-xl drop-shadow-[0_8px_28px_rgba(255,255,255,0.22)]"
                 style={{ animationDelay: "0.7s" }}
               />
             </div>
@@ -2480,7 +2480,7 @@ function PlanView({
               </span>
             </div>
             <p className="text-xs text-muted-foreground leading-relaxed max-w-sm mx-auto">
-              Recibirás un plan en <span className="text-accent font-bold">agenda día por día</span> con cada misión de tu evolución, hasta el día en que alcances tu meta. Todo lo que debes ejecutar cada jornada, sin dudas ni improvisación.
+              Todos los meses <span className="text-accent font-bold">sorteamos equipos de entrenamiento</span> (chaleco, paralelas, bandas, cuerda y más) entre los miembros activos del acompañamiento. ¿No tienes equipo todavía? Aquí lo puedes ganar — gratis.
             </p>
           </div>
         </Reveal>
