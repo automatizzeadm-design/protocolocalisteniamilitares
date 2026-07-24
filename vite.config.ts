@@ -10,9 +10,18 @@ export default defineConfig({
   tanstackStart: {
     // Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
     // nitro/vite builds from this
-    server: { entry: "server" },
-    // Workaround for @tanstack/start-plugin-core@1.171.18 schema defaults not applying nested
-    // ssrStyles defaults when the parent object is defaulted to {}.
+    server: {
+      entry: "server",
+      // Workaround: @tanstack/start-plugin-core@1.171.24 defaults don't apply to nested
+      // objects when the parent defaults to {}. Provide the values explicitly so the
+      // plugin doesn't crash reading startConfig.server.build.inlineCss.enabled.
+      build: { inlineCss: { enabled: false } },
+    },
+    // Workaround for the same nested-defaults bug: the plugin reads
+    // startConfig.serverFns.disableCsrfMiddlewareWarning before the schema default is applied.
+    serverFns: { disableCsrfMiddlewareWarning: false },
+    // Workaround for the same nested-defaults bug: the plugin reads
+    // startConfig.dev.ssrStyles.enabled before the schema default is applied.
     dev: { ssrStyles: { enabled: true } },
   },
 });
