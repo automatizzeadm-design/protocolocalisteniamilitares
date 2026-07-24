@@ -8,7 +8,6 @@ export const Route = createFileRoute("/oferta1")({
 // Checkout da oferta de upsell (Hotmart).
 const UPSELL_CHECKOUT_URL = "https://pay.hotmart.com/Y106848804V?off=1di73p7j&checkoutMode=10&bid=1784860063269";
 const PRICE = "$12";
-const ANCHOR = "$97";
 
 function goUpsell() {
   if (typeof window === "undefined") return;
@@ -53,6 +52,16 @@ function GoldButton({ children }: { children: React.ReactNode }) {
     >
       {children}
     </button>
+  );
+}
+
+function Sep({ label }: { label: string }) {
+  return (
+    <div className="flex items-center gap-3">
+      <div className="flex-1 h-px bg-gradient-to-r from-transparent to-accent/40" />
+      <span className="mil-tag whitespace-nowrap">{label}</span>
+      <div className="flex-1 h-px bg-gradient-to-l from-transparent to-accent/40" />
+    </div>
   );
 }
 
@@ -121,6 +130,18 @@ function Oferta1() {
           </p>
         </div>
 
+        {/* ===== AUTORIDADE: MILITAR GARCIA ===== */}
+        <div className="flex items-center gap-3 rounded-2xl border border-accent/30 bg-card/60 p-4">
+          <div className="h-14 w-14 shrink-0 rounded-xl bg-gradient-to-br from-accent/30 to-primary/20 border border-accent/40 flex items-center justify-center text-2xl">🎖️</div>
+          <div className="min-w-0">
+            <div className="mil-stencil text-sm font-bold text-foreground">Militar Garcia</div>
+            <div className="text-[11px] text-muted-foreground leading-snug">
+              Profesor de educación física y tu instructor personal. Él revisa, corrige y rankea a cada soldado — uno por uno.
+            </div>
+          </div>
+        </div>
+
+        <Sep label="El problema" />
         {/* ===== MALEFÍCIOS DE NÃO ADQUIRIR ===== */}
         <div className="space-y-3">
           <h2 className="mil-stencil text-lg font-bold text-center">
@@ -144,6 +165,7 @@ function Oferta1() {
           </p>
         </div>
 
+        <Sep label="La solución" />
         {/* ===== ULTRA BENEFÍCIOS ===== */}
         <div className="space-y-3">
           <h2 className="mil-stencil text-lg font-bold text-center text-accent">
@@ -168,6 +190,7 @@ function Oferta1() {
           </div>
         </div>
 
+        <Sep label="Bonos incluidos" />
         {/* ===== BÔNUS ===== */}
         <div className="space-y-3">
           <h2 className="mil-stencil text-lg font-bold text-center text-accent">🎁 Y ADEMÁS, TOTALMENTE GRATIS:</h2>
@@ -222,41 +245,41 @@ function Oferta1() {
           </div>
         </div>
 
-        {/* ===== ANCORAGEM DE VALOR ===== */}
-        <div className="rounded-2xl border border-accent/40 bg-gradient-to-b from-primary/15 to-card p-5 space-y-3 shadow-lg shadow-accent/5">
+        <Sep label="Tu inversión de hoy" />
+        {/* ===== VALUE STACK + PREÇO ===== */}
+        <div className="rounded-2xl border border-accent/50 bg-gradient-to-b from-primary/15 to-card p-5 space-y-4 shadow-lg shadow-accent/5">
           <h3 className="mil-stencil text-sm font-bold text-accent text-center tracking-wider">
-            LO QUE COSTARÍA TENER ESTO POR FUERA
+            TODO LO QUE RECIBES HOY
           </h3>
           <ul className="space-y-2">
-            <li className="flex justify-between items-center text-sm border-b border-border/50 pb-2">
-              <span className="text-foreground">Entrenador personal presencial</span>
-              <span className="mil-stencil font-bold text-destructive line-through">$120/mes</span>
+            <li className="flex justify-between items-center gap-3 text-sm border-b border-border/50 pb-2">
+              <span className="text-foreground">Acompañamiento 1 a 1 con el Militar Garcia</span>
+              <span className="mil-stencil font-bold text-accent shrink-0">$97</span>
             </li>
-            <li className="flex justify-between items-center text-sm border-b border-border/50 pb-2">
-              <span className="text-foreground">App de coaching con seguimiento</span>
-              <span className="mil-stencil font-bold text-destructive line-through">$40/mes</span>
+            <li className="flex justify-between items-center gap-3 text-sm border-b border-border/50 pb-2">
+              <span className="text-foreground">🏅 Grupo de Ranking + premios en dinero</span>
+              <span className="mil-stencil font-bold text-accent shrink-0">$67</span>
+            </li>
+            <li className="flex justify-between items-center gap-3 text-sm border-b border-border/50 pb-2">
+              <span className="text-foreground">🎁 Sorteos de equipamiento (cada mes)</span>
+              <span className="mil-stencil font-bold text-accent shrink-0">$47</span>
             </li>
             <li className="flex justify-between items-center pt-1">
-              <span className="mil-stencil font-bold text-base text-accent">Acompañamiento Militar 1 a 1</span>
-              <span className="mil-stencil font-bold text-accent">Pago único</span>
+              <span className="mil-stencil font-bold text-base">VALOR TOTAL</span>
+              <span className="mil-stencil font-bold text-2xl text-destructive line-through decoration-2">$211</span>
             </li>
           </ul>
-        </div>
 
-        {/* ===== VALOR + CTA ===== */}
-        <div className="text-center space-y-3">
-          <p className="text-sm text-muted-foreground">
-            Hoy, solo por asegurar tu Protocolo, lo agregas por una fracción:
+          <p className="text-center text-sm text-foreground">
+            Pero hoy, solo por asegurar tu Protocolo, lo agregas todo por:
           </p>
+
           <GoldButton>
             <div className="mil-stencil text-xs font-bold" style={{ color: "#3d2c00" }}>
               🎖️ AGREGAR A MI PEDIDO — SOLO AHORA
             </div>
             <div className="mil-stencil text-base font-bold mt-1.5" style={{ color: "#2a1e00" }}>
-              ACOMPAÑAMIENTO MILITAR
-            </div>
-            <div className="mil-stencil text-xl font-bold leading-none line-through decoration-2 mt-0.5" style={{ color: "#b91c1c" }}>
-              {ANCHOR}
+              ACOMPAÑAMIENTO + 2 BONOS
             </div>
             <div className="mil-stencil font-extrabold leading-none mt-1" style={{ fontSize: "4.5rem", color: "#ffffff", textShadow: "0 3px 10px rgba(0,0,0,0.4), 0 1px 2px rgba(0,0,0,0.55)" }}>
               {PRICE}
@@ -265,11 +288,12 @@ function Oferta1() {
               Pago único · Se suma a tu compra · Acceso inmediato
             </div>
           </GoldButton>
-          <button onClick={decline} className="text-[11px] text-muted-foreground/70 hover:text-muted-foreground underline underline-offset-2">
+          <button onClick={decline} className="block w-full text-center text-[11px] text-muted-foreground/70 hover:text-muted-foreground underline underline-offset-2">
             No, gracias. Prefiero arriesgarme y entrenar sin corrección →
           </button>
         </div>
 
+        <Sep label="Garantía" />
         {/* ===== GARANTIA ===== */}
         <div className="rounded-2xl border border-accent/40 bg-gradient-to-b from-accent/10 to-card p-5 text-center shadow-lg shadow-accent/5">
           <div className="flex justify-center mb-3">
@@ -289,6 +313,7 @@ function Oferta1() {
           </p>
         </div>
 
+        <Sep label="Dudas frecuentes" />
         {/* ===== FAQ ===== */}
         <div className="space-y-2">
           <h2 className="mil-stencil text-lg font-bold text-center mb-1">Preguntas frecuentes</h2>
