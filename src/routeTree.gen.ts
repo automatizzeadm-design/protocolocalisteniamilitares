@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TesteRouteImport } from './routes/teste'
+import { Route as Oferta1RouteImport } from './routes/oferta1'
 import { Route as MiembrosRouteImport } from './routes/miembros'
 import { Route as GraciasRouteImport } from './routes/gracias'
 import { Route as AccesoRouteImport } from './routes/acceso'
@@ -18,6 +19,11 @@ import { Route as IndexRouteImport } from './routes/index'
 const TesteRoute = TesteRouteImport.update({
   id: '/teste',
   path: '/teste',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const Oferta1Route = Oferta1RouteImport.update({
+  id: '/oferta1',
+  path: '/oferta1',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MiembrosRoute = MiembrosRouteImport.update({
@@ -46,6 +52,7 @@ export interface FileRoutesByFullPath {
   '/acceso': typeof AccesoRoute
   '/gracias': typeof GraciasRoute
   '/miembros': typeof MiembrosRoute
+  '/oferta1': typeof Oferta1Route
   '/teste': typeof TesteRoute
 }
 export interface FileRoutesByTo {
@@ -53,6 +60,7 @@ export interface FileRoutesByTo {
   '/acceso': typeof AccesoRoute
   '/gracias': typeof GraciasRoute
   '/miembros': typeof MiembrosRoute
+  '/oferta1': typeof Oferta1Route
   '/teste': typeof TesteRoute
 }
 export interface FileRoutesById {
@@ -61,14 +69,22 @@ export interface FileRoutesById {
   '/acceso': typeof AccesoRoute
   '/gracias': typeof GraciasRoute
   '/miembros': typeof MiembrosRoute
+  '/oferta1': typeof Oferta1Route
   '/teste': typeof TesteRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/acceso' | '/gracias' | '/miembros' | '/teste'
+  fullPaths: '/' | '/acceso' | '/gracias' | '/miembros' | '/oferta1' | '/teste'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/acceso' | '/gracias' | '/miembros' | '/teste'
-  id: '__root__' | '/' | '/acceso' | '/gracias' | '/miembros' | '/teste'
+  to: '/' | '/acceso' | '/gracias' | '/miembros' | '/oferta1' | '/teste'
+  id:
+    | '__root__'
+    | '/'
+    | '/acceso'
+    | '/gracias'
+    | '/miembros'
+    | '/oferta1'
+    | '/teste'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -76,6 +92,7 @@ export interface RootRouteChildren {
   AccesoRoute: typeof AccesoRoute
   GraciasRoute: typeof GraciasRoute
   MiembrosRoute: typeof MiembrosRoute
+  Oferta1Route: typeof Oferta1Route
   TesteRoute: typeof TesteRoute
 }
 
@@ -86,6 +103,13 @@ declare module '@tanstack/react-router' {
       path: '/teste'
       fullPath: '/teste'
       preLoaderRoute: typeof TesteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/oferta1': {
+      id: '/oferta1'
+      path: '/oferta1'
+      fullPath: '/oferta1'
+      preLoaderRoute: typeof Oferta1RouteImport
       parentRoute: typeof rootRouteImport
     }
     '/miembros': {
@@ -124,6 +148,7 @@ const rootRouteChildren: RootRouteChildren = {
   AccesoRoute: AccesoRoute,
   GraciasRoute: GraciasRoute,
   MiembrosRoute: MiembrosRoute,
+  Oferta1Route: Oferta1Route,
   TesteRoute: TesteRoute,
 }
 export const routeTree = rootRouteImport
