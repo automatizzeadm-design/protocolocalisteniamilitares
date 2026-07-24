@@ -60,6 +60,10 @@ function GoldButton({ children }: { children: React.ReactNode }) {
 function Oferta1() {
   return (
     <main className="min-h-screen bg-background text-foreground">
+      {/* aviso rojo */}
+      <div className="bg-destructive text-destructive-foreground text-center px-4 py-2.5 mil-stencil text-[11px] sm:text-xs font-bold tracking-wide leading-snug">
+        ⚠️ TU COMPRA AÚN NO ESTÁ COMPLETA — LEE ESTE AVISO ANTES DE CONTINUAR
+      </div>
       {/* logo */}
       <div className="relative bg-gradient-to-b from-primary/30 via-primary/10 to-transparent border-b border-accent/30">
         <div className="max-w-md mx-auto px-4 py-2.5 flex items-center justify-center">
@@ -89,7 +93,7 @@ function Oferta1() {
           </div>
         </div>
 
-        {/* ===== DEMO: video + IA ===== */}
+        {/* ===== DEMO: video + WhatsApp ===== */}
         <div className="rounded-2xl border border-accent/30 bg-card/70 p-5 space-y-4 shadow-lg shadow-accent/5">
           <div className="mil-stencil text-[11px] text-accent font-bold tracking-widest text-center">
             ASÍ FUNCIONA TU ACOMPAÑAMIENTO MILITAR POR WHATSAPP
@@ -105,7 +109,7 @@ function Oferta1() {
                 </span>
               </div>
             </div>
-            {/* respuesta IA */}
+            {/* respuesta del profesor */}
             <div className="rounded-xl border border-accent/40 bg-background/50 p-3 space-y-2">
               <div className="flex items-center gap-2 mil-stencil text-[11px] font-bold text-accent">
                 🎖️ TU INSTRUCTOR · WHATSAPP
@@ -122,7 +126,7 @@ function Oferta1() {
             </div>
           </div>
           <p className="text-xs text-muted-foreground text-center leading-relaxed">
-            Envías tu video por WhatsApp y un <span className="text-accent font-bold">instructor te acompaña 1 a 1</span> — analiza tu técnica y te dice exactamente qué corregir para evolucionar más rápido y sin lesionarte.
+            Envías tu video por WhatsApp y un <span className="text-accent font-bold">profesor de educación física te acompaña 1 a 1</span> — corrige tu técnica, analiza tus avances y te dice exactamente qué mejorar para evolucionar más rápido y sin lesionarte.
           </p>
         </div>
 
@@ -170,6 +174,43 @@ function Oferta1() {
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+
+        {/* ===== BÔNUS ===== */}
+        <div className="space-y-3">
+          <h2 className="mil-stencil text-lg font-bold text-center text-accent">🎁 Y ADEMÁS, TOTALMENTE GRATIS:</h2>
+
+          {/* Bono 1: Ranking */}
+          <div className="rounded-2xl border border-accent/30 bg-gradient-to-br from-card to-secondary/20 p-4 space-y-3 shadow-lg shadow-accent/5">
+            <div className="flex items-center gap-2">
+              <span className="text-2xl">🏅</span>
+              <div className="mil-stencil text-sm font-bold text-accent">BONO 1 · GRUPO DE RANKING MILITAR</div>
+            </div>
+            <p className="text-xs text-muted-foreground leading-relaxed">
+              Entras a un grupo exclusivo donde compites con otros soldados. Cumples tus misiones, sumas puntos y <span className="text-accent font-bold">subes de patente</span>:
+            </p>
+            <div className="flex flex-wrap gap-1.5">
+              {["Recluta", "Cabo", "Sargento", "Teniente", "Capitán", "Comandante"].map((p, i) => (
+                <span key={p} className="mil-stencil text-[9px] font-bold px-2 py-1 rounded-full border border-accent/30 bg-accent/10 text-accent">
+                  {i + 1}. {p}
+                </span>
+              ))}
+            </div>
+            <div className="rounded-lg bg-accent/10 border border-accent/30 p-3 text-xs text-foreground/90 leading-relaxed">
+              💰 <span className="font-bold text-accent">Al final de cada mes, los puestos 1°, 2° y 3° del ranking ganan PREMIOS EN DINERO.</span> Entrena, compite y gana de verdad.
+            </div>
+          </div>
+
+          {/* Bono 2: Sorteos */}
+          <div className="rounded-2xl border border-accent/30 bg-gradient-to-br from-card to-secondary/20 p-4 space-y-3 shadow-lg shadow-accent/5">
+            <div className="flex items-center gap-2">
+              <span className="text-2xl">🎁</span>
+              <div className="mil-stencil text-sm font-bold text-accent">BONO 2 · SORTEOS DE EQUIPAMIENTO</div>
+            </div>
+            <p className="text-xs text-muted-foreground leading-relaxed">
+              <span className="text-accent font-bold">Todos los meses sorteamos equipos de entrenamiento</span> entre los miembros del acompañamiento. ¿No tienes equipo todavía? Aquí lo puedes ganar — gratis.
+            </p>
           </div>
         </div>
 
