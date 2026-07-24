@@ -198,6 +198,9 @@ function Oferta1() {
               <span className="text-2xl">🏅</span>
               <div className="mil-stencil text-sm font-bold text-accent">BONO 1 · GRUPO DE RANKING MILITAR</div>
             </div>
+            <div className="overflow-hidden rounded-xl border border-accent/30">
+              <img src={bonusRankingAsset.url} alt="Ranking Militar" className="w-full h-auto mil-sway-anim" loading="lazy" />
+            </div>
             <p className="text-xs text-muted-foreground leading-relaxed">
               Entras a un grupo exclusivo donde compites con otros soldados. Cumples tus misiones, sumas puntos y <span className="text-accent font-bold">subes de patente</span>:
             </p>
