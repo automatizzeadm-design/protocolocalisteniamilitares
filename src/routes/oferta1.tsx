@@ -99,13 +99,7 @@ function Oferta1() {
           <div className="mil-stencil text-[11px] text-accent font-bold tracking-widest text-center">
             ASÍ FUNCIONA TU ACOMPAÑAMIENTO MILITAR POR WHATSAPP
           </div>
-          <img
-            src={notaAsset.url}
-            alt="Militar Garcia evaluando tu técnica: NOTA 7.8/10 — Tenemos que mejorar algunos aspectos"
-            className="w-full rounded-xl border border-accent/30 bg-card/50 object-contain shadow-lg shadow-accent/5"
-            loading="lazy"
-          />
-          <div className="grid sm:grid-cols-2 gap-3 items-center">
+          <div className="grid sm:grid-cols-2 gap-3 items-start">
             {/* "video" grabado */}
             <div className="relative rounded-xl overflow-hidden border border-border/60" style={{ background: "linear-gradient(135deg, oklch(0.34 0.05 140), oklch(0.2 0.03 150))" }}>
               <div className="aspect-[3/4] flex flex-col items-center justify-center gap-2">
@@ -116,22 +110,31 @@ function Oferta1() {
                 </span>
               </div>
             </div>
-            {/* respuesta del profesor */}
-            <div className="rounded-xl border border-accent/40 bg-background/50 p-3 space-y-2">
-              <div className="flex items-center gap-2 mil-stencil text-[11px] font-bold text-accent">
-                🎖️ MILITAR GARCIA · WHATSAPP
-              </div>
-              <ul className="space-y-1.5 text-xs">
-                <li className="flex items-center gap-2 text-destructive"><span>✗</span> Brazos muy abiertos</li>
-                <li className="flex items-center gap-2 text-destructive"><span>✗</span> Cadera baja</li>
-                <li className="flex items-center gap-2 text-destructive"><span>✗</span> Ritmo lento</li>
-                <li className="flex items-center gap-2 text-destructive"><span>✗</span> Amplitud pobre</li>
-              </ul>
-              <div className="rounded-lg bg-accent/10 border border-accent/30 p-2 text-[11px] text-foreground/90">
-                → Corrige esto y cada flexión valdrá <span className="text-accent font-bold">el doble</span>.
+            {/* evaluación + respuesta del profesor */}
+            <div className="space-y-3">
+              <img
+                src={notaAsset.url}
+                alt="Militar Garcia evaluando tu técnica: NOTA 7.8/10 — Tenemos que mejorar algunos aspectos"
+                className="w-full rounded-xl border border-accent/30 bg-card/50 object-contain shadow-lg shadow-accent/5"
+                loading="lazy"
+              />
+              <div className="rounded-xl border border-accent/40 bg-background/50 p-3 space-y-2">
+                <div className="flex items-center gap-2 mil-stencil text-[11px] font-bold text-accent">
+                  🎖️ MILITAR GARCIA · WHATSAPP
+                </div>
+                <ul className="space-y-1.5 text-xs">
+                  <li className="flex items-center gap-2 text-destructive"><span>✗</span> Brazos muy abiertos</li>
+                  <li className="flex items-center gap-2 text-destructive"><span>✗</span> Cadera baja</li>
+                  <li className="flex items-center gap-2 text-destructive"><span>✗</span> Ritmo lento</li>
+                  <li className="flex items-center gap-2 text-destructive"><span>✗</span> Amplitud pobre</li>
+                </ul>
+                <div className="rounded-lg bg-accent/10 border border-accent/30 p-2 text-[11px] text-foreground/90">
+                  → Corrige esto y cada flexión valdrá <span className="text-accent font-bold">el doble</span>.
+                </div>
               </div>
             </div>
           </div>
+
           <p className="text-xs text-muted-foreground text-center leading-relaxed">
             Envías <span className="text-foreground font-bold">videos, fotos, dudas o mensajes</span> por WhatsApp — <span className="text-accent font-bold">a cualquier hora, las 24 horas</span> — y el propio <span className="text-accent font-bold">Militar Garcia, profesor de educación física, te acompaña 1 a 1</span>: corrige tu técnica, resuelve tus dudas y te dice exactamente qué mejorar para evolucionar más rápido y sin lesionarte.
           </p>
