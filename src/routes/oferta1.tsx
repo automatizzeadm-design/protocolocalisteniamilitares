@@ -1,4 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
+import bonusRankingAsset from "@/assets/bonus-ranking-militar.png.asset.json";
+import bonusSorteosAsset from "@/assets/bonus-sorteos-equipamiento.png.asset.json";
 
 export const Route = createFileRoute("/oferta1")({
   component: Oferta1,
@@ -133,16 +135,8 @@ function Oferta1() {
           </div>
         </div>
 
-        {/* ===== AUTORIDADE: MILITAR GARCIA ===== */}
-        <div className="flex items-center gap-3 rounded-2xl border border-accent/30 bg-card/60 p-4">
-          <div className="h-14 w-14 shrink-0 rounded-xl bg-gradient-to-br from-accent/30 to-primary/20 border border-accent/40 flex items-center justify-center text-2xl">🎖️</div>
-          <div className="min-w-0">
-            <div className="mil-stencil text-sm font-bold text-foreground">Militar Garcia</div>
-            <div className="text-[11px] text-muted-foreground leading-snug">
-              Profesor de educación física y tu instructor personal. Él revisa, corrige y rankea a cada soldado — uno por uno.
-            </div>
-          </div>
-        </div>
+
+
 
         <Sep label="El problema" />
         {/* ===== MALEFÍCIOS DE NÃO ADQUIRIR ===== */}
@@ -204,6 +198,9 @@ function Oferta1() {
               <span className="text-2xl">🏅</span>
               <div className="mil-stencil text-sm font-bold text-accent">BONO 1 · GRUPO DE RANKING MILITAR</div>
             </div>
+            <div className="overflow-hidden rounded-xl border border-accent/30">
+              <img src={bonusRankingAsset.url} alt="Ranking Militar" className="w-full h-auto mil-sway-anim" loading="lazy" />
+            </div>
             <p className="text-xs text-muted-foreground leading-relaxed">
               Entras a un grupo exclusivo donde compites con otros soldados. Cumples tus misiones, sumas puntos y <span className="text-accent font-bold">subes de patente</span>:
             </p>
@@ -224,6 +221,9 @@ function Oferta1() {
             <div className="flex items-center gap-2">
               <span className="text-2xl">🎁</span>
               <div className="mil-stencil text-sm font-bold text-accent">BONO 2 · SORTEOS DE EQUIPAMIENTO</div>
+            </div>
+            <div className="overflow-hidden rounded-xl border border-accent/30">
+              <img src={bonusSorteosAsset.url} alt="Sorteos de Equipamiento" className="w-full h-auto mil-sway-anim" loading="lazy" />
             </div>
             <p className="text-xs text-muted-foreground leading-relaxed">
               <span className="text-accent font-bold">Todos los meses sorteamos equipos de entrenamiento</span> entre los miembros del acompañamiento. ¿No tienes equipo todavía? Aquí lo puedes ganar — gratis.
