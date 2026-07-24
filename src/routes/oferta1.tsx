@@ -90,7 +90,7 @@ function Oferta1() {
             Ya aseguraste tu Protocolo. Pero déjame contarte lo que separa a los soldados que{" "}
             <span className="text-accent font-bold">logran resultados reales</span> de los que entrenan meses… haciéndolo todo mal:
           </p>
-          <div className="mil-stencil text-lg font-bold text-accent">
+          <div className="mil-stencil text-lg font-bold text-green-500 underline underline-offset-4 decoration-green-500">
             👁️ El Militar Garcia corrige tu técnica, en persona.
           </div>
         </div>
