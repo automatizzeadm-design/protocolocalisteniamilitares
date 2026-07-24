@@ -2105,7 +2105,7 @@ function OfferBlock({ onBuy }: { onBuy: () => void }) {
   const items = [
     { label: "Aplicación Protocolo Militar", value: "$97" },
     { label: "Bonus #1 — Guía Alimentación Militar", value: "$27" },
-    { label: "Bonus #2 — Mapa Militar (Agenda)", value: "$14" },
+    { label: "Bonus #2 — Sorteos de Equipamiento", value: "$14" },
     { label: "Bonus #3 — Test TMB Online", value: "$12" },
   ];
 
