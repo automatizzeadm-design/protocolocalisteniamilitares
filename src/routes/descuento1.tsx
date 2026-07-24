@@ -6,8 +6,8 @@ export const Route = createFileRoute("/descuento1")({
   head: () => ({ meta: [{ title: "Espera — Descuento Especial (solo 5 minutos)" }] }),
 });
 
-// ⚠️ TROCA por el link de tu oferta de $9 en Hotmart (downsell).
-const DOWNSELL_CHECKOUT_URL = "https://pay.hotmart.com/Y106848804V?off=1di73p7j&checkoutMode=10&bid=1784860063269";
+// Checkout da oferta de downsell $9 (Hotmart).
+const DOWNSELL_CHECKOUT_URL = "https://pay.hotmart.com/Y106848804V?off=ibl4jbvq&checkoutMode=10";
 const PRICE = "$9";
 
 function goCheckout() {
