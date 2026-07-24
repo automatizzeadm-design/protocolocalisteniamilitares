@@ -222,6 +222,9 @@ function Oferta1() {
               <span className="text-2xl">🎁</span>
               <div className="mil-stencil text-sm font-bold text-accent">BONO 2 · SORTEOS DE EQUIPAMIENTO</div>
             </div>
+            <div className="overflow-hidden rounded-xl border border-accent/30">
+              <img src={bonusSorteosAsset.url} alt="Sorteos de Equipamiento" className="w-full h-auto mil-sway-anim" loading="lazy" />
+            </div>
             <p className="text-xs text-muted-foreground leading-relaxed">
               <span className="text-accent font-bold">Todos los meses sorteamos equipos de entrenamiento</span> entre los miembros del acompañamiento. ¿No tienes equipo todavía? Aquí lo puedes ganar — gratis.
             </p>
