@@ -17,8 +17,9 @@ import testimonial2 from "@/assets/testimonial-2.png.asset.json";
 
 import programPreview from "@/assets/program-preview.jpg";
 import calendar2026 from "@/assets/calendar-2026.jpg";
-import { bonus2 as mapaMilitar, bonus3 as bonusTmb, logoQue } from "@/assets/bonusImages";
-import bonusRankingMilitar from "@/assets/bonus-ranking-militar.png.asset.json";
+import { bonus3 as bonusTmb, logoQue } from "@/assets/bonusImages";
+import bonusAlimentacion from "@/assets/bonus-alimentacion-militar.png.asset.json";
+import bonusSorteos from "@/assets/bonus-sorteos-equipamiento.png.asset.json";
 import { supabase } from "@/lib/supabase";
 
 
