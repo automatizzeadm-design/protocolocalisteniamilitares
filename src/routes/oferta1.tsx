@@ -1,6 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import notaAsset from "@/assets/NOTA_7.810.png.asset.json";
 import homeWorkoutDemoAsset from "@/assets/home-workout-demo.png.asset.json";
+import bonusRanking from "@/assets/bonus-ranking-militar.png.asset.json";
+import bonusSorteos from "@/assets/bonus-sorteos-equipamiento.png.asset.json";
 
 export const Route = createFileRoute("/oferta1")({
   component: Oferta1,
@@ -221,6 +223,15 @@ function Oferta1() {
               <span className="text-2xl">🏅</span>
               <div className="mil-stencil text-sm font-bold text-accent">BONO 1 · GRUPO DE RANKING MILITAR</div>
             </div>
+            <div className="relative flex justify-center py-1">
+              <div aria-hidden className="absolute inset-x-8 bottom-1 h-8 rounded-[50%] bg-accent/25 blur-2xl" />
+              <img
+                src={bonusRanking.url}
+                alt="Grupo de Ranking Militar"
+                loading="lazy"
+                className="relative w-full max-w-[320px] object-contain mil-sway-anim drop-shadow-[0_8px_28px_rgba(255,255,255,0.22)]"
+              />
+            </div>
             <p className="text-xs text-muted-foreground leading-relaxed">
               Entras a un grupo exclusivo donde compites con otros soldados. Cumples tus misiones, sumas puntos y <span className="text-accent font-bold">subes de patente</span>:
             </p>
@@ -241,6 +252,15 @@ function Oferta1() {
             <div className="flex items-center gap-2">
               <span className="text-2xl">🎁</span>
               <div className="mil-stencil text-sm font-bold text-accent">BONO 2 · SORTEOS DE EQUIPAMIENTO</div>
+            </div>
+            <div className="relative flex justify-center py-1">
+              <div aria-hidden className="absolute inset-x-8 bottom-1 h-8 rounded-[50%] bg-accent/25 blur-2xl" />
+              <img
+                src={bonusSorteos.url}
+                alt="Sorteos de equipamiento"
+                loading="lazy"
+                className="relative w-full max-w-[340px] object-contain mil-float-anim mil-glow-anim rounded-xl drop-shadow-[0_8px_28px_rgba(255,255,255,0.22)]"
+              />
             </div>
             <p className="text-xs text-muted-foreground leading-relaxed">
               <span className="text-accent font-bold">Todos los meses sorteamos equipos de entrenamiento</span> entre los miembros del acompañamiento. ¿No tienes equipo todavía? Aquí lo puedes ganar — gratis.
