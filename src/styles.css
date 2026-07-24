@@ -211,6 +211,12 @@
   0%, 100% { box-shadow: 0 0 0 0 oklch(0.72 0.16 130 / 0.0); }
   50% { box-shadow: 0 0 22px 2px oklch(0.72 0.16 130 / 0.45); }
 }
+@keyframes mil-sway {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  25% { transform: translateY(-4px) rotate(0.8deg); }
+  50% { transform: translateY(-2px) rotate(-0.4deg); }
+  75% { transform: translateY(-5px) rotate(0.5deg); }
+}
 @keyframes mil-shimmer {
   0% { background-position: -150% 0; }
   100% { background-position: 250% 0; }
@@ -261,6 +267,9 @@
 }
 @utility mil-glow-anim {
   animation: mil-glow 2.4s ease-in-out infinite;
+}
+@utility mil-sway-anim {
+  animation: mil-sway 4.5s ease-in-out infinite;
 }
 
 /* ---- Chip de emoji dentro das opções do quiz ---- */

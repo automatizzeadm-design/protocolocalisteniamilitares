@@ -17,7 +17,8 @@ import testimonial2 from "@/assets/testimonial-2.png.asset.json";
 
 import programPreview from "@/assets/program-preview.jpg";
 import calendar2026 from "@/assets/calendar-2026.jpg";
-import { bonus1 as bonusAlimentacion, bonus2 as mapaMilitar, bonus3 as bonusTmb, logoQue } from "@/assets/bonusImages";
+import { bonus2 as mapaMilitar, bonus3 as bonusTmb, logoQue } from "@/assets/bonusImages";
+import bonusRankingMilitar from "@/assets/bonus-ranking-militar.png.asset.json";
 import { supabase } from "@/lib/supabase";
 
 
@@ -2434,10 +2435,10 @@ function PlanView({
             <div className="relative flex justify-center py-2">
               <div aria-hidden className="absolute inset-x-8 bottom-2 h-9 rounded-[50%] bg-accent/25 blur-2xl" />
               <img
-                src={bonusAlimentacion}
-                alt="Guía de Alimentación Militar"
+                src={bonusRankingMilitar.url}
+                alt="Bonus de Ranking Militar"
                 loading="lazy"
-                className="relative w-full max-w-[320px] object-contain mil-float-anim drop-shadow-[0_8px_28px_rgba(255,255,255,0.22)]"
+                className="relative w-full max-w-[320px] object-contain mil-sway-anim drop-shadow-[0_8px_28px_rgba(255,255,255,0.22)]"
               />
             </div>
             <div className="flex justify-center">
