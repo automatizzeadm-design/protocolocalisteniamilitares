@@ -1,4 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
+import bonusRankingAsset from "@/assets/bonus-ranking-militar.png.asset.json";
+import bonusSorteosAsset from "@/assets/bonus-sorteos-equipamiento.png.asset.json";
 
 export const Route = createFileRoute("/oferta1")({
   component: Oferta1,
