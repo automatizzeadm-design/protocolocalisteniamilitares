@@ -11,5 +11,8 @@ export default defineConfig({
     // Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
     // nitro/vite builds from this
     server: { entry: "server" },
+    // Workaround for @tanstack/start-plugin-core@1.171.18 schema defaults not applying nested
+    // ssrStyles defaults when the parent object is defaulted to {}.
+    dev: { ssrStyles: { enabled: true } },
   },
 });
