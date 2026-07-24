@@ -6,9 +6,9 @@ export const Route = createFileRoute("/oferta1")({
   head: () => ({ meta: [{ title: "Oferta Exclusiva — Acompañamiento Militar Individual" }] }),
 });
 
-// ⚠️ TROCA por el link de tu OFERTA de upsell en Hotmart (producto/oferta distinta).
-const UPSELL_CHECKOUT_URL = "https://pay.hotmart.com/X106733968U?off=9ja011jc&checkoutMode=10";
-const PRICE = "$17";
+// Checkout da oferta de upsell (Hotmart).
+const UPSELL_CHECKOUT_URL = "https://pay.hotmart.com/Y106848804V?off=1di73p7j&checkoutMode=10&bid=1784860063269";
+const PRICE = "$12";
 const ANCHOR = "$97";
 
 function goUpsell() {
