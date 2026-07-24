@@ -101,15 +101,21 @@ function Oferta1() {
             ASÍ FUNCIONA TU ACOMPAÑAMIENTO MILITAR POR WHATSAPP
           </div>
           <div className="grid sm:grid-cols-2 gap-3 items-start">
-            {/* "video" grabado */}
-            <div className="relative rounded-xl overflow-hidden border border-border/60" style={{ background: "linear-gradient(135deg, oklch(0.34 0.05 140), oklch(0.2 0.03 150))" }}>
-              <div className="aspect-[3/4] flex flex-col items-center justify-center gap-2">
-                <span className="text-4xl">🎥</span>
-                <span className="mil-stencil text-[10px] text-white/80 tracking-widest text-center px-2">VIDEOS · FOTOS · DUDAS<br />POR WHATSAPP</span>
-                <span className="absolute top-2 left-2 flex items-center gap-1 text-[9px] text-red-400 mil-stencil">
-                  <span className="inline-block h-2 w-2 rounded-full bg-red-500 animate-pulse" /> REC
-                </span>
-              </div>
+            {/* video grabado */}
+            <div className="relative rounded-xl overflow-hidden border border-border/60 bg-black">
+              <img
+                src={homeWorkoutDemoAsset.url}
+                alt="Demo de entrenamiento militar enviado por WhatsApp"
+                className="w-full aspect-[3/4] object-cover"
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
+              <span className="absolute top-2 left-2 flex items-center gap-1 text-[9px] text-red-400 mil-stencil bg-black/40 px-1.5 py-0.5 rounded">
+                <span className="inline-block h-2 w-2 rounded-full bg-red-500 animate-pulse" /> REC
+              </span>
+              <span className="absolute bottom-3 left-0 right-0 text-center mil-stencil text-[10px] text-white/90 tracking-widest px-2">
+                VIDEOS · FOTOS · DUDAS<br />POR WHATSAPP
+              </span>
             </div>
             {/* evaluación + respuesta del profesor */}
             <div className="space-y-3">
