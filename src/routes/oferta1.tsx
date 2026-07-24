@@ -223,6 +223,15 @@ function Oferta1() {
               <span className="text-2xl">🏅</span>
               <div className="mil-stencil text-sm font-bold text-accent">BONO 1 · GRUPO DE RANKING MILITAR</div>
             </div>
+            <div className="relative flex justify-center py-1">
+              <div aria-hidden className="absolute inset-x-8 bottom-1 h-8 rounded-[50%] bg-accent/25 blur-2xl" />
+              <img
+                src={bonusRanking.url}
+                alt="Grupo de Ranking Militar"
+                loading="lazy"
+                className="relative w-full max-w-[320px] object-contain mil-sway-anim drop-shadow-[0_8px_28px_rgba(255,255,255,0.22)]"
+              />
+            </div>
             <p className="text-xs text-muted-foreground leading-relaxed">
               Entras a un grupo exclusivo donde compites con otros soldados. Cumples tus misiones, sumas puntos y <span className="text-accent font-bold">subes de patente</span>:
             </p>
