@@ -2435,10 +2435,10 @@ function PlanView({
             <div className="relative flex justify-center py-2">
               <div aria-hidden className="absolute inset-x-8 bottom-2 h-9 rounded-[50%] bg-accent/25 blur-2xl" />
               <img
-                src={bonusAlimentacion}
-                alt="Guía de Alimentación Militar"
+                src={bonusRankingMilitar.url}
+                alt="Bonus de Ranking Militar"
                 loading="lazy"
-                className="relative w-full max-w-[320px] object-contain mil-float-anim drop-shadow-[0_8px_28px_rgba(255,255,255,0.22)]"
+                className="relative w-full max-w-[320px] object-contain mil-sway-anim drop-shadow-[0_8px_28px_rgba(255,255,255,0.22)]"
               />
             </div>
             <div className="flex justify-center">
