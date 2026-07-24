@@ -103,7 +103,7 @@ function Oferta1() {
             <div className="relative rounded-xl overflow-hidden border border-border/60" style={{ background: "linear-gradient(135deg, oklch(0.34 0.05 140), oklch(0.2 0.03 150))" }}>
               <div className="aspect-[3/4] flex flex-col items-center justify-center gap-2">
                 <span className="text-4xl">🎥</span>
-                <span className="mil-stencil text-[10px] text-white/80 tracking-widest text-center px-2">GRABAS Y ENVÍAS<br />POR WHATSAPP</span>
+                <span className="mil-stencil text-[10px] text-white/80 tracking-widest text-center px-2">VIDEOS · FOTOS · DUDAS<br />POR WHATSAPP</span>
                 <span className="absolute top-2 left-2 flex items-center gap-1 text-[9px] text-red-400 mil-stencil">
                   <span className="inline-block h-2 w-2 rounded-full bg-red-500 animate-pulse" /> REC
                 </span>
@@ -126,8 +126,11 @@ function Oferta1() {
             </div>
           </div>
           <p className="text-xs text-muted-foreground text-center leading-relaxed">
-            Envías tu video por WhatsApp y el propio <span className="text-accent font-bold">Militar Garcia, profesor de educación física, te acompaña 1 a 1</span> — corrige tu técnica, analiza tus avances y te dice exactamente qué mejorar para evolucionar más rápido y sin lesionarte.
+            Envías <span className="text-foreground font-bold">videos, fotos, dudas o mensajes</span> por WhatsApp — <span className="text-accent font-bold">a cualquier hora, las 24 horas</span> — y el propio <span className="text-accent font-bold">Militar Garcia, profesor de educación física, te acompaña 1 a 1</span>: corrige tu técnica, resuelve tus dudas y te dice exactamente qué mejorar para evolucionar más rápido y sin lesionarte.
           </p>
+          <div className="flex justify-center">
+            <span className="mil-tag">📲 24 horas al día · cualquier hora</span>
+          </div>
         </div>
 
         {/* ===== AUTORIDADE: MILITAR GARCIA ===== */}
@@ -177,7 +180,7 @@ function Oferta1() {
               { i: "⚡", t: "Resultados hasta 3x más rápidos", d: "Cada repetición perfecta suma. Dejas de perder tiempo." },
               { i: "🛡️", t: "Cero lesiones", d: "Proteges hombros, codos, muñecas y espalda desde el día 1." },
               { i: "📈", t: "Ajustes personalizados", d: "Feedback según TU cuerpo y TU evolución, no un plan genérico." },
-              { i: "🕐", t: "Tu sargento en tu WhatsApp", d: "Envías tu video y recibes tu corrección personalizada, 1 a 1, cuando lo necesites." },
+              { i: "🕐", t: "Tu sargento en tu WhatsApp, 24/7", d: "Envía videos, fotos, dudas o mensajes — 1 a 1, a cualquier hora del día. Nunca entrenas solo." },
             ].map((b) => (
               <div key={b.t} className="flex items-start gap-3 rounded-xl border border-accent/25 bg-gradient-to-br from-card to-secondary/20 p-3">
                 <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-accent/15 border border-accent/30 text-xl">{b.i}</span>
@@ -320,9 +323,10 @@ function Oferta1() {
           {[
             { q: "¿Quién corrige mis videos?", a: "El propio Militar Garcia, profesor de educación física. Él analiza tu técnica, te corrige y te rankea — en persona, no es un robot." },
             { q: "¿Cómo envío mi video?", a: "Grabas tus flexiones con el celular (10-15 seg) y lo envías por WhatsApp. El Militar Garcia te responde con tu corrección personalizada, directo en tu chat." },
+            { q: "¿Solo puedo enviar videos?", a: "No. Envías videos, fotos, dudas y mensajes — lo que necesites. El Militar Garcia te responde 1 a 1, a cualquier hora del día." },
             { q: "¿Sirve para otros ejercicios además de flexiones?", a: "Sí. Puedes enviar cualquier ejercicio del Protocolo por WhatsApp y recibir la corrección de tu técnica." },
-            { q: "¿Necesito conocimientos técnicos?", a: "Cero. Solo grabas, envías por WhatsApp y recibes un análisis claro, en lenguaje simple, con lo que debes corregir." },
-            { q: "¿Cuántos videos puedo enviar?", a: "Los que necesites durante tu protocolo. Tu acompañamiento por WhatsApp está disponible para ti, 1 a 1." },
+            { q: "¿A qué hora puedo escribir?", a: "Cuando quieras, 24 horas al día. Mandas tu duda o tu video a cualquier hora y recibes tu respuesta personalizada." },
+            { q: "¿Necesito conocimientos técnicos?", a: "Cero. Solo grabas o escribes, envías por WhatsApp y recibes un análisis claro, en lenguaje simple, con lo que debes corregir." },
             { q: "¿Y si no me convence?", a: "Tienes 30 días de garantía. Si no te sirve, te devolvemos cada centavo. Sin preguntas." },
           ].map((it) => (
             <details key={it.q} className="group rounded-xl border border-border/60 bg-card overflow-hidden">
