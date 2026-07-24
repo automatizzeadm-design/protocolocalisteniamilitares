@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import notaAsset from "@/assets/NOTA_7.810.png.asset.json";
 
 export const Route = createFileRoute("/oferta1")({
   component: Oferta1,
@@ -98,6 +99,12 @@ function Oferta1() {
           <div className="mil-stencil text-[11px] text-accent font-bold tracking-widest text-center">
             ASÍ FUNCIONA TU ACOMPAÑAMIENTO MILITAR POR WHATSAPP
           </div>
+          <img
+            src={notaAsset.url}
+            alt="Militar Garcia evaluando tu técnica: NOTA 7.8/10 — Tenemos que mejorar algunos aspectos"
+            className="w-full rounded-xl border border-accent/30 bg-card/50 object-contain shadow-lg shadow-accent/5"
+            loading="lazy"
+          />
           <div className="grid sm:grid-cols-2 gap-3 items-center">
             {/* "video" grabado */}
             <div className="relative rounded-xl overflow-hidden border border-border/60" style={{ background: "linear-gradient(135deg, oklch(0.34 0.05 140), oklch(0.2 0.03 150))" }}>
